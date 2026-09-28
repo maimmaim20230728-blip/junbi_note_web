@@ -39,6 +39,7 @@ var ja = {
     bkHint:'あたらしい スマホに うつるときは、「かきだす」で ファイルを ほぞんして、あたらしい スマホで「よみこむ」を おしてください。',
     bkExport:'かきだす', bkImport:'よみこむ',
     exported:'かきだしました ✓', imported:'よみこみました ✓', importFail:'よみこめませんでした',
+    importConfirm:'いまの ないようは、ファイルの ないように おきかわります。よみこみますか?',
     note:'書いたことは すべて この端末の中だけに ほぞんされます。どこにも 送られません。',
     privacy:'プライバシーポリシー',
     credit:'アプリ開発：介護と支援の相談どころ そよぎ'
@@ -177,6 +178,7 @@ var en = {
     bkHint:'When you move to a new phone, tap "Export" to save a file, then tap "Import" on the new phone.',
     bkExport:'Export', bkImport:'Import',
     exported:'Exported ✓', imported:'Imported ✓', importFail:'Could not import',
+    importConfirm:"Your current entries will be replaced with the file's contents. Import it?",
     note:'Everything you write is stored only on this device. Nothing is sent anywhere.',
     privacy:'Privacy policy',
     credit:'Developed by SOYOGI, a care and support consultation service'
@@ -375,6 +377,7 @@ TBL.de = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "exported": "Exportiert ✓",
     "imported": "Importiert ✓",
     "importFail": "Import war nicht möglich",
+    "importConfirm": "Ihre jetzigen Einträge werden durch den Inhalt der Datei ersetzt. Jetzt importieren?",
     "note": "Alles, was Sie schreiben, wird nur auf diesem Gerät gespeichert. Nichts wird irgendwohin gesendet.",
     "privacy": "Datenschutzerklärung",
     "credit": "App-Entwicklung: SOYOGI, Beratungsstelle für Pflege und Unterstützung"
@@ -599,6 +602,7 @@ TBL.fr = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "exported": "Exporté ✓",
     "imported": "Importé ✓",
     "importFail": "Impossible d'importer",
+    "importConfirm": "Vos données actuelles seront remplacées par le contenu du fichier. Importer ?",
     "note": "Tout ce que vous écrivez reste uniquement sur cet appareil. Rien n'est envoyé ailleurs.",
     "privacy": "Politique de confidentialité",
     "credit": "Application développée par SOYOGI, lieu de conseil pour les soins et le soutien"
@@ -823,6 +827,7 @@ TBL.es = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "exported": "Exportado ✓",
     "imported": "Importado ✓",
     "importFail": "No se pudo importar",
+    "importConfirm": "Los datos actuales se reemplazarán por el contenido del archivo. ¿Importar?",
     "note": "Todo lo que se escribe se guarda solo en este dispositivo. No se envía a ningún lugar.",
     "privacy": "Política de privacidad",
     "credit": "Desarrollo de la aplicación: SOYOGI, espacio de consulta sobre cuidados y apoyo"
@@ -1047,6 +1052,7 @@ TBL.it = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "exported": "Esportato ✓",
     "imported": "Importato ✓",
     "importFail": "Non è stato possibile importare",
+    "importConfirm": "I dati attuali verranno sostituiti dal contenuto del file. Importare?",
     "note": "Tutto ciò che scrive resta solo su questo dispositivo. Non viene inviato da nessuna parte.",
     "privacy": "Informativa sulla privacy",
     "credit": "App sviluppata da SOYOGI, punto di ascolto per assistenza e sostegno"
@@ -1271,6 +1277,7 @@ TBL.pt = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "exported": "Exportado ✓",
     "imported": "Importado ✓",
     "importFail": "Não foi possível importar",
+    "importConfirm": "Os dados atuais serão substituídos pelo conteúdo do arquivo. Importar?",
     "note": "Tudo o que se escreve fica guardado só neste aparelho. Nada é enviado para fora.",
     "privacy": "Política de privacidade",
     "credit": "Desenvolvido por: SOYOGI, espaço de consulta sobre cuidados e apoio"
@@ -1495,6 +1502,7 @@ TBL.nl = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "exported": "Geëxporteerd ✓",
     "imported": "Geïmporteerd ✓",
     "importFail": "Importeren is niet gelukt",
+    "importConfirm": "Uw huidige gegevens worden vervangen door de inhoud van het bestand. Importeren?",
     "note": "Alles wat u schrijft, wordt alleen op dit apparaat bewaard. Er wordt niets verstuurd.",
     "privacy": "Privacybeleid",
     "credit": "App ontwikkeld door SOYOGI, een plek voor vragen over zorg en ondersteuning"
@@ -1719,6 +1727,7 @@ TBL.sv = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "exported": "Exporterat ✓",
     "imported": "Importerat ✓",
     "importFail": "Det gick inte att importera",
+    "importConfirm": "Det du har skrivit nu ersätts med innehållet i filen. Vill du importera?",
     "note": "Allt du skriver sparas bara på den här enheten. Inget skickas någonstans.",
     "privacy": "Integritetspolicy",
     "credit": "Apputveckling: SOYOGI, rådgivning om omsorg och stöd"
@@ -1943,6 +1952,7 @@ TBL.ko = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "exported": "내보냈어요 ✓",
     "imported": "불러왔어요 ✓",
     "importFail": "불러오지 못했어요",
+    "importConfirm": "지금 내용은 파일의 내용으로 바뀌어요. 불러올까요?",
     "note": "적은 내용은 모두 이 기기 안에만 저장돼요. 어디에도 보내지 않아요.",
     "privacy": "개인정보 처리방침",
     "credit": "앱 개발: 돌봄과 지원 상담소 SOYOGI"
@@ -2167,6 +2177,7 @@ TBL.zh = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "exported": "已导出 ✓",
     "imported": "已导入 ✓",
     "importFail": "无法导入",
+    "importConfirm": "现在的内容会被替换为文件中的内容。要导入吗？",
     "note": "写下的内容全部只保存在这台设备里，不会发送到任何地方。",
     "privacy": "隐私政策",
     "credit": "应用开发：护理与支援咨询处 SOYOGI"
@@ -2391,6 +2402,7 @@ TBL.ar = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "exported": "تم التصدير ✓",
     "imported": "تم الاستيراد ✓",
     "importFail": "تعذّر الاستيراد",
+    "importConfirm": "سيُستبدل المحتوى الحالي بمحتوى الملف. هل تريد الاستيراد؟",
     "note": "كل ما يُكتب هنا يُحفظ على هذا الجهاز فقط، ولا يُرسل إلى أي مكان.",
     "privacy": "سياسة الخصوصية",
     "credit": "تطوير التطبيق: SOYOGI، مكان للاستشارة في الرعاية والدعم"

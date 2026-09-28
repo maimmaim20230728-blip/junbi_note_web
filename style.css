@@ -232,9 +232,12 @@ input[type="file"].hidden{ display:none; }
 .list li .ctl{ display:flex; flex-direction:column; gap:6px; flex:none; }
 .list li .num{ font-weight:800; color:var(--brand); min-width:1.4em; text-align:center; flex:none; }
 .list li.in-sheet{ border-color:var(--brand); }
-.list li.kept{ opacity:.55; }
+/* 「言えなかった」を押した行と「言えた こと」の行: 全体を薄く(opacity)すると字が 4.5:1 を切るので、
+   地を背景色・点線の枠・字を --sub にして「脇に置いた」ことを見せる(字は どのテーマでも 4.5:1 以上) */
+.list li.kept{ background:var(--bg); border-style:dashed; color:var(--sub); }
+.list li.kept .num{ color:var(--sub); }
 .item-title{ font-weight:700; overflow-wrap:anywhere; }
-.done-list li{ opacity:.8; }
+.done-list li{ color:var(--sub); }
 .show-detail{ font-size:1.2em; line-height:1.5; padding:6px 12px 0; overflow-wrap:anywhere; }
 .ov-body{ max-width:680px; margin:0 auto; overflow-wrap:anywhere; }
 /* 1枚: 見せる数・相手に見せる・窓口のあと のあいだの余白 */
@@ -256,6 +259,27 @@ body.fs2 #ichimai-list .list li{ flex-wrap:wrap; }
 body.fs2 #ichimai-list .list li .ctl{ flex-direction:row; flex-wrap:wrap; width:100%; }
 body.fs2 #ichimai-list .list li .ctl .btn{ flex:1 1 auto; }
 .card.tappable .item-title{ color:var(--brand); }
+
+/* ======== 文字用の緑と、緑の上の文字色(点検 junbi-22・A/B。ひとつずつ・そよぎ と同じ変数名) ========
+   ・--brand-ink = 文字を載せる緑(ヘッダーの地・主ボタン・選んだチップ・見せる画面の とじる)と、
+     緑を文字色に使う所(下ナビの選択中・リンク・1枚の番号・窓口の名前)。明るい3テーマは濃い色にして 4.5:1 以上
+     (みどり・しろ #237a52 / みずいろ #1f6f8f)。くろ は --brand のまま(字のほうを --on-brand の濃い色にする)
+   ・--on-brand = 緑の上の文字色。既定は白・くろ は緑が明るい(#43c08a)ので濃い緑の字(7.2:1)
+   ・--hd-btn-bg = ヘッダーのボタン(× とじる)の地
+   ・枠・線・飾り(カードの枠・下ナビの選択中の線・区切り線など)は --brand のまま。4テーマの考え方は変えない
+   ・見せる画面(.ov.show-white)は白地に黒のまま。とじる だけがこの色を使う */
+:root{ --brand-ink:#237a52; --on-brand:#fff; --hd-btn-bg:rgba(0,0,0,.28); }
+body[data-theme="aqua"]{ --brand-ink:#1f6f8f; }
+body[data-theme="white"]{ --brand-ink:#237a52; }
+body[data-theme="dark"]{ --brand-ink:var(--brand); --on-brand:#10231a; --hd-btn-bg:rgba(255,255,255,.35); }
+header#hd{ background:var(--brand-ink); }
+header#hd, .lang-label{ color:var(--on-brand); }
+.hd-btn{ background:var(--hd-btn-bg); color:var(--on-brand); }
+.btn.primary, .big-btn.primary, .chip.on{ border-color:var(--brand-ink); background:var(--brand-ink); color:var(--on-brand); }
+.ov-close, .call-btn{ background:var(--brand-ink); color:var(--on-brand); }
+.nav-btn.active, .credit a, .list li .num, .card.tappable .item-title{ color:var(--brand-ink); }
+/* 空の欄の「れい: …」: ブラウザの既定の灰色(#757575)は しろ 4.36・くろ 3.18 で足りないので、説明の字と同じ --sub(4.5:1 以上) */
+input::placeholder, textarea::placeholder{ color:var(--sub); opacity:1; }
 
 /* ======== 写真の取り込みとトリミング(photo.js) ======== */
 .photo-ov{

@@ -9,7 +9,7 @@
      変えたら README の「シェルの変更点」に書く */
 (function(){
 
-var VER = '0.4.1';               // 🔴 更新のたびに上げる(build.gradle の versionName / sw.js の CACHE と一緒に)
+var VER = '0.4.2';               // 🔴 更新のたびに上げる(build.gradle の versionName / sw.js の CACHE と一緒に)
 var APP_KEY = 'junbi_note';        // バックアップの識別(別アプリのファイルを読まない)
 var EXIT_URL = 'https://www.google.com/';   // クイック退出「× とじる」の行き先(SPEC: ヘッダー右・location.replace)
 var LS = 'junbi.';
@@ -19,7 +19,7 @@ var RTL_LANGS = ['ar'];
 var THEMES = ['green','aqua','white','dark'];
 var BGMS = ['off','green','blue'];
 var DEFAULT_THEME = 'green';
-var DEFAULT_BGM = 'green';
+var DEFAULT_BGM = 'off';          // 待合室や診察室で使うので、はじめは鳴らさない(点検 junbi-21)。保存した設定があればそれを使う・せっていで いつでも ON
 var TTS_LANG = { ja:'ja-JP', en:'en-US', de:'de-DE', fr:'fr-FR', es:'es-ES', it:'it-IT', pt:'pt-PT', nl:'nl-NL', sv:'sv-SE', ko:'ko-KR', zh:'zh-CN', ar:'ar-SA' };
 
 var $ = function(id){ return document.getElementById(id); };
@@ -143,8 +143,11 @@ function el(tag, cls, txt){
 var NATIVE_TTS = (function(){
   try{
     var c = window.Capacitor;
-    if(c && typeof c.isNativePlatform === 'function' && c.isNativePlatform() && typeof c.registerPlugin === 'function'){
-      return c.registerPlugin('TextToSpeech');
+    if(c && typeof c.isNativePlatform === 'function' && c.isNativePlatform()){
+      /* 🔴 取得は Capacitor.Plugins.TextToSpeech(ネイティブが注入する)。registerPlugin は @capacitor/core の関数で WebView には無い(2026-09-29) */
+      var p = c.Plugins && c.Plugins.TextToSpeech;
+      if(p && typeof p.speak === 'function') return p;
+      if(typeof c.registerPlugin === 'function') return c.registerPlugin('TextToSpeech');
     }
   }catch(_){}
   return null;
@@ -276,17 +279,36 @@ function exportBackup(){
   setTimeout(function(){ URL.revokeObjectURL(a.href); }, 3000);
   toast(T('set.exported'));
 }
+/* 丸ごと入れ替え: ファイルに無い このアプリの保存キー(「junbi.」で始まる・pref 以外)を先に消してから、ファイルの中身を書く。
+   ほかのアプリのキーは触らない。形の違うキーは前と同じく読まない(いまの端末の値を残す) */
+function replaceAppData(src){
+  var inFile = {}, del = [], k;
+  for(k in src) inFile[LS + k] = true;
+  try{
+    for(var i = 0; i < localStorage.length; i++){
+      var key = localStorage.key(i);
+      if(key && key.indexOf(LS) === 0 && key !== LS_PREF && !inFile[key]) del.push(key);
+    }
+  }catch(_){}
+  del.forEach(removeKey);
+  for(k in src){ var c = cleanBackupValue(k, src[k]); if(c.ok) saveJSON(LS + k, c.v); }
+}
 function importBackup(e){
   var f = e.target.files && e.target.files[0];
   if(!f) return;
   var r = new FileReader();
   r.onload = function(){
+    var d;
     try{
-      var d = JSON.parse(r.result);
-      if(d.app !== APP_KEY) throw new Error('different app');
-      if(d.data && typeof d.data === 'object'){
-        for(var k in d.data){ var c = cleanBackupValue(k, d.data[k]); if(c.ok) saveJSON(LS + k, c.v); }
-      }
+      d = JSON.parse(r.result);
+      if(!d || d.app !== APP_KEY) throw new Error('different app');
+      if(!isPlainObj(d.data)) throw new Error('no data');   // 中身の無いファイルで いまの記録を全部消さない
+    }catch(err){ toast(T('set.importFail')); return; }
+    /* 置き換える前に確かめる(点検の直し D)。やめたら何も変えない。Capacitor の WebView はネイティブのダイアログで出す
+       🔴 薬の画面の「もしもカードの控え」の読み込みは足すだけの別の動きなので、ここは通らない */
+    if(!window.confirm(T('set.importConfirm'))) return;
+    try{
+      replaceAppData(d.data);
       pref = sanitizePref(d.pref);
       savePref();
       applyAll(true);
