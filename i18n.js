@@ -1,4 +1,4 @@
-/* 相談と受診の準備ノート(仮) 多言語テーブル(そよぎアプリ・キット v1・12言語)
+/* 相談と受診の前に・そよぎ 多言語テーブル(そよぎアプリ・キット v1・12言語)
    ・window.JUNBI_I18N = { ja, en, de, fr, es, it, pt, nl, sv, ko, zh, ar }
    ・キー構造は全言語で完全一致(_check.js が ja を正として構造・配列要素数を機械照合)
    ・🔴 BUILDER: 文言は ja と en の両方に同じキーで足す。画面固有は screen.<画面id>.* に置く。
@@ -12,7 +12,7 @@
 
 /* ============ ja(正) ============ */
 var ja = {
-  app: { name:'相談と受診の準備ノート(仮)', tagline:'伝えたいことを貯めて、大事な順の1枚に。', exit:'× とじる' },
+  app: { name:'相談と受診の前に・そよぎ', short:'相談と受診の前に', tagline:'伝えたいことを貯めて、大事な順の1枚に。', exit:'× とじる' },
   nav: { home:'ホーム', ichimai:'1枚', nenpyo:'年表', madoguchi:'窓口', kusuri:'くすり', set:'せってい' },
   common: {
     ok:'OK', cancel:'やめる', save:'ほぞんする', del:'けす', back:'もどる', close:'とじる',
@@ -45,7 +45,7 @@ var ja = {
   },
   screen: {
     home: {
-      title:'相談と受診の準備ノート(仮)',
+      title:'相談と受診の前に',
       whoLabel:'だれの ことを 書く ノートですか(表紙の 1行)',
       whoPh:'れい: わたし / 母 / 家族の名前',
       whoSave:'きめる',
@@ -147,7 +147,7 @@ var ja = {
 
 /* ============ en ============ */
 var en = {
-  app: { name:'Visit Prep Note - SOYOGI (draft)', tagline:'Collect what you want to say, then show it in order of importance.', exit:'× Close' },
+  app: { name:'Before the Visit - SOYOGI', short:'Before the Visit', tagline:'Collect what you want to say, then show it in order of importance.', exit:'× Close' },
   nav: { home:'Home', ichimai:'Sheet', nenpyo:'Timeline', madoguchi:'Offices', kusuri:'Medicines', set:'Settings' },
   common: {
     ok:'OK', cancel:'Cancel', save:'Save', del:'Delete', back:'Back', close:'Close',
@@ -180,7 +180,7 @@ var en = {
   },
   screen: {
     home: {
-      title:'Visit Prep Note - SOYOGI (draft)',
+      title:'Before the Visit',
       whoLabel:'Who is this note about? (one line on the cover)',
       whoPh:'e.g. me / my mother / a family member',
       whoSave:'Set',
@@ -286,7 +286,8 @@ function mergeDeep(t, s){ for(var k in s){ if(s[k] && typeof s[k] === 'object' &
 /* ---- de: 翻訳 ---- */
 TBL.de = mergeDeep(JSON.parse(JSON.stringify(en)), {
   "app": {
-    "name": "Terminvorbereitung - SOYOGI (Entwurf)",
+    "name": "Vor dem Termin - SOYOGI",
+    "short": "Vor dem Termin",
     "tagline": "Sammeln Sie, was Sie sagen möchten, und ordnen Sie es auf einem Blatt nach Wichtigkeit.",
     "exit": "× Schließen"
   },
@@ -374,7 +375,7 @@ TBL.de = mergeDeep(JSON.parse(JSON.stringify(en)), {
   },
   "screen": {
     "home": {
-      "title": "Terminvorbereitung - SOYOGI (Entwurf)",
+      "title": "Vor dem Termin",
       "whoLabel": "Um wen geht es in dieser Notiz? (eine Zeile auf dem Deckblatt)",
       "whoPh": "z. B. ich / Mutter / Name eines Familienmitglieds",
       "whoSave": "Festlegen",
@@ -506,7 +507,8 @@ TBL.de = mergeDeep(JSON.parse(JSON.stringify(en)), {
 /* ---- fr: 翻訳 ---- */
 TBL.fr = mergeDeep(JSON.parse(JSON.stringify(en)), {
   "app": {
-    "name": "Carnet de préparation des rendez-vous - SOYOGI (provisoire)",
+    "name": "Avant le rendez-vous - SOYOGI",
+    "short": "Avant le rendez-vous",
     "tagline": "Notez ce que vous voulez dire, puis gardez-le sur une fiche, par ordre d'importance.",
     "exit": "× Fermer"
   },
@@ -594,7 +596,7 @@ TBL.fr = mergeDeep(JSON.parse(JSON.stringify(en)), {
   },
   "screen": {
     "home": {
-      "title": "Carnet de préparation des rendez-vous - SOYOGI (provisoire)",
+      "title": "Avant le rendez-vous",
       "whoLabel": "De qui parle ce carnet ? (une ligne sur la couverture)",
       "whoPh": "ex. : moi / ma mère / le nom d'un membre de la famille",
       "whoSave": "Valider",
@@ -726,7 +728,8 @@ TBL.fr = mergeDeep(JSON.parse(JSON.stringify(en)), {
 /* ---- es: 翻訳 ---- */
 TBL.es = mergeDeep(JSON.parse(JSON.stringify(en)), {
   "app": {
-    "name": "Cuaderno para preparar consultas - SOYOGI (borrador)",
+    "name": "Antes de la consulta - SOYOGI",
+    "short": "Antes de la consulta",
     "tagline": "Reunir lo que se quiere decir en una hoja, por orden de importancia.",
     "exit": "× Cerrar"
   },
@@ -814,7 +817,7 @@ TBL.es = mergeDeep(JSON.parse(JSON.stringify(en)), {
   },
   "screen": {
     "home": {
-      "title": "Cuaderno para preparar consultas - SOYOGI (borrador)",
+      "title": "Antes de la consulta",
       "whoLabel": "¿Sobre quién es este cuaderno? (una línea en la portada)",
       "whoPh": "Ej.: yo / mi madre / el nombre de un familiar",
       "whoSave": "Confirmar",
@@ -946,7 +949,8 @@ TBL.es = mergeDeep(JSON.parse(JSON.stringify(en)), {
 /* ---- it: 翻訳 ---- */
 TBL.it = mergeDeep(JSON.parse(JSON.stringify(en)), {
   "app": {
-    "name": "Quaderno per preparare colloqui e visite - SOYOGI (bozza)",
+    "name": "Prima della visita - SOYOGI",
+    "short": "Prima della visita",
     "tagline": "Raccolga ciò che vuole dire in un solo foglio, in ordine di importanza.",
     "exit": "× Chiudi"
   },
@@ -1034,7 +1038,7 @@ TBL.it = mergeDeep(JSON.parse(JSON.stringify(en)), {
   },
   "screen": {
     "home": {
-      "title": "Quaderno per preparare colloqui e visite - SOYOGI (bozza)",
+      "title": "Prima della visita",
       "whoLabel": "Di chi parla questo quaderno? (una riga in copertina)",
       "whoPh": "es. io / mia madre / il nome di un familiare",
       "whoSave": "Conferma",
@@ -1166,7 +1170,8 @@ TBL.it = mergeDeep(JSON.parse(JSON.stringify(en)), {
 /* ---- pt: 翻訳 ---- */
 TBL.pt = mergeDeep(JSON.parse(JSON.stringify(en)), {
   "app": {
-    "name": "Caderno de preparação para consultas - SOYOGI (provisório)",
+    "name": "Antes da consulta - SOYOGI",
+    "short": "Antes da consulta",
     "tagline": "Reunir o que se quer dizer numa só folha, por ordem de importância.",
     "exit": "× Fechar"
   },
@@ -1254,7 +1259,7 @@ TBL.pt = mergeDeep(JSON.parse(JSON.stringify(en)), {
   },
   "screen": {
     "home": {
-      "title": "Caderno de preparação para consultas - SOYOGI (provisório)",
+      "title": "Antes da consulta",
       "whoLabel": "Sobre quem é este caderno? (uma linha na capa)",
       "whoPh": "ex.: eu / mãe / nome de um familiar",
       "whoSave": "Confirmar",
@@ -1386,7 +1391,8 @@ TBL.pt = mergeDeep(JSON.parse(JSON.stringify(en)), {
 /* ---- nl: 翻訳 ---- */
 TBL.nl = mergeDeep(JSON.parse(JSON.stringify(en)), {
   "app": {
-    "name": "Voorbereidingsboekje voor gesprek en doktersbezoek - SOYOGI (concept)",
+    "name": "Voor de afspraak - SOYOGI",
+    "short": "Voor de afspraak",
     "tagline": "Verzamel wat u wilt zeggen, op één blad in volgorde van belang.",
     "exit": "× Sluiten"
   },
@@ -1474,7 +1480,7 @@ TBL.nl = mergeDeep(JSON.parse(JSON.stringify(en)), {
   },
   "screen": {
     "home": {
-      "title": "Voorbereidingsboekje voor gesprek en doktersbezoek - SOYOGI (concept)",
+      "title": "Voor de afspraak",
       "whoLabel": "Over wie gaat dit boekje? (één regel op de voorkant)",
       "whoPh": "bijv. ik / mijn moeder / naam van een familielid",
       "whoSave": "Vastleggen",
@@ -1606,7 +1612,8 @@ TBL.nl = mergeDeep(JSON.parse(JSON.stringify(en)), {
 /* ---- sv: 翻訳 ---- */
 TBL.sv = mergeDeep(JSON.parse(JSON.stringify(en)), {
   "app": {
-    "name": "Anteckningar inför besök - SOYOGI (utkast)",
+    "name": "Inför besöket - SOYOGI",
+    "short": "Inför besöket",
     "tagline": "Samla det du vill säga och få det på ett blad, det viktigaste först.",
     "exit": "× Stäng"
   },
@@ -1694,7 +1701,7 @@ TBL.sv = mergeDeep(JSON.parse(JSON.stringify(en)), {
   },
   "screen": {
     "home": {
-      "title": "Anteckningar inför besök - SOYOGI (utkast)",
+      "title": "Inför besöket",
       "whoLabel": "Vem handlar anteckningarna om? (en rad på omslaget)",
       "whoPh": "t.ex. jag / mamma / namnet på någon i familjen",
       "whoSave": "Spara",
@@ -1826,7 +1833,8 @@ TBL.sv = mergeDeep(JSON.parse(JSON.stringify(en)), {
 /* ---- ko: 翻訳 ---- */
 TBL.ko = mergeDeep(JSON.parse(JSON.stringify(en)), {
   "app": {
-    "name": "상담·진료 준비 노트 - SOYOGI (가칭)",
+    "name": "상담·병원 가기 전에 - SOYOGI",
+    "short": "상담·병원 가기 전에",
     "tagline": "전하고 싶은 것을 모아서, 중요한 순서대로 한 장에.",
     "exit": "× 닫기"
   },
@@ -1914,7 +1922,7 @@ TBL.ko = mergeDeep(JSON.parse(JSON.stringify(en)), {
   },
   "screen": {
     "home": {
-      "title": "상담·진료 준비 노트 - SOYOGI (가칭)",
+      "title": "상담·병원 가기 전에",
       "whoLabel": "누구에 관해 적는 노트인가요? (표지의 한 줄)",
       "whoPh": "예: 나 / 어머니 / 가족의 이름",
       "whoSave": "정하기",
@@ -2046,7 +2054,8 @@ TBL.ko = mergeDeep(JSON.parse(JSON.stringify(en)), {
 /* ---- zh: 翻訳 ---- */
 TBL.zh = mergeDeep(JSON.parse(JSON.stringify(en)), {
   "app": {
-    "name": "咨询与就诊准备笔记 - SOYOGI（暂定）",
+    "name": "咨询与就诊前 - SOYOGI",
+    "short": "咨询与就诊前",
     "tagline": "把想说的事攒起来，按重要顺序整理成一页。",
     "exit": "× 关闭"
   },
@@ -2134,7 +2143,7 @@ TBL.zh = mergeDeep(JSON.parse(JSON.stringify(en)), {
   },
   "screen": {
     "home": {
-      "title": "咨询与就诊准备笔记 - SOYOGI（暂定）",
+      "title": "咨询与就诊前",
       "whoLabel": "这本笔记是写谁的？（封面上的一行）",
       "whoPh": "例：我 / 母亲 / 家人的名字",
       "whoSave": "确定",
@@ -2266,7 +2275,8 @@ TBL.zh = mergeDeep(JSON.parse(JSON.stringify(en)), {
 /* ---- ar: 翻訳 ---- */
 TBL.ar = mergeDeep(JSON.parse(JSON.stringify(en)), {
   "app": {
-    "name": "دفتر التحضير للاستشارة والطبيب - SOYOGI (مسودة)",
+    "name": "قبل الموعد - SOYOGI",
+    "short": "قبل الموعد",
     "tagline": "اجمع ما تريد قوله، ثم رتّبه في ورقة واحدة حسب الأهمية.",
     "exit": "× إغلاق"
   },
@@ -2354,7 +2364,7 @@ TBL.ar = mergeDeep(JSON.parse(JSON.stringify(en)), {
   },
   "screen": {
     "home": {
-      "title": "دفتر التحضير للاستشارة والطبيب - SOYOGI (مسودة)",
+      "title": "قبل الموعد",
       "whoLabel": "عن مَن هذا الدفتر؟ (سطر واحد على الغلاف)",
       "whoPh": "مثال: أنا / أمي / اسم أحد أفراد الأسرة",
       "whoSave": "تحديد",
