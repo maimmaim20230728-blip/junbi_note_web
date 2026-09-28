@@ -9,7 +9,7 @@
      変えたら README の「シェルの変更点」に書く */
 (function(){
 
-var VER = '0.4.2';               // 🔴 更新のたびに上げる(build.gradle の versionName / sw.js の CACHE と一緒に)
+var VER = '0.4.3';               // 🔴 更新のたびに上げる(build.gradle の versionName / sw.js の CACHE と一緒に)
 var APP_KEY = 'junbi_note';        // バックアップの識別(別アプリのファイルを読まない)
 var EXIT_URL = 'https://www.google.com/';   // クイック退出「× とじる」の行き先(SPEC: ヘッダー右・location.replace)
 var LS = 'junbi.';
@@ -95,7 +95,8 @@ function fitTitle(){
   if(s === 'app.short' || s === full) return;
   /* 題名は2行まで折り返す(style.css)。2行に入りきらない(高さ)か、1語が幅を超えるときだけ短い名前
      (高さはレイアウトのある本物のブラウザでだけ測る。疑似DOMのスモークには getComputedStyle が無い) */
-  var tooWide = e.scrollWidth > e.clientWidth + 1;
+  /* 幅は 1px のはみ出しも見逃さない(+1 の余裕があると短い名前に切り替わらず「…」で切れた・2026-09-29) */
+  var tooWide = e.scrollWidth > e.clientWidth;
   var tooTall = (typeof window.getComputedStyle === 'function') && e.scrollHeight > e.clientHeight + 1;
   if(tooWide || tooTall) e.textContent = s;
 }
@@ -261,6 +262,46 @@ function cleanBackupValue(key, v){
   }) };
 }
 
+/* ---- Play版のファイル保存(2026-09-29) ----
+   Capacitor 8 の BridgeActivity には DownloadListener が無く、<a download> では何も保存されない(なのに「かきだしました」が出ていた)。
+   Play版(isNativePlatform)だけ、端末の一時フォルダ(CACHE)に書いてから Android の共有の画面を出し、保存先は利用者が選ぶ。Web版は今までどおり <a download>。
+   🔴 プラグインはネイティブが注入する Capacitor.Plugins.Filesystem / Share を使う(registerPlugin は @capacitor/core の関数で WebView には無い)。
+   ・then は受け取った物にそのままつなぐ(Promise で包まない。_smoke_app.js の同期の偽物で確かめられるように) */
+function isNativeApp(){
+  try{ var c = window.Capacitor; return !!(c && typeof c.isNativePlatform === 'function' && c.isNativePlatform()); }catch(_){ return false; }
+}
+function nativePlugin(name, fn){
+  try{
+    var c = window.Capacitor;
+    if(typeof c.isPluginAvailable === 'function' && !c.isPluginAvailable(name)) return null;
+    var p = c.Plugins && c.Plugins[name];
+    return (p && typeof p[fn] === 'function') ? p : null;
+  }catch(_){ return null; }
+}
+/* 利用者が共有の画面を閉じた("Share canceled")・もう出ている("...in progress")ときは何も出さない */
+function shareQuiet(err){
+  var m = String((err && (err.message || err.errorMessage)) || err || '');
+  return !!err && (err.name === 'AbortError' || /cancel|in progress/i.test(m));
+}
+/* name=ファイル名 / data=中身(utf8=true なら文字・false なら base64) / label=共有の画面の題
+   done('ok')=送り先を選べた / done('quiet')=閉じた / done('fail')=書けない・共有できない・プラグインが無い */
+function nativeSaveFile(name, data, utf8, label, done){
+  var fsp = nativePlugin('Filesystem', 'writeFile'), shp = nativePlugin('Share', 'share');
+  if(!fsp || !shp){ done('fail'); return; }
+  var opt = { path:name, data:data, directory:'CACHE' };
+  if(utf8) opt.encoding = 'utf8';
+  var w;
+  try{ w = fsp.writeFile(opt); }catch(_){ done('fail'); return; }
+  if(!w || typeof w.then !== 'function'){ done('fail'); return; }
+  w.then(function(r){
+    if(!r || !r.uri){ done('fail'); return; }
+    var s;
+    try{ s = shp.share({ title:name, files:[r.uri], dialogTitle:label }); }catch(err){ done(shareQuiet(err) ? 'quiet' : 'fail'); return; }
+    if(s && typeof s.then === 'function') s.then(function(){ done('ok'); }, function(err){ done(shareQuiet(err) ? 'quiet' : 'fail'); });
+    else done('ok');
+  }, function(){ done('fail'); });
+}
+
 /* ---- 機種変更(バックアップ): このアプリの保存キー全部を1ファイルに ---- */
 function exportBackup(){
   var data = { app: APP_KEY, ver: 1, exported: Date.now(), pref: pref, data: {} };
@@ -270,11 +311,20 @@ function exportBackup(){
       if(k && k.indexOf(LS) === 0 && k !== LS_PREF) data.data[k.slice(LS.length)] = loadJSON(k);
     }
   }catch(_){}
+  var d = new Date();
+  var fname = APP_KEY + '-backup-' + d.getFullYear() + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0') + '.json';
+  /* Play版(2026-09-29): 一時フォルダに書いて共有の画面へ。選べたら「かきだしました」・閉じたら何も出さない・書けなければ「ほぞんできませんでした」 */
+  if(isNativeApp()){
+    nativeSaveFile(fname, JSON.stringify(data), true, T('set.bkExport'), function(r){
+      if(r === 'ok') toast(T('set.exported'));
+      else if(r === 'fail') toast(T('common.saveFail'));
+    });
+    return;
+  }
   var blob = new Blob([JSON.stringify(data)], { type:'application/json' });
   var a = document.createElement('a');
-  var d = new Date();
   a.href = URL.createObjectURL(blob);
-  a.download = APP_KEY + '-backup-' + d.getFullYear() + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0') + '.json';
+  a.download = fname;
   a.click();
   setTimeout(function(){ URL.revokeObjectURL(a.href); }, 3000);
   toast(T('set.exported'));
