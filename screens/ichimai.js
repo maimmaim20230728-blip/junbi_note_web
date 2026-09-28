@@ -10,11 +10,11 @@
   window.SCREENS.register('ichimai', {
     render: function(c, api){
       var U = window.JUNBI_UI, T = api.T;
-      var items = api.load('items.v1', []);
-      var said = api.load('said.v1', []);
+      var items = U.list(api, 'items.v1');
+      var said = U.list(api, 'said.v1');
       var showN = Number(api.getExtra('showN', 3));
       if(N_CHOICES.indexOf(showN) < 0) showN = 3;
-      var note = api.load('note.v1', { who:'' });
+      var note = U.obj(api, 'note.v1', { who:'' });
       var afterMode = false;   // 窓口のあとの「言えた/言えなかった」を付けるモード
 
       function saveItems(list){ if(!api.save('items.v1', list)){ api.toast(T('common.storageFull')); return false; } return true; }
@@ -71,14 +71,15 @@
           var ctl = api.el('div', 'ctl');
           if(afterMode){
             var okB = U.btn(api, 'primary small', T('screen.ichimai.said'), function(){
-              var list = api.load('items.v1', []);
+              var list = U.list(api, 'items.v1');
               var pos = -1; for(var i = 0; i < list.length; i++) if(list[i].id === it.id) pos = i;
               if(pos < 0) return;
               var moved = list.splice(pos, 1)[0];
-              var s = api.load('said.v1', []);
-              s.unshift({ id: moved.id, title: moved.title, detail: moved.detail || '', saidAt: Date.now() });
-              if(!saveItems(list)) return;
-              api.save('said.v1', s);
+              var before = U.list(api, 'said.v1');
+              var s = [{ id: moved.id, title: moved.title, detail: moved.detail || '', saidAt: Date.now() }].concat(before);
+              /* 先に「言えた こと」へ足し、うまくいったら 1枚 から外す(保存がいっぱいでも項目が消えない) */
+              if(!api.save('said.v1', s)){ api.toast(T('common.storageFull')); return; }
+              if(!saveItems(list)){ api.save('said.v1', before); return; }
               items = list; said = s; drawList(); drawSaid();
             });
             okB.className = 'btn primary small';
@@ -91,6 +92,12 @@
           }
           li.appendChild(ctl);
           ul.appendChild(li);
+          /* 見せる範囲の区切り: N行目のあとに1行(N行より多いときだけ) */
+          if(!afterMode && idx === showN - 1 && items.length > showN){
+            var end = api.el('li', 'sheet-end', T('screen.ichimai.sheetEnd'));
+            end.id = 'ichimai-sheet-end';
+            ul.appendChild(end);
+          }
         });
         listBox.appendChild(ul);
         if(afterMode){
@@ -100,7 +107,7 @@
         }
       }
       function move(idx, d){
-        var list = api.load('items.v1', []);
+        var list = U.list(api, 'items.v1');
         var j = idx + d;
         if(j < 0 || j >= list.length) return;
         var tmp = list[idx]; list[idx] = list[j]; list[j] = tmp;
@@ -117,14 +124,14 @@
         box.appendChild(U.field(api, null, d));
         var row = api.el('div', 'btn-row');
         row.appendChild(U.btn(api, 'primary', T('common.save'), function(){
-          var list = api.load('items.v1', []);
+          var list = U.list(api, 'items.v1');
           for(var i = 0; i < list.length; i++){ if(list[i].id === it.id){ list[i].title = String(t.value || '').trim() || it.title; list[i].detail = String(d.value || '').trim(); } }
           if(!saveItems(list)) return;
           items = list; api.toast(T('common.saved')); drawList();
         }));
         row.appendChild(U.btn(api, '', T('common.cancel'), function(){ drawList(); }));
         row.appendChild(U.delBtn(api, function(){
-          var list = api.load('items.v1', []).filter(function(x){ return x.id !== it.id; });
+          var list = U.list(api, 'items.v1').filter(function(x){ return x.id !== it.id; });
           if(!saveItems(list)) return;
           items = list; api.toast(T('common.deleted')); drawList();
         }));

@@ -6,7 +6,7 @@
   window.SCREENS.register('madoguchi', {
     render: function(c, api){
       var U = window.JUNBI_UI, T = api.T;
-      var rows = api.load('places.v1', []);
+      var rows = U.list(api, 'places.v1');
       function persist(list){ if(!api.save('places.v1', list)){ api.toast(T('common.storageFull')); return false; } rows = list; return true; }
 
       c.appendChild(api.el('h1', 'scr-title', T('screen.madoguchi.title')));
@@ -38,7 +38,8 @@
         var saveB = U.btn(api, 'primary', T('common.save'), function(){
           var rec = { id: row.id, name: String(name.value || '').trim(), person: String(person.value || '').trim(), next: next.value || '',
                       told: String(told.value || '').trim(), promise: String(promise.value || '').trim(), check: check.value || '' };
-          var list = api.load('places.v1', []);
+          if(!rec.name){ api.toast(T('screen.madoguchi.needName')); return; }   // 名前が空なら保存しない(「(名前なし)」のカードを作らない)
+          var list = U.list(api, 'places.v1');
           if(isNew) list.push(rec); else list = list.map(function(x){ return x.id === rec.id ? rec : x; });
           if(!persist(list)) return;
           api.toast(T('common.saved')); formBox.textContent = ''; drawList();
@@ -47,7 +48,7 @@
         btns.appendChild(saveB);
         btns.appendChild(U.btn(api, '', T('common.cancel'), function(){ formBox.textContent = ''; }));
         if(!isNew) btns.appendChild(U.delBtn(api, function(){
-          if(!persist(api.load('places.v1', []).filter(function(x){ return x.id !== row.id; }))) return;
+          if(!persist(U.list(api, 'places.v1').filter(function(x){ return x.id !== row.id; }))) return;
           api.toast(T('common.deleted')); formBox.textContent = ''; drawList();
         }));
         card.appendChild(btns);

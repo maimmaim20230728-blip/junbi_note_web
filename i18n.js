@@ -83,7 +83,8 @@ var ja = {
       ovHead:'受診で伝えたいこと',
       ovWho:'対象: {who}',
       ovNote:'上から順に大事なことです。',
-      ovDetail:'くわしく'
+      ovDetail:'くわしく',
+      sheetEnd:'ここまで 相手に 見せる'
     },
     shokai: {
       title:'はじめて 行くときの 1枚',
@@ -125,7 +126,8 @@ var ja = {
       promise:'約束', promisePh:'れい: ねむれた 日を メモしてくる',
       check:'次に たしかめる 日',
       empty:'まだ ありません。',
-      untitled:'(名前なし)'
+      untitled:'(名前なし)',
+      needName:'窓口の 名前を 書いてください'
     },
     kusuri: {
       title:'薬の 一覧',
@@ -134,6 +136,7 @@ var ja = {
       name:'薬の 名前', namePh:'れい: ○○錠',
       note:'メモ', notePh:'れい: 朝と 夕(くわしくは 薬の 説明書の とおり)',
       addBtn:'薬を たす',
+      needName:'薬の 名前を 書いてください',
       empty:'まだ ありません。',
       importBtn:'もしもカードの ファイルから 読みこむ',
       importHint:'もしもカードの「かきだす」で 作った ファイル(JSON)を えらぶと、「のんでいる くすり」の 欄を この 一覧の 初期値に します。もしもカードへの 書きもどしは しません。',
@@ -197,7 +200,7 @@ var en = {
       kusuriBtn:'Medicine list',
       nenpyoBtn:'Timeline',
       madoBtn:'Notes per office',
-      guideLink:'For public support systems, see the "Support System Guide" (external site, Japanese)',
+      guideLink:'For public support systems, see the "Japan Support Guide" (external site, in Japanese and English)',
       disclaimer:'This note is not an official certificate. It does not make medical judgments or diagnoses. In danger, call 119 or 110, or contact a help desk.',
       exitHint:'"× Close" at the top right moves to another page right away.'
     },
@@ -218,7 +221,8 @@ var en = {
       ovHead:'What I want to say at this visit',
       ovWho:'About: {who}',
       ovNote:'Listed from the most important.',
-      ovDetail:'Details'
+      ovDetail:'Details',
+      sheetEnd:'Everything above is shown to the other person'
     },
     shokai: {
       title:'Sheet for a first visit',
@@ -260,7 +264,8 @@ var en = {
       promise:'Promises', promisePh:'e.g. Note the days I slept well',
       check:'Date to check next',
       empty:'Nothing yet.',
-      untitled:'(no name)'
+      untitled:'(no name)',
+      needName:'Please write the office name first'
     },
     kusuri: {
       title:'Medicine list',
@@ -269,13 +274,14 @@ var en = {
       name:'Medicine name', namePh:'e.g. ○○ tablets',
       note:'Memo', notePh:'e.g. morning and evening (follow the leaflet)',
       addBtn:'Add a medicine',
+      needName:'Please write the medicine name first',
       empty:'Nothing yet.',
-      importBtn:'Import from a Moshimo Card file',
-      importHint:'Choose a file (JSON) made by "Export" in Moshimo Card. Its "Medicines I take" field becomes the initial list here. Nothing is written back to Moshimo Card.',
+      importBtn:'Import from a MOSHIMO Card file',
+      importHint:'Choose a file (JSON) made by "Export" in MOSHIMO Card. Its "Medicines I take" field becomes the initial list here. Nothing is written back to MOSHIMO Card.',
       imported:'Imported {n} item(s) ✓',
       importNone:'The medicine field in the file was empty',
       importDup:'The same names already exist, nothing was added',
-      importFail:'This does not look like a Moshimo Card file'
+      importFail:'This does not look like a MOSHIMO Card file'
     }
   }
 };
@@ -392,7 +398,7 @@ TBL.de = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "kusuriBtn": "Medikamentenliste",
       "nenpyoBtn": "Chronik",
       "madoBtn": "Notizen je Anlaufstelle",
-      "guideLink": "Zu öffentlichen Hilfen siehe den „Support System Guide“ (externe Seite, auf Japanisch)",
+      "guideLink": "Zu öffentlichen Hilfen siehe den „Japan Support Guide“ (externe Seite, auf Japanisch und Englisch)",
       "disclaimer": "Diese Notiz ist kein amtliches Dokument. Sie trifft keine medizinischen Einschätzungen und stellt keine Diagnosen. In Gefahr rufen Sie 119 oder 110 an (Notrufnummern in Japan) oder wenden Sie sich an eine Anlaufstelle.",
       "exitHint": "Mit „× Schließen“ oben rechts wechseln Sie sofort zu einer anderen Seite."
     },
@@ -416,7 +422,8 @@ TBL.de = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "ovHead": "Was ich bei diesem Termin sagen möchte",
       "ovWho": "Betrifft: {who}",
       "ovNote": "Von oben nach unten nach Wichtigkeit geordnet.",
-      "ovDetail": "Genauer"
+      "ovDetail": "Genauer",
+      "sheetEnd": "Alles darüber wird dem Gegenüber gezeigt"
     },
     "shokai": {
       "title": "Blatt für den ersten Besuch",
@@ -482,7 +489,8 @@ TBL.de = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "promisePh": "z. B. Notieren, an welchen Tagen ich schlafen konnte",
       "check": "Wieder nachsehen am",
       "empty": "Noch nichts vorhanden.",
-      "untitled": "(ohne Namen)"
+      "untitled": "(ohne Namen)",
+      "needName": "Bitte schreiben Sie den Namen der Anlaufstelle"
     },
     "kusuri": {
       "title": "Medikamentenliste",
@@ -493,13 +501,14 @@ TBL.de = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "note": "Notiz",
       "notePh": "z. B. morgens und abends (Einzelheiten laut Beipackzettel)",
       "addBtn": "Medikament hinzufügen",
+      "needName": "Bitte schreiben Sie den Namen des Medikaments",
       "empty": "Noch nichts vorhanden.",
-      "importBtn": "Aus einer Moshimo-Card-Datei laden",
-      "importHint": "Wählen Sie eine Datei (JSON), die in der Moshimo Card mit „Exportieren“ erstellt wurde. Das Feld „Medikamente, die ich nehme“ wird dann als Anfangsinhalt dieser Liste übernommen. In die Moshimo Card wird nichts zurückgeschrieben.",
+      "importBtn": "Aus einer MOSHIMO-Card-Datei laden",
+      "importHint": "Wählen Sie eine Datei (JSON), die in der MOSHIMO Card mit „Exportieren“ erstellt wurde. Das Feld „Medikamente, die ich nehme“ wird dann als Anfangsinhalt dieser Liste übernommen. In die MOSHIMO Card wird nichts zurückgeschrieben.",
       "imported": "Geladen: {n} ✓",
       "importNone": "Das Medikamentenfeld in der Datei war leer",
       "importDup": "Gleiche Namen sind schon vorhanden, daher wurde nichts hinzugefügt",
-      "importFail": "Das scheint keine Datei der Moshimo Card zu sein"
+      "importFail": "Das scheint keine Datei der MOSHIMO Card zu sein"
     }
   }
 });
@@ -613,7 +622,7 @@ TBL.fr = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "kusuriBtn": "Liste des médicaments",
       "nenpyoBtn": "Chronologie",
       "madoBtn": "Notes par lieu",
-      "guideLink": "Pour les dispositifs d'aide, voir le \"Guide des dispositifs d'aide\" (site externe, en japonais)",
+      "guideLink": "Pour les dispositifs d'aide, voir le guide \"Japan Support Guide\" (site externe, en japonais et en anglais)",
       "disclaimer": "Ce carnet n'est pas un document officiel. Il ne donne ni avis médical ni diagnostic. En cas de danger, appelez le 119 ou le 110 (au Japon), ou adressez-vous à un service d'aide.",
       "exitHint": "Avec \"× Fermer\" en haut à droite, vous passez tout de suite à une autre page."
     },
@@ -637,7 +646,8 @@ TBL.fr = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "ovHead": "Ce que je souhaite dire lors de la consultation",
       "ovWho": "Concerne : {who}",
       "ovNote": "Du plus important au moins important.",
-      "ovDetail": "Détails"
+      "ovDetail": "Détails",
+      "sheetEnd": "Au-dessus de cette ligne : montré à votre interlocuteur"
     },
     "shokai": {
       "title": "Fiche pour un premier rendez-vous",
@@ -703,7 +713,8 @@ TBL.fr = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "promisePh": "ex. : Noter les jours où j'ai pu dormir",
       "check": "Date du prochain point",
       "empty": "Rien pour l'instant.",
-      "untitled": "(sans nom)"
+      "untitled": "(sans nom)",
+      "needName": "Veuillez écrire le nom du lieu"
     },
     "kusuri": {
       "title": "Liste des médicaments",
@@ -714,13 +725,14 @@ TBL.fr = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "note": "Note",
       "notePh": "ex. : matin et soir (voir la notice pour les détails)",
       "addBtn": "Ajouter un médicament",
+      "needName": "Veuillez écrire le nom du médicament",
       "empty": "Rien pour l'instant.",
-      "importBtn": "Importer depuis un fichier Moshimo Card",
-      "importHint": "Choisissez un fichier (JSON) créé avec \"Exporter\" dans Moshimo Card. La rubrique \"Médicaments que je prends\" servira de liste de départ ici. Rien n'est réécrit dans Moshimo Card.",
+      "importBtn": "Importer depuis un fichier MOSHIMO Card",
+      "importHint": "Choisissez un fichier (JSON) créé avec \"Exporter\" dans MOSHIMO Card. La rubrique \"Médicaments que je prends\" servira de liste de départ ici. Rien n'est réécrit dans MOSHIMO Card.",
       "imported": "{n} élément(s) importé(s) ✓",
       "importNone": "La rubrique des médicaments du fichier était vide",
       "importDup": "Ces noms existent déjà, rien n'a été ajouté",
-      "importFail": "Ce fichier ne semble pas venir de Moshimo Card"
+      "importFail": "Ce fichier ne semble pas venir de MOSHIMO Card"
     }
   }
 });
@@ -834,7 +846,7 @@ TBL.es = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "kusuriBtn": "Lista de medicamentos",
       "nenpyoBtn": "Cronología",
       "madoBtn": "Registro por centro",
-      "guideLink": "Sobre las ayudas públicas, ver la «Guía de sistemas de apoyo» (sitio externo, en japonés)",
+      "guideLink": "Sobre las ayudas públicas, ver la guía «Japan Support Guide» (sitio externo, en japonés e inglés)",
       "disclaimer": "Este cuaderno no es un documento oficial. No hace valoraciones médicas ni diagnósticos. En caso de peligro, llamar al 119 o al 110 (números de Japón), o acudir a un centro de atención.",
       "exitHint": "Con «× Cerrar», arriba a la derecha, se pasa enseguida a otra página."
     },
@@ -858,7 +870,8 @@ TBL.es = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "ovHead": "Puntos para comunicar en la consulta",
       "ovWho": "Persona: {who}",
       "ovNote": "En orden de importancia, de arriba abajo.",
-      "ovDetail": "Detalles"
+      "ovDetail": "Detalles",
+      "sheetEnd": "Hasta aquí se muestra a la otra persona"
     },
     "shokai": {
       "title": "Hoja para la primera consulta",
@@ -924,7 +937,8 @@ TBL.es = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "promisePh": "Ej.: anotar los días en que se pudo dormir",
       "check": "Próxima fecha para comprobar",
       "empty": "Todavía no hay nada.",
-      "untitled": "(sin nombre)"
+      "untitled": "(sin nombre)",
+      "needName": "Falta escribir el nombre del centro"
     },
     "kusuri": {
       "title": "Lista de medicamentos",
@@ -935,13 +949,14 @@ TBL.es = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "note": "Nota",
       "notePh": "Ej.: mañana y tarde (los detalles, según la hoja informativa del medicamento)",
       "addBtn": "Añadir un medicamento",
+      "needName": "Falta escribir el nombre del medicamento",
       "empty": "Todavía no hay nada.",
-      "importBtn": "Importar desde un archivo de Moshimo Card",
-      "importHint": "Elegir un archivo (JSON) creado con la función de exportar de Moshimo Card. Su apartado de medicamentos en uso pasa a ser la lista inicial aquí. No se escribe nada de vuelta en Moshimo Card.",
+      "importBtn": "Importar desde un archivo de MOSHIMO Card",
+      "importHint": "Elegir un archivo (JSON) creado con «Exportar» en MOSHIMO Card. Su apartado «Medicamentos que tomo» pasa a ser la lista inicial aquí. No se escribe nada de vuelta en MOSHIMO Card.",
       "imported": "Importados: {n} ✓",
       "importNone": "El apartado de medicamentos del archivo estaba vacío",
       "importDup": "Ya existen los mismos nombres; no se añadió nada",
-      "importFail": "No parece un archivo de Moshimo Card"
+      "importFail": "No parece un archivo de MOSHIMO Card"
     }
   }
 });
@@ -1055,7 +1070,7 @@ TBL.it = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "kusuriBtn": "Elenco farmaci",
       "nenpyoBtn": "Cronologia",
       "madoBtn": "Appunti per sportello",
-      "guideLink": "Per i servizi pubblici di sostegno, veda la «Guida ai servizi di sostegno» (sito esterno, in giapponese)",
+      "guideLink": "Per i servizi pubblici di sostegno, veda la guida «Japan Support Guide» (sito esterno, in giapponese e in inglese)",
       "disclaimer": "Questo quaderno non è un documento ufficiale. Non dà giudizi medici né diagnosi. In caso di pericolo chiami il 119 o il 110 (Giappone), oppure si rivolga a uno sportello.",
       "exitHint": "Con «× Chiudi» in alto a destra si passa subito a un'altra pagina."
     },
@@ -1079,7 +1094,8 @@ TBL.it = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "ovHead": "Cosa desidero comunicare alla visita",
       "ovWho": "Riguarda: {who}",
       "ovNote": "In ordine, dalla più importante.",
-      "ovDetail": "Dettagli"
+      "ovDetail": "Dettagli",
+      "sheetEnd": "Fin qui viene mostrato all'altra persona"
     },
     "shokai": {
       "title": "Foglio per il primo appuntamento",
@@ -1145,7 +1161,8 @@ TBL.it = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "promisePh": "es. Annotare i giorni in cui ho dormito",
       "check": "Data della prossima verifica",
       "empty": "Ancora niente.",
-      "untitled": "(senza nome)"
+      "untitled": "(senza nome)",
+      "needName": "Scriva prima il nome dello sportello"
     },
     "kusuri": {
       "title": "Elenco dei farmaci",
@@ -1156,13 +1173,14 @@ TBL.it = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "note": "Note",
       "notePh": "es. mattina e sera (come indicato nel foglietto illustrativo)",
       "addBtn": "Aggiungi un farmaco",
+      "needName": "Scriva prima il nome del farmaco",
       "empty": "Ancora niente.",
-      "importBtn": "Importa da un file di Moshimo Card",
-      "importHint": "Scelga il file (JSON) creato con «Esporta» in Moshimo Card. Il campo «Farmaci che prendo» diventa l'elenco iniziale qui. In Moshimo Card non viene scritto nulla.",
+      "importBtn": "Importa da un file di MOSHIMO Card",
+      "importHint": "Scelga il file (JSON) creato con «Esporta» in MOSHIMO Card. Il campo «Farmaci che assumo» diventa l'elenco iniziale qui. In MOSHIMO Card non viene scritto nulla.",
       "imported": "Importati: {n} ✓",
       "importNone": "Il campo dei farmaci nel file era vuoto",
       "importDup": "Ci sono già gli stessi nomi, non è stato aggiunto nulla",
-      "importFail": "Non sembra un file di Moshimo Card"
+      "importFail": "Non sembra un file di MOSHIMO Card"
     }
   }
 });
@@ -1276,7 +1294,7 @@ TBL.pt = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "kusuriBtn": "Lista de medicamentos",
       "nenpyoBtn": "Cronologia",
       "madoBtn": "Notas por local",
-      "guideLink": "Sobre os apoios públicos, ver o \"Guia de apoios públicos\" (site externo, em japonês)",
+      "guideLink": "Sobre os apoios públicos, ver o guia \"Japan Support Guide\" (site externo, em japonês e inglês)",
       "disclaimer": "Este caderno não é um documento oficial. Não faz avaliações médicas nem diagnósticos. Em caso de perigo, ligar para o 119 ou o 110 (números do Japão), ou procurar um serviço de apoio.",
       "exitHint": "Com \"× Fechar\", no canto superior direito, passa-se logo para outra página."
     },
@@ -1300,7 +1318,8 @@ TBL.pt = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "ovHead": "O que quero dizer na consulta",
       "ovWho": "Sobre: {who}",
       "ovNote": "Por ordem de importância, de cima para baixo.",
-      "ovDetail": "Detalhes"
+      "ovDetail": "Detalhes",
+      "sheetEnd": "Até aqui é mostrado à outra pessoa"
     },
     "shokai": {
       "title": "Folha para a primeira vez",
@@ -1366,7 +1385,8 @@ TBL.pt = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "promisePh": "ex.: Anotar os dias em que dormi bem",
       "check": "Próxima data para verificar",
       "empty": "Ainda não há nada.",
-      "untitled": "(sem nome)"
+      "untitled": "(sem nome)",
+      "needName": "Falta escrever o nome do local"
     },
     "kusuri": {
       "title": "Lista de medicamentos",
@@ -1377,13 +1397,14 @@ TBL.pt = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "note": "Nota",
       "notePh": "ex.: manhã e fim da tarde (detalhes no folheto informativo)",
       "addBtn": "Adicionar medicamento",
+      "needName": "Falta escrever o nome do medicamento",
       "empty": "Ainda não há nada.",
-      "importBtn": "Importar de um arquivo do Moshimo Card",
-      "importHint": "Escolher o arquivo (JSON) criado com \"Exportar\" no Moshimo Card. O campo \"Medicamentos que tomo\" passa a ser a lista inicial aqui. Nada é escrito de volta no Moshimo Card.",
+      "importBtn": "Importar de um arquivo do MOSHIMO Card",
+      "importHint": "Escolher o arquivo (JSON) criado com \"Exportar\" no MOSHIMO Card. O campo \"Medicamentos que tomo\" passa a ser a lista inicial aqui. Nada é escrito de volta no MOSHIMO Card.",
       "imported": "Importados: {n} ✓",
       "importNone": "O campo de medicamentos do arquivo estava vazio",
       "importDup": "Os mesmos nomes já existem. Nada foi adicionado.",
-      "importFail": "Não parece ser um arquivo do Moshimo Card"
+      "importFail": "Não parece ser um arquivo do MOSHIMO Card"
     }
   }
 });
@@ -1497,7 +1518,7 @@ TBL.nl = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "kusuriBtn": "Medicijnenlijst",
       "nenpyoBtn": "Tijdlijn",
       "madoBtn": "Notities per loket",
-      "guideLink": "Voor regelingen en voorzieningen: zie de \"Gids voor ondersteuningsregelingen\" (externe site, in het Japans)",
+      "guideLink": "Voor regelingen en voorzieningen: zie de gids \"Japan Support Guide\" (externe site, in het Japans en het Engels)",
       "disclaimer": "Dit boekje is geen officieel document. Het geeft geen medisch oordeel en stelt geen diagnose. Bij gevaar belt u 119 of 110 (Japan), of neemt u contact op met een loket.",
       "exitHint": "Met \"× Sluiten\" rechtsboven gaat u meteen naar een andere pagina."
     },
@@ -1521,7 +1542,8 @@ TBL.nl = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "ovHead": "Wat ik bij het consult wil zeggen",
       "ovWho": "Betreft: {who}",
       "ovNote": "Het belangrijkste staat bovenaan.",
-      "ovDetail": "Meer uitleg"
+      "ovDetail": "Meer uitleg",
+      "sheetEnd": "Alles hierboven wordt aan de ander getoond"
     },
     "shokai": {
       "title": "Blad voor een eerste bezoek",
@@ -1587,7 +1609,8 @@ TBL.nl = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "promisePh": "bijv. Opschrijven op welke dagen ik kon slapen",
       "check": "Volgende datum om na te kijken",
       "empty": "Nog niets.",
-      "untitled": "(zonder naam)"
+      "untitled": "(zonder naam)",
+      "needName": "Vul eerst de naam van het loket in"
     },
     "kusuri": {
       "title": "Medicijnenlijst",
@@ -1598,13 +1621,14 @@ TBL.nl = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "note": "Notitie",
       "notePh": "bijv. 's ochtends en 's avonds (verder zoals in de bijsluiter)",
       "addBtn": "Medicijn toevoegen",
+      "needName": "Vul eerst de naam van het medicijn in",
       "empty": "Nog niets.",
-      "importBtn": "Importeren uit een Moshimo Card-bestand",
-      "importHint": "Kies het bestand (JSON) dat u met \"Exporteren\" in Moshimo Card hebt gemaakt. Het vak \"Medicijnen die ik neem\" wordt dan de beginlijst hier. Er wordt niets teruggeschreven naar Moshimo Card.",
+      "importBtn": "Importeren uit een MOSHIMO Card-bestand",
+      "importHint": "Kies het bestand (JSON) dat u met \"Exporteren\" in MOSHIMO Card hebt gemaakt. Het vak \"Medicijnen die ik gebruik\" wordt dan de beginlijst hier. Er wordt niets teruggeschreven naar MOSHIMO Card.",
       "imported": "Geïmporteerd: {n} ✓",
       "importNone": "Het medicijnvak in het bestand was leeg",
       "importDup": "Deze namen staan er al, er is niets toegevoegd",
-      "importFail": "Dit lijkt geen bestand van Moshimo Card te zijn"
+      "importFail": "Dit lijkt geen bestand van MOSHIMO Card te zijn"
     }
   }
 });
@@ -1718,7 +1742,7 @@ TBL.sv = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "kusuriBtn": "Medicinlista",
       "nenpyoBtn": "Tidslinje",
       "madoBtn": "Anteckningar per kontaktställe",
-      "guideLink": "Om offentligt stöd: se ”Guide till stödsystem” (extern webbplats, på japanska)",
+      "guideLink": "Om offentligt stöd: se guiden ”Japan Support Guide” (extern webbplats, på japanska och engelska)",
       "disclaimer": "Den här anteckningsboken är inget officiellt intyg. Den gör inga medicinska bedömningar eller diagnoser. Vid fara: ring 119 eller 110 (i Japan) eller kontakta ett kontaktställe.",
       "exitHint": "Med ”× Stäng” uppe till höger kommer du direkt till en annan sida."
     },
@@ -1742,7 +1766,8 @@ TBL.sv = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "ovHead": "Det jag vill säga vid besöket",
       "ovWho": "Gäller: {who}",
       "ovNote": "Det viktigaste står först.",
-      "ovDetail": "Detaljer"
+      "ovDetail": "Detaljer",
+      "sheetEnd": "Allt ovanför visas för den du träffar"
     },
     "shokai": {
       "title": "Blad för första besöket",
@@ -1808,7 +1833,8 @@ TBL.sv = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "promisePh": "t.ex. Skriva upp de dagar jag sov bra",
       "check": "Nästa dag att följa upp",
       "empty": "Inget ännu.",
-      "untitled": "(inget namn)"
+      "untitled": "(inget namn)",
+      "needName": "Skriv namnet på stället först"
     },
     "kusuri": {
       "title": "Medicinlista",
@@ -1819,13 +1845,14 @@ TBL.sv = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "note": "Anteckning",
       "notePh": "t.ex. morgon och kväll (mer i bipacksedeln)",
       "addBtn": "Lägg till en medicin",
+      "needName": "Skriv medicinens namn först",
       "empty": "Inget ännu.",
-      "importBtn": "Läs in från en Moshimo Card-fil",
-      "importHint": "Välj en fil (JSON) som du har gjort med ”Exportera” i Moshimo Card. Fältet ”Mediciner jag tar” blir startlistan här. Inget skrivs tillbaka till Moshimo Card.",
+      "importBtn": "Läs in från en MOSHIMO Card-fil",
+      "importHint": "Välj en fil (JSON) som du har gjort med ”Exportera” i MOSHIMO Card. Fältet ”Läkemedel jag tar” blir startlistan här. Inget skrivs tillbaka till MOSHIMO Card.",
       "imported": "{n} st. inlästa ✓",
       "importNone": "Medicinfältet i filen var tomt",
       "importDup": "Samma namn finns redan, inget lades till",
-      "importFail": "Det här verkar inte vara en fil från Moshimo Card"
+      "importFail": "Det här verkar inte vara en fil från MOSHIMO Card"
     }
   }
 });
@@ -1939,7 +1966,7 @@ TBL.ko = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "kusuriBtn": "약 목록",
       "nenpyoBtn": "연표",
       "madoBtn": "창구별 기록",
-      "guideLink": "제도에 관한 것은 \"어려울 때 제도 가이드\"로 (외부 사이트, 일본어)",
+      "guideLink": "제도에 관해서는 \"Japan Support Guide\"를 봐 주세요 (외부 사이트, 일본어·영어)",
       "disclaimer": "이 노트는 공적인 수첩이 아니에요. 의료적인 판단이나 진단은 하지 않아요. 위험할 때는 119나 110(일본), 또는 상담 창구로.",
       "exitHint": "오른쪽 위의 \"× 닫기\"를 누르면 바로 다른 페이지로 옮겨 가요."
     },
@@ -1963,7 +1990,8 @@ TBL.ko = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "ovHead": "진료 때 전하고 싶은 것",
       "ovWho": "대상: {who}",
       "ovNote": "위에서부터 중요한 순서예요.",
-      "ovDetail": "자세히"
+      "ovDetail": "자세히",
+      "sheetEnd": "여기까지 상대에게 보여 줘요"
     },
     "shokai": {
       "title": "처음 갈 때의 한 장",
@@ -2029,7 +2057,8 @@ TBL.ko = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "promisePh": "예: 잠을 잘 잔 날을 메모해 오기",
       "check": "다음에 확인할 날",
       "empty": "아직 없어요.",
-      "untitled": "(이름 없음)"
+      "untitled": "(이름 없음)",
+      "needName": "창구 이름을 적어 주세요"
     },
     "kusuri": {
       "title": "약 목록",
@@ -2040,13 +2069,14 @@ TBL.ko = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "note": "메모",
       "notePh": "예: 아침과 저녁 (자세한 것은 약 설명서대로)",
       "addBtn": "약 추가",
+      "needName": "약 이름을 적어 주세요",
       "empty": "아직 없어요.",
-      "importBtn": "모시모 카드 파일에서 불러오기",
-      "importHint": "모시모 카드의 \"내보내기\"로 만든 파일(JSON)을 고르면, \"복용 중인 약\" 칸을 이 목록의 처음 내용으로 써요. 모시모 카드에 다시 써 넣지는 않아요.",
+      "importBtn": "MOSHIMO Card 파일에서 불러오기",
+      "importHint": "MOSHIMO Card의 \"내보내기\"로 만든 파일(JSON)을 고르면, \"복용 중인 약\" 칸을 이 목록의 처음 내용으로 써요. MOSHIMO Card에 다시 써 넣지는 않아요.",
       "imported": "{n}개 불러왔어요 ✓",
       "importNone": "파일의 약 칸이 비어 있었어요",
       "importDup": "같은 이름이 이미 있어서 아무것도 추가하지 않았어요",
-      "importFail": "모시모 카드 파일이 아닌 것 같아요"
+      "importFail": "MOSHIMO Card 파일이 아닌 것 같아요"
     }
   }
 });
@@ -2160,7 +2190,7 @@ TBL.zh = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "kusuriBtn": "药物一览",
       "nenpyoBtn": "年表",
       "madoBtn": "各窗口的记录",
-      "guideLink": "制度方面的事，请看“困扰与制度指南”（外部网站）",
+      "guideLink": "制度方面的事，请看“Japan Support Guide”（外部网站，日语和英语）",
       "disclaimer": "这本笔记不是官方手册或证件。不做医疗上的判断或诊断。遇到危险时，请拨打 119 或 110（日本），或联系窗口。",
       "exitHint": "点右上角的“× 关闭”，可以马上转到别的页面。"
     },
@@ -2184,7 +2214,8 @@ TBL.zh = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "ovHead": "就诊时想说的事",
       "ovWho": "对象：{who}",
       "ovNote": "从上往下按重要程度排列。",
-      "ovDetail": "详细内容"
+      "ovDetail": "详细内容",
+      "sheetEnd": "到这里为止给对方看"
     },
     "shokai": {
       "title": "第一次去时用的一页",
@@ -2250,7 +2281,8 @@ TBL.zh = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "promisePh": "例：把睡得着的日子记下来带去",
       "check": "下次确认的日期",
       "empty": "还没有。",
-      "untitled": "（无名称）"
+      "untitled": "（无名称）",
+      "needName": "请写窗口名称"
     },
     "kusuri": {
       "title": "药物一览",
@@ -2261,6 +2293,7 @@ TBL.zh = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "note": "备注",
       "notePh": "例：早上和傍晚（详情以药品说明书为准）",
       "addBtn": "添加药物",
+      "needName": "请写药名",
       "empty": "还没有。",
       "importBtn": "从 MOSHIMO Card 的文件读入",
       "importHint": "选择用 MOSHIMO Card 的“导出”做成的文件（JSON）后，会把其中“正在服用的药”一栏作为这个一览的初始内容。不会写回 MOSHIMO Card。",
@@ -2381,7 +2414,7 @@ TBL.ar = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "kusuriBtn": "قائمة الأدوية",
       "nenpyoBtn": "السجل الزمني",
       "madoBtn": "سجل لكل جهة",
-      "guideLink": "للاطلاع على الأنظمة والخدمات: «دليل أنظمة الدعم» (موقع خارجي، باللغة اليابانية)",
+      "guideLink": "للاطلاع على الأنظمة والخدمات: دليل «Japan Support Guide» (موقع خارجي، باللغتين اليابانية والإنجليزية)",
       "disclaimer": "هذا الدفتر ليس وثيقة رسمية، ولا يقدّم أحكامًا طبية أو تشخيصًا. عند الخطر، يمكن الاتصال بالرقم 119 أو 110 (في اليابان)، أو التوجّه إلى جهة الاستشارة.",
       "exitHint": "بالضغط على «× إغلاق» في أعلى يسار الشاشة، يمكنك الانتقال فورًا إلى صفحة أخرى."
     },
@@ -2405,7 +2438,8 @@ TBL.ar = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "ovHead": "ما أريد قوله في الزيارة الطبية",
       "ovWho": "الشخص المعني: {who}",
       "ovNote": "الأمور مرتّبة من الأعلى حسب الأهمية.",
-      "ovDetail": "التفاصيل"
+      "ovDetail": "التفاصيل",
+      "sheetEnd": "حتى هنا يُعرض على الشخص الآخر"
     },
     "shokai": {
       "title": "ورقة الزيارة الأولى",
@@ -2471,7 +2505,8 @@ TBL.ar = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "promisePh": "مثال: أن أدوّن الأيام التي استطعت فيها النوم",
       "check": "تاريخ المتابعة القادمة",
       "empty": "لا يوجد شيء بعد.",
-      "untitled": "(بدون اسم)"
+      "untitled": "(بدون اسم)",
+      "needName": "يُرجى كتابة اسم الجهة"
     },
     "kusuri": {
       "title": "قائمة الأدوية",
@@ -2482,13 +2517,14 @@ TBL.ar = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "note": "ملاحظة",
       "notePh": "مثال: صباحًا ومساءً (التفاصيل كما في نشرة الدواء)",
       "addBtn": "إضافة دواء",
+      "needName": "يُرجى كتابة اسم الدواء",
       "empty": "لا يوجد شيء بعد.",
-      "importBtn": "استيراد من ملف Moshimo Card",
-      "importHint": "عند اختيار ملف (JSON) أُنشئ بزر «تصدير» في Moshimo Card، تصبح خانة «الأدوية التي أتناولها» فيه القائمة الأولية هنا. لا يُكتب شيء في Moshimo Card.",
+      "importBtn": "استيراد من ملف MOSHIMO Card",
+      "importHint": "عند اختيار ملف (JSON) أُنشئ بزر «تصدير» في MOSHIMO Card، تصبح خانة «الأدوية التي أتناولها» فيه القائمة الأولية هنا. لا يُكتب شيء في MOSHIMO Card.",
       "imported": "تم استيراد العناصر: {n} ✓",
       "importNone": "خانة الأدوية في الملف كانت فارغة",
       "importDup": "الأسماء نفسها موجودة بالفعل، لذلك لم يُضف شيء",
-      "importFail": "يبدو أن هذا ليس ملفًا من Moshimo Card"
+      "importFail": "يبدو أن هذا ليس ملفًا من MOSHIMO Card"
     }
   }
 });

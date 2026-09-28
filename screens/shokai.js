@@ -8,8 +8,8 @@
   window.SCREENS.register('shokai', {
     render: function(c, api){
       var U = window.JUNBI_UI, T = api.T;
-      var data = api.load('first.v1', { scene:'', since:'', change:'', wish:'' });
-      var note = api.load('note.v1', { who:'' });
+      var data = U.obj(api, 'first.v1', { scene:'', since:'', change:'', wish:'' });
+      var note = U.obj(api, 'note.v1', { who:'' });
 
       c.appendChild(api.el('h1', 'scr-title', T('screen.shokai.title')));
       c.appendChild(api.el('p', 'hint', T('screen.shokai.hint')));

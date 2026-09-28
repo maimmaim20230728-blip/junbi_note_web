@@ -11,11 +11,11 @@
   window.SCREENS.register('nenpyo', {
     render: function(c, api){
       var U = window.JUNBI_UI, T = api.T;
-      var rows = api.load('timeline.v1', []);
+      var rows = U.list(api, 'timeline.v1');
       var showKinds = api.getExtra('nenpyoKinds', DEFAULT_SHOW.slice());
       if(!Array.isArray(showKinds)) showKinds = DEFAULT_SHOW.slice();
       var showFeel = !!api.getExtra('nenpyoFeel', false);
-      var note = api.load('note.v1', { who:'' });
+      var note = U.obj(api, 'note.v1', { who:'' });
 
       function kindLabel(k){ return T('screen.nenpyo.kinds.' + k); }
       function sorted(list){ return list.slice().sort(function(a, b){ return String(a.date).localeCompare(String(b.date)); }); }
@@ -62,7 +62,7 @@
           var rec = { id: row.id, date: date.value || U.today(), kind: kind.value, text: t,
                       feel: MED_KINDS.indexOf(kind.value) >= 0 ? String(feel.value || '').trim() : '',
                       look: MED_KINDS.indexOf(kind.value) >= 0 ? String(look.value || '').trim() : '' };
-          var list = api.load('timeline.v1', []);
+          var list = U.list(api, 'timeline.v1');
           if(isNew) list.push(rec); else list = list.map(function(x){ return x.id === rec.id ? rec : x; });
           if(!persist(list)) return;
           api.toast(T('common.saved')); formBox.textContent = ''; drawList();
@@ -71,7 +71,7 @@
         btns.appendChild(saveB);
         btns.appendChild(U.btn(api, '', T('common.cancel'), function(){ formBox.textContent = ''; }));
         if(!isNew) btns.appendChild(U.delBtn(api, function(){
-          if(!persist(api.load('timeline.v1', []).filter(function(x){ return x.id !== row.id; }))) return;
+          if(!persist(U.list(api, 'timeline.v1').filter(function(x){ return x.id !== row.id; }))) return;
           api.toast(T('common.deleted')); formBox.textContent = ''; drawList();
         }));
         card.appendChild(btns);

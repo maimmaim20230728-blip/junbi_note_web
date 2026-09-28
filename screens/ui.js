@@ -1,6 +1,6 @@
 'use strict';
 /* 画面共通の小さな部品(このアプリ内だけ)。画面の状態は持たない(純粋な生成関数だけ)。
-   ・window.JUNBI_UI = { uid, today, field, input, textarea, select, btn, openOv, delBtn, fmt }
+   ・window.JUNBI_UI = { uid, today, fmt, list, obj, field, input, textarea, select, btn, openOv, delBtn }
    ・操作は全部 api.Tap.bind(click禁止)。select と file input だけネイティブイベント */
 (function(){
   function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
@@ -8,6 +8,11 @@
   function today(){ var d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
   /* {n} などの差し替え */
   function fmt(s, map){ var out = String(s); for(var k in map){ out = out.split('{' + k + '}').join(String(map[k])); } return out; }
+  /* 保存した一覧を読む。配列でなければ [](形の違う控えを読んだときなど)・オブジェクトでない行は除く */
+  function isObj(x){ return !!x && typeof x === 'object' && !Array.isArray(x); }
+  function list(api, key){ var v = api.load(key, []); return Array.isArray(v) ? v.filter(isObj) : []; }
+  /* 保存した1件(表紙の1行など)を読む。普通のオブジェクトでなければ def */
+  function obj(api, key, def){ var v = api.load(key, null); return isObj(v) ? v : def; }
 
   function input(type, ph, value){
     var i = document.createElement('input');
@@ -68,5 +73,5 @@
     document.body.appendChild(ov);
     return doClose;
   }
-  window.JUNBI_UI = { uid: uid, today: today, fmt: fmt, input: input, textarea: textarea, select: select, field: field, btn: btn, delBtn: delBtn, openOv: openOv };
+  window.JUNBI_UI = { uid: uid, today: today, fmt: fmt, list: list, obj: obj, input: input, textarea: textarea, select: select, field: field, btn: btn, delBtn: delBtn, openOv: openOv };
 })();

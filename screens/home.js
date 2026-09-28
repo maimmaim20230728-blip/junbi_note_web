@@ -10,8 +10,8 @@
   window.SCREENS.register('home', {
     render: function(c, api){
       var U = window.JUNBI_UI, T = api.T;
-      var note = api.load('note.v1', { who:'' });
-      var items = api.load('items.v1', []);
+      var note = U.obj(api, 'note.v1', { who:'' });
+      var items = U.list(api, 'items.v1');
 
       c.appendChild(api.el('h1', 'scr-title', T('screen.home.title')));
       c.appendChild(api.el('p', 'tagline', T('app.tagline')));
@@ -28,7 +28,7 @@
       var addBtn = U.btn(api, 'primary wide', T('screen.home.addBtn'), function(){
         var t = String(title.value || '').trim();
         if(!t){ api.toast(T('screen.home.needTitle')); return; }
-        var list = api.load('items.v1', []);
+        var list = U.list(api, 'items.v1');
         list.push({ id: U.uid(), title: t, detail: String(detail.value || '').trim(), created: Date.now() });
         if(!api.save('items.v1', list)){ api.toast(T('common.storageFull')); return; }
         title.value = ''; detail.value = '';
@@ -68,7 +68,7 @@
       who.style.flex = '1';
       row.appendChild(who);
       var whoBtn = U.btn(api, '', T('screen.home.whoSave'), function(){
-        var n = api.load('note.v1', { who:'' });
+        var n = U.obj(api, 'note.v1', { who:'' });
         n.who = String(who.value || '').trim();
         if(!api.save('note.v1', n)){ api.toast(T('common.storageFull')); return; }
         api.toast(T('screen.home.whoSaved'));

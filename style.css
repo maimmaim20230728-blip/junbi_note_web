@@ -39,12 +39,17 @@ header#hd{
   background:var(--brand); color:#fff;
   padding:calc(12px + env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 12px max(16px, env(safe-area-inset-left));
   font-weight:700; font-size:19px;
-  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
   flex-shrink:0; overflow:hidden;
   min-height:calc(72px + env(safe-area-inset-top));
 }
-#hd-title{ flex:1; min-width:2.5em; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-#hd-right{ display:flex; align-items:flex-end; gap:14px; flex-shrink:0; }
+/* 題名は2行まで折り返す(× とじる と言語の欄で幅が残らない端末でも名前が読める。3行目以降は app.js の fitTitle が短い名前に替える) */
+#hd-title{
+  flex:1; min-width:2.5em; overflow:hidden; font-size:17px; line-height:1.2;
+  white-space:normal; overflow-wrap:break-word;
+  display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2;
+}
+#hd-right{ display:flex; align-items:flex-end; gap:6px; flex-shrink:0; }
 #lang-wrap{ display:flex; flex-direction:column; align-items:center; gap:3px; flex-shrink:0; }
 .lang-label{ font-size:.55em; font-weight:700; color:#fff; line-height:1; letter-spacing:.02em; }
 #hd #set-lang{
@@ -53,8 +58,8 @@ header#hd{
   background:#fff; color:#1a1a1a;
 }
 .hd-btn{
-  min-height:44px; min-width:44px; padding:0 10px;
-  border:none; border-radius:8px; background:rgba(255,255,255,.22); color:#fff;
+  min-height:44px; min-width:44px; padding:0 8px;
+  border:none; border-radius:8px; background:rgba(0,0,0,.22); color:#fff;   /* 暗い半透明=白い字がどのテーマでも読める(退出ボタンは見つけやすさが大事) */
   font-size:1em; font-family:inherit; font-weight:700;
 }
 
@@ -83,15 +88,20 @@ header#hd{
   border-radius:18px; font-family:inherit; text-align:left;
 }
 .big-btn .ico{ font-size:1.9em; line-height:1; flex:none; width:1.5em; text-align:center; }
-.big-btn .lbl{ font-size:1.2em; font-weight:700; }
+.big-btn .lbl{ font-size:1.2em; font-weight:700; min-width:0; overflow-wrap:anywhere; hyphens:auto; }
 .big-btn.primary{ background:var(--brand); color:#fff; }
 .big-btn.alert{ border-color:var(--alert); }
 .big-btn.huge{ min-height:40vh; min-height:40dvh; justify-content:center; text-align:center; font-size:1.3em; }
-.grid2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.grid2{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:12px; }
 .grid2 .big-btn{ flex-direction:column; justify-content:center; text-align:center; margin:0; min-height:120px; }
+/* 幅が狭く文字が「とても大きい」ときは1列にして、ほかの大ボタンと同じ横並び(長い単語が細かく折れないように) */
+@media (max-width:400px){
+  body.fs2 .grid2{ grid-template-columns:minmax(0, 1fr); }
+  body.fs2 .grid2 .big-btn{ flex-direction:row; justify-content:flex-start; text-align:left; min-height:76px; }
+}
 .card{
   background:var(--card); border:2px solid var(--line); border-radius:16px;
-  padding:12px 14px; margin:0 0 12px;
+  padding:12px 14px; margin:0 0 12px; overflow-wrap:anywhere;   /* 空白のない長い英数字(URL など)でも横にはみ出さない */
 }
 .card.tappable{ border-color:var(--brand); }
 .row{ display:flex; align-items:center; gap:10px; }
@@ -101,13 +111,14 @@ header#hd{
   display:inline-flex; align-items:center; justify-content:center; gap:8px;
   border:2px solid var(--line); background:var(--card); color:var(--ink);
   border-radius:14px; font-family:inherit; font-size:1em; font-weight:700;
+  overflow-wrap:normal;   /* .grow / .card の anywhere を受け継いで単語の途中で折れないように */
 }
 .btn.primary{ border-color:var(--brand); background:var(--brand); color:#fff; }
 .btn.danger{ border-color:#cc3b30; color:#cc3b30; }
 body[data-theme="dark"] .btn.danger{ border-color:#ef9a9a; color:#ef9a9a; }
 .btn.wide{ width:100%; }
 .btn-row{ display:flex; gap:10px; flex-wrap:wrap; margin:10px 0; }
-.btn-row .btn{ flex:1; }
+.btn-row .btn{ flex:1 1 auto; }   /* 入りきらないときは次の行へ回る(文字の大きさ・言語で縮めて字をはみ出させない) */
 .field{ margin:12px 0; }
 .field label{ display:block; font-weight:700; margin:0 0 4px; }
 .field input[type="text"], .field input[type="number"], .field input[type="date"], .field input[type="time"], .field textarea, .field select{
@@ -125,7 +136,7 @@ body[data-theme="dark"] .btn.danger{ border-color:#ef9a9a; color:#ef9a9a; }
 .list li .grow{ flex:1; min-width:0; overflow-wrap:anywhere; }
 .chips{ display:flex; flex-wrap:wrap; gap:8px; }
 .chip{
-  min-height:44px; padding:6px 14px; border-radius:999px;
+  min-height:44px; min-width:44px; padding:6px 14px; border-radius:999px;
   border:2px solid var(--line); background:var(--card); color:var(--ink);
   font-family:inherit; font-size:.95em; font-weight:700;
 }
@@ -139,9 +150,10 @@ body[data-theme="dark"] .btn.danger{ border-color:#ef9a9a; color:#ef9a9a; }
   position:fixed; inset:0; z-index:300; background:var(--bg); color:var(--ink);
   overflow-y:auto; -webkit-overflow-scrolling:touch;
   padding:calc(20px + env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
-          calc(96px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+          calc(128px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
 }
-.ov.show-white{ background:#fff; color:#1a1a1a; }
+/* 相手に見せる画面は、どのテーマでも白地に黒の字(くろ テーマの変数を明るい色に戻す) */
+.ov.show-white{ background:#fff; color:#1a1a1a; --card:#f4f6f5; --ink:#1a1a1a; --sub:#555; --line:#d7e5da; }
 .ov.show-black{ background:#000; color:#fff; }
 .ov-close{
   position:fixed; min-height:64px; z-index:301;
@@ -149,10 +161,11 @@ body[data-theme="dark"] .btn.danger{ border-color:#ef9a9a; color:#ef9a9a; }
   left:max(16px, env(safe-area-inset-left)); right:max(16px, env(safe-area-inset-right));
   background:var(--brand); color:#fff; border:none; border-radius:12px;
   font-size:1.2em; font-weight:700; font-family:inherit;
+  line-height:1.25; padding:8px 12px; word-break:keep-all; overflow-wrap:anywhere;   /* 2行になっても語の途中で折れない */
 }
 .show-head{ font-size:1.3em; font-weight:800; border:3px solid var(--brand); border-radius:12px; padding:12px; text-align:center; }
 .show-block{ margin-top:18px; }
-.show-label{ font-size:.9em; color:var(--sub); font-weight:700; }
+.show-label{ font-size:.9em; color:var(--sub); font-weight:700; overflow-wrap:anywhere; }
 .show-value{ font-size:1.9em; font-weight:800; line-height:1.35; background:var(--card); border-radius:10px; padding:10px 12px; overflow-wrap:anywhere; }
 .step-text{ font-size:2em; font-weight:800; line-height:1.4; text-align:center; margin:12vh 0 24px; overflow-wrap:anywhere; }
 .call-btn{
@@ -223,7 +236,25 @@ input[type="file"].hidden{ display:none; }
 .item-title{ font-weight:700; overflow-wrap:anywhere; }
 .done-list li{ opacity:.8; }
 .show-detail{ font-size:1.2em; line-height:1.5; padding:6px 12px 0; overflow-wrap:anywhere; }
-.ov-body{ max-width:680px; margin:0 auto; }
+.ov-body{ max-width:680px; margin:0 auto; overflow-wrap:anywhere; }
+/* 1枚: 見せる数・相手に見せる・窓口のあと のあいだの余白 */
+#ichimai-show{ margin:14px 0 10px; }
+#ichimai-after{ margin:0 0 14px; }
+/* 1枚: 見せる範囲の区切り(N行目のあと) */
+.list li.sheet-end{
+  background:none; border:none; border-top:2px dashed var(--brand); border-radius:0;
+  min-height:0; padding:4px 4px 0; margin:2px 0 10px;
+  color:var(--ink); font-weight:700; font-size:.9em; justify-content:center; text-align:center;
+}
+/* 1枚: 幅が狭いか文字が「とても大きい」ときは、▲▼なおす を文字の下に横1列で置く(文字の欄を広く取る) */
+@media (max-width:400px){
+  #ichimai-list .list li{ flex-wrap:wrap; }
+  #ichimai-list .list li .ctl{ flex-direction:row; flex-wrap:wrap; width:100%; }
+  #ichimai-list .list li .ctl .btn{ flex:1 1 auto; }
+}
+body.fs2 #ichimai-list .list li{ flex-wrap:wrap; }
+body.fs2 #ichimai-list .list li .ctl{ flex-direction:row; flex-wrap:wrap; width:100%; }
+body.fs2 #ichimai-list .list li .ctl .btn{ flex:1 1 auto; }
 .card.tappable .item-title{ color:var(--brand); }
 
 /* ======== 写真の取り込みとトリミング(photo.js) ======== */

@@ -9,7 +9,7 @@
      変えたら README の「シェルの変更点」に書く */
 (function(){
 
-var VER = '0.4.0';               // 🔴 更新のたびに上げる(build.gradle の versionName / sw.js の CACHE と一緒に)
+var VER = '0.4.1';               // 🔴 更新のたびに上げる(build.gradle の versionName / sw.js の CACHE と一緒に)
 var APP_KEY = 'junbi_note';        // バックアップの識別(別アプリのファイルを読まない)
 var EXIT_URL = 'https://www.google.com/';   // クイック退出「× とじる」の行き先(SPEC: ヘッダー右・location.replace)
 var LS = 'junbi.';
@@ -92,7 +92,12 @@ function fitTitle(){
   var e = $('hd-title'); if(!e) return;
   var full = T('app.name'), s = T('app.short');
   e.textContent = full;
-  if(s !== 'app.short' && s !== full && e.scrollWidth > e.clientWidth + 1) e.textContent = s;
+  if(s === 'app.short' || s === full) return;
+  /* 題名は2行まで折り返す(style.css)。2行に入りきらない(高さ)か、1語が幅を超えるときだけ短い名前
+     (高さはレイアウトのある本物のブラウザでだけ測る。疑似DOMのスモークには getComputedStyle が無い) */
+  var tooWide = e.scrollWidth > e.clientWidth + 1;
+  var tooTall = (typeof window.getComputedStyle === 'function') && e.scrollHeight > e.clientHeight + 1;
+  if(tooWide || tooTall) e.textContent = s;
 }
 if(typeof window !== 'undefined' && window.addEventListener) window.addEventListener('resize', function(){ fitTitle(); });
 /* ---- 見た目/音 ---- */
@@ -236,6 +241,23 @@ function showScreen(id){
   try{ if($('main')) $('main').scrollTop = 0; }catch(_){}
 }
 
+/* ---- よみこむ ときの形の確かめ(このアプリ固有): 画面が読むキーは形が合うものだけ受け取る ----
+   list = 配列(中身はオブジェクトの行だけに絞る・id の無い行には id を付ける) / obj = 普通のオブジェクト
+   形が違うキーは読まない(いまの端末の値をそのまま残す)。ここに無いキーは前と同じくそのまま保存する
+   🔴 画面で新しい保存キーを足したら、ここにも足す */
+var BACKUP_SHAPE = { 'items.v1':'list', 'said.v1':'list', 'timeline.v1':'list', 'places.v1':'list', 'meds.v1':'list', 'note.v1':'obj', 'first.v1':'obj' };
+function isPlainObj(v){ return !!v && typeof v === 'object' && !Array.isArray(v); }
+function cleanBackupValue(key, v){
+  var kind = BACKUP_SHAPE[key];
+  if(!kind) return { ok:true, v:v };
+  if(kind === 'obj') return isPlainObj(v) ? { ok:true, v:v } : { ok:false };
+  if(!Array.isArray(v)) return { ok:false };
+  return { ok:true, v: v.filter(isPlainObj).map(function(r){
+    if(typeof r.id !== 'string' || !r.id) r.id = Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+    return r;
+  }) };
+}
+
 /* ---- 機種変更(バックアップ): このアプリの保存キー全部を1ファイルに ---- */
 function exportBackup(){
   var data = { app: APP_KEY, ver: 1, exported: Date.now(), pref: pref, data: {} };
@@ -262,7 +284,9 @@ function importBackup(e){
     try{
       var d = JSON.parse(r.result);
       if(d.app !== APP_KEY) throw new Error('different app');
-      if(d.data && typeof d.data === 'object'){ for(var k in d.data){ saveJSON(LS + k, d.data[k]); } }
+      if(d.data && typeof d.data === 'object'){
+        for(var k in d.data){ var c = cleanBackupValue(k, d.data[k]); if(c.ok) saveJSON(LS + k, c.v); }
+      }
       pref = sanitizePref(d.pref);
       savePref();
       applyAll(true);
