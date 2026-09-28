@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2e9e6b">
+<title>相談と受診の準備ノート(仮)</title>
+<meta name="description" content="受診や相談の前に伝えたいことを貯め、大事な順の1枚を見せ、言えなかった分は次回へ。年表と窓口ごとの記録。端末内のみ・オフライン・登録なし。">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="fs0">
+<header id="hd">
+  <div id="hd-title">相談と受診の準備ノート(仮)</div>
+  <div id="hd-right">
+    <button id="hd-exit" class="hd-btn" type="button">× とじる</button>
+    <div id="lang-wrap">
+      <span class="lang-label">Language</span>
+      <select id="set-lang" aria-label="Language 言語">
+        <option value="ja">日本語</option>
+        <option value="en">English</option>
+        <option value="de">Deutsch</option>
+        <option value="fr">Français</option>
+        <option value="es">Español</option>
+        <option value="it">Italiano</option>
+        <option value="pt">Português</option>
+        <option value="nl">Nederlands</option>
+        <option value="sv">Svenska</option>
+        <option value="ko">한국어</option>
+        <option value="zh">简体中文</option>
+        <option value="ar">العربية</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ホーム(screens/home.js が描く) -->
+  <section id="scr-home" class="screen" data-scr="home"></section>
+  <section id="scr-ichimai" class="screen hidden" data-scr="ichimai"></section>
+  <section id="scr-shokai" class="screen hidden" data-scr="shokai"></section>
+  <section id="scr-nenpyo" class="screen hidden" data-scr="nenpyo"></section>
+  <section id="scr-madoguchi" class="screen hidden" data-scr="madoguchi"></section>
+  <section id="scr-kusuri" class="screen hidden" data-scr="kusuri"></section>
+
+  <!-- BUILDER: 画面を足すときは
+       <section id="scr-<id>" class="screen hidden" data-scr="<id>"></section>
+       を追加し、screens/<id>.js で window.SCREENS.register('<id>', { render(container, api){...} }) する。
+       ナビは下の #navbar に <button id="nav-<id>" class="nav-btn" data-scr="<id>"></button> を足す(合計6個まで)。
+       i18n.js の nav.<id> にラベルを入れる(ja と en の両方)。sw.js の ASSETS にも screens/<id>.js を足す。 -->
+
+  <!-- せってい(共通シェル。文言は app.js の I18N_MAP が入れる) -->
+  <section id="scr-set" class="screen hidden" data-scr="set">
+    <h2 id="set-h-normal" class="sec-h"></h2>
+    <div class="set-row"><span id="lbl-fs"></span><button id="btn-fs" class="set-btn"></button></div>
+    <div class="set-row"><span id="lbl-theme"></span><button id="btn-theme" class="set-btn"></button></div>
+    <div class="set-row"><span id="lbl-bgm"></span><button id="btn-bgm" class="set-btn"></button></div>
+    <div class="set-row"><span id="lbl-sound"></span><button id="btn-sound" class="set-btn"></button></div>
+
+    <!-- BUILDER: アプリ固有の設定行はここに足す(id は set-app-* で) -->
+    <div id="set-app-rows"></div>
+
+    <h2 id="set-h-backup" class="sec-h"></h2>
+    <p id="bk-hint" class="hint"></p>
+    <div class="bk-row">
+      <button id="bk-export" class="set-btn"></button>
+      <button id="bk-import" class="set-btn"></button>
+    </div>
+    <input id="bk-file" type="file" accept="application/json,.json" class="hidden">
+
+    <p id="set-note" class="hint"></p>
+    <p class="credit"><a id="link-privacy" href="privacy.html"></a></p>
+    <p class="credit"><a id="about-credit" href="https://soudansoyogi.com/" target="_blank" rel="noopener"></a></p>
+    <p id="about-ver" class="credit"></p>
+  </section>
+
+</main>
+
+<nav id="navbar">
+  <button id="nav-home" class="nav-btn active" data-scr="home"></button>
+  <button id="nav-ichimai" class="nav-btn" data-scr="ichimai"></button>
+  <button id="nav-nenpyo" class="nav-btn" data-scr="nenpyo"></button>
+  <button id="nav-madoguchi" class="nav-btn" data-scr="madoguchi"></button>
+  <button id="nav-kusuri" class="nav-btn" data-scr="kusuri"></button>
+  <button id="nav-set" class="nav-btn" data-scr="set"></button>
+</nav>
+
+<div id="toast" class="toast"></div>
+
+<script src="audio.js"></script>
+<script src="tap.js"></script>
+<script src="i18n.js"></script>
+<script src="photo.js"></script>
+<script src="screens/router.js"></script>
+<script src="screens/ui.js"></script>
+<script src="screens/home.js"></script>
+<script src="screens/ichimai.js"></script>
+<script src="screens/shokai.js"></script>
+<script src="screens/nenpyo.js"></script>
+<script src="screens/madoguchi.js"></script>
+<script src="screens/kusuri.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
