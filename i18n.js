@@ -45,6 +45,31 @@ var ja = {
     privacy:'プライバシーポリシー',
     credit:'アプリ開発：介護と支援の相談どころ そよぎ'
   },
+  /* はじめての つかいかた(app.js openGuide・初回に必ず出す・2026-09-30)。heads と bodies は同じ数。
+     ボタン名は画面の文字と同じにする(変えたら ここも)。隠れた入口は無い=GUIDE_AGAIN true(せっていから もう一度 見られる) */
+  guide: {
+    title:'つかいかた', step:'{n} / {m}', start:'はじめる', again:'もういちど 見る',
+    heads:[
+      '相談と受診の前に・そよぎ へ ようこそ',
+      'まず ホームで 1つ たす',
+      '「1枚」で 大事な 順に ならべる',
+      '窓口の あとは「言えた」を つける',
+      'はじめて 行くときの 1枚',
+      '年表・窓口・くすり',
+      '書いた ことは この 端末の 中だけ',
+      '見やすく する'
+    ],
+    bodies:[
+      'このアプリは、病院や 相談窓口に 行く 前に、伝えたい ことを ためておく ノートです。本人でも、家族でも 使えます。\n行った あとは、言えなかった ことを 次回に のこせます。\n医療的な 判断は しません。あぶない ときは 119 か 110、または 窓口へ。',
+      'ホームの いちばん 上「いま つたえたい ことを 1つ たす」に ひとこと 書いて、「たす」を おします。たした ことは「1枚」に たまります。\nホームの 下の「だれの ことを 書く ノートですか(表紙の 1行)」に「わたし」や「母」などと 書いて「きめる」を おすと、相手に 見せる 画面の 上に 出ます。',
+      '下の「1枚」を おすと、たまった ことが ならびます。「▲ うえへ」「▼ したへ」で 大事な 順に します。「なおす」で 書きなおしたり けしたり できます。\n「見せる 数」で 3〜5 を えらんで「相手に 見せる」を おすと、上から その 数だけ 大きな 字で 出ます。\nもどるときは「とじる(自分の 画面に もどる)」を おします。',
+      '窓口から もどったら、「1枚」の「窓口の あとに つける(言えた / 言えなかった)」を おします。\n言えた ことは「言えた」を おすと、下の「言えた こと」に うつります。\n言えなかった ことは そのまま のこり、次回の 1枚に なります。おわったら「つけおわる」を おします。',
+      'はじめて 行く ところには、ホームの「はじめて 行くときの 1枚」が 使えます。\n「こまっている 場面」「いつから」「体と 気持ちの 変化」「して ほしいこと」の 4つを 書きます。ぜんぶ 書かなくても だいじょうぶです。\n「ほぞんする」で のこし、「相手に 見せる」で そのまま 見せられます。',
+      '「年表」は「できごとを たす」で、受診・言われた病名・薬・出来事を 書きます。日づけの 順に ならび、相手に 見せる しゅるいは 自分で えらべます。\n「窓口」は「窓口を たす」で、担当者・次の 予約・言われた こと・約束を 窓口ごとに 書きます。\n「くすり」は「薬を たす」で、いま 出ている 薬の 名前を ならべて おきます。',
+      '書いた ことは すべて この 端末の 中だけに ほぞんされ、どこにも 送られません。登録も いりません。\nスマホを かえるときは、「せってい」の「かきだす」で ファイルを のこし、あたらしい スマホで「よみこむ」を おします。\nだれかに 見られたく ない ときは、右上の「× とじる」を おすと、すぐに 別の ページに うつれます。',
+      '「せってい」で「もじの大きさ」(ふつう・大きい・とても大きい)や「いろ」(みどり・みずいろ・しろ・くろ)を かえられます。\nことばは 右上の「Language」で えらべます。\nこの 案内は「せってい」の「つかいかた」の「もういちど 見る」で、いつでも もう一度 見られます。'
+    ]
+  },
   screen: {
     home: {
       title:'相談と受診の前に',
@@ -184,6 +209,29 @@ var en = {
     note:'Everything you write is stored only on this device. Nothing is sent anywhere.',
     privacy:'Privacy policy',
     credit:'Developed by SOYOGI, a care and support consultation service'
+  },
+  guide: {
+    title:'How to use', step:'{n} / {m}', start:'Start', again:'Show again',
+    heads:[
+      'Welcome to Before the Visit - SOYOGI',
+      'First, add one thing on Home',
+      'Put the "Sheet" in order of importance',
+      'After the visit, mark "Said"',
+      'Sheet for a first visit',
+      'Timeline, Offices and Medicines',
+      'What you write stays on this device',
+      'Make it easier to read'
+    ],
+    bodies:[
+      'This app is a note for collecting what you want to say before you go to a hospital or a help desk. It can be used by the person themselves or by a family member.\nAfter the visit, you can keep what you could not say for next time.\nIt does not make medical judgments. In danger, call 119 or 110, or contact a help desk.',
+      'At the top of Home, write a few words under "Add one thing you want to say now" and tap "Add". What you add is kept on the "Sheet".\nFurther down on Home, write "me", "my mother" or similar under "Who is this note about? (one line on the cover)" and tap "Set". It appears at the top of the screens you show to the other person.',
+      'Tap "Sheet" at the bottom to see what you collected. Use "▲ Up" and "▼ Down" to put it in order of importance. "Edit" lets you rewrite or delete an item.\nChoose 3 to 5 under "How many to show", then tap "Show to the other person" to show that many from the top in large letters.\nTo go back, tap "Close (back to my screen)".',
+      'When you are back from the visit, tap "After the visit: mark said / not said" on the "Sheet".\nTap "Said" for things you said. They move to "Things I said" below.\nThings you could not say stay as they are, ready for next time. When you are done, tap "Finish marking".',
+      'For a place you visit for the first time, use "Sheet for a first visit" on Home.\nFill in four fields: "Situations I struggle with", "Since when", "Changes in body and mood" and "What I would like". You do not have to fill in everything.\nTap "Save" to keep it, and "Show to the other person" to show it as it is.',
+      '"Timeline": tap "Add an entry" to write visits, condition names you were told, medicines and events. They are sorted by date, and you choose which types to show the other person.\n"Offices": tap "Add an office" to write the contact person, next appointment, what they said and promises for each place.\n"Medicines": tap "Add a medicine" to list the medicines currently prescribed.',
+      'Everything you write is stored only on this device. Nothing is sent anywhere, and no sign-up is needed.\nWhen you change phones, tap "Export" in "Settings" to save a file, then tap "Import" on the new phone.\nIf you do not want someone to see the screen, tap "× Close" at the top right to move to another page right away.',
+      'In "Settings" you can change "Text size" (Normal, Large, Very large) and "Color" (Green, Light blue, White, Black).\nChoose the language with "Language" at the top right.\nYou can see this guide again at any time with "Show again" next to "How to use" in "Settings".'
+    ]
   },
   screen: {
     home: {
@@ -384,6 +432,32 @@ TBL.de = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "note": "Alles, was Sie schreiben, wird nur auf diesem Gerät gespeichert. Nichts wird irgendwohin gesendet.",
     "privacy": "Datenschutzerklärung",
     "credit": "App-Entwicklung: SOYOGI, Beratungsstelle für Pflege und Unterstützung"
+  },
+  "guide": {
+    "title": "Anleitung",
+    "step": "{n} / {m}",
+    "start": "Loslegen",
+    "again": "Noch einmal ansehen",
+    "heads": [
+      "Willkommen bei Vor dem Termin - SOYOGI",
+      "Zuerst unter „Start“ eine Sache hinzufügen",
+      "Das „Blatt“ nach Wichtigkeit ordnen",
+      "Nach dem Termin „Gesagt“ eintragen",
+      "Blatt für den ersten Besuch",
+      "Chronik, Stellen und Arznei",
+      "Was Sie schreiben, bleibt auf diesem Gerät",
+      "Besser lesbar machen"
+    ],
+    "bodies": [
+      "Diese App ist eine Notiz, in der Sie vor einem Arztbesuch oder einem Termin bei einer Anlaufstelle sammeln, was Sie sagen möchten. Die Person selbst oder die Familie kann sie nutzen.\nNach dem Termin heben Sie auf, was Sie nicht sagen konnten, für das nächste Mal.\nSie trifft keine medizinischen Einschätzungen. In Gefahr rufen Sie 119 oder 110 an (Notrufnummern in Japan) oder wenden Sie sich an eine Anlaufstelle.",
+      "Schreiben Sie oben unter „Start“ bei „Jetzt eine Sache hinzufügen, die Sie sagen möchten“ ein paar Worte und tippen Sie auf „Hinzufügen“. Was Sie hinzufügen, sammelt sich im „Blatt“.\nWeiter unten schreiben Sie bei „Um wen geht es in dieser Notiz? (eine Zeile auf dem Deckblatt)“ zum Beispiel „ich“ oder „Mutter“ und tippen auf „Festlegen“. Das steht dann oben auf den Ansichten, die Sie dem Gegenüber zeigen.",
+      "Tippen Sie unten auf „Blatt“, um das Gesammelte zu sehen. Mit „▲ Nach oben“ und „▼ Nach unten“ ordnen Sie es nach Wichtigkeit. Mit „Bearbeiten“ können Sie einen Eintrag ändern oder löschen.\nWählen Sie bei „Anzahl zum Zeigen“ 3 bis 5 und tippen Sie auf „Dem Gegenüber zeigen“. Dann erscheinen so viele Einträge von oben in großer Schrift.\nZurück geht es mit „Schließen (zurück zu meiner Ansicht)“.",
+      "Wenn Sie vom Termin zurück sind, tippen Sie im „Blatt“ auf „Nach dem Termin eintragen (gesagt / nicht gesagt)“.\nTippen Sie bei allem, was Sie gesagt haben, auf „Gesagt“. Es wandert nach unten zu „Das habe ich gesagt“.\nWas Sie nicht sagen konnten, bleibt stehen und ist beim nächsten Mal wieder dabei. Zum Schluss tippen Sie auf „Eintragen beenden“.",
+      "Für eine Stelle, zu der Sie zum ersten Mal gehen, gibt es unter „Start“ das „Blatt für den ersten Besuch“.\nSie füllen vier Felder aus: „Situationen, die mir schwerfallen“, „Seit wann“, „Veränderungen bei Körper und Gefühlen“ und „Was ich mir wünsche“. Sie müssen nicht alles ausfüllen.\nMit „Speichern“ heben Sie es auf, mit „Dem Gegenüber zeigen“ zeigen Sie es direkt.",
+      "„Chronik“: Mit „Eintrag hinzufügen“ schreiben Sie Arztbesuche, genannte Krankheitsnamen, Medikamente und Ereignisse auf. Sie werden nach Datum geordnet, und Sie wählen selbst, welche Arten das Gegenüber sieht.\n„Stellen“: Mit „Anlaufstelle hinzufügen“ notieren Sie je Stelle Ansprechperson, nächsten Termin, was Ihnen gesagt wurde und Vereinbarungen.\n„Arznei“: Mit „Medikament hinzufügen“ führen Sie eine Liste der Medikamente, die Ihnen gerade verschrieben sind.",
+      "Alles, was Sie schreiben, wird nur auf diesem Gerät gespeichert. Nichts wird irgendwohin gesendet, und Sie brauchen keine Anmeldung.\nWenn Sie das Telefon wechseln, tippen Sie unter „Optionen“ auf „Exportieren“, um eine Datei zu sichern, und auf dem neuen Telefon auf „Importieren“.\nWenn niemand mitlesen soll, wechseln Sie mit „× Schließen“ oben rechts sofort zu einer anderen Seite.",
+      "Unter „Optionen“ ändern Sie die „Schriftgröße“ (Normal, Groß, Sehr groß) und die „Farbe“ (Grün, Hellblau, Weiß, Schwarz).\nDie Sprache wählen Sie oben rechts bei „Language“.\nDiese Anleitung sehen Sie jederzeit wieder: unter „Optionen“ bei „Anleitung“ mit „Noch einmal ansehen“."
+    ]
   },
   "screen": {
     "home": {
@@ -611,6 +685,32 @@ TBL.fr = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "privacy": "Politique de confidentialité",
     "credit": "Application développée par SOYOGI, lieu de conseil pour les soins et le soutien"
   },
+  "guide": {
+    "title": "Mode d'emploi",
+    "step": "{n} / {m}",
+    "start": "Commencer",
+    "again": "Revoir",
+    "heads": [
+      "Bienvenue dans Avant le rendez-vous - SOYOGI",
+      "D'abord, ajoutez une chose dans Accueil",
+      "Classez la « Fiche » par importance",
+      "Après le rendez-vous, marquez « Dit »",
+      "Fiche pour un premier rendez-vous",
+      "Chronologie, Lieux et Médicaments",
+      "Ce que vous écrivez reste sur cet appareil",
+      "Rendre la lecture plus facile"
+    ],
+    "bodies": [
+      "Cette application est un carnet pour noter ce que vous voulez dire avant d'aller à l'hôpital ou dans un service d'aide. La personne concernée ou sa famille peut l'utiliser.\nAprès le rendez-vous, ce que vous n'avez pas pu dire reste pour la prochaine fois.\nElle ne donne pas d'avis médical. En cas de danger, appelez le 119 ou le 110 (au Japon), ou adressez-vous à un service d'aide.",
+      "En haut d'Accueil, écrivez quelques mots sous « Ajouter une chose que vous voulez dire maintenant » et touchez « Ajouter ». Ce que vous ajoutez s'accumule dans la « Fiche ».\nPlus bas dans Accueil, écrivez « moi », « ma mère » ou autre sous « De qui parle ce carnet ? (une ligne sur la couverture) » et touchez « Valider ». Cela s'affiche en haut des écrans que vous montrez.",
+      "Touchez « Fiche » en bas pour voir ce que vous avez noté. Classez par importance avec « ▲ Monter » et « ▼ Descendre ». « Modifier » permet de réécrire ou d'effacer une ligne.\nChoisissez 3 à 5 dans « Nombre à montrer », puis touchez « Montrer à votre interlocuteur » : ce nombre de lignes s'affiche à partir du haut, en grands caractères.\nPour revenir, touchez « Fermer (retour à mon écran) ».",
+      "De retour du rendez-vous, touchez « Après le rendez-vous : marquer (dit / pas dit) » dans la « Fiche ».\nTouchez « Dit » pour ce que vous avez dit : la ligne passe dans « Ce que j'ai dit » plus bas.\nCe que vous n'avez pas pu dire reste en place pour la prochaine fois. À la fin, touchez « Terminer ».",
+      "Pour un lieu où vous allez pour la première fois, utilisez « Fiche pour un premier rendez-vous » dans Accueil.\nRemplissez quatre champs : « Situations difficiles », « Depuis quand », « Changements dans le corps et le moral » et « Ce que je souhaite ». Pas besoin de tout remplir.\n« Enregistrer » la garde, « Montrer à votre interlocuteur » la montre telle quelle.",
+      "« Chronologie » : avec « Ajouter une entrée », notez consultations, noms de maladie annoncés, médicaments et événements. Ils sont classés par date, et vous choisissez les types montrés.\n« Lieux » : avec « Ajouter un lieu », notez pour chaque lieu la personne référente, le prochain rendez-vous, ce qu'on vous a dit et ce qui a été convenu.\n« Médicaments » : avec « Ajouter un médicament », gardez la liste des médicaments prescrits en ce moment.",
+      "Tout ce que vous écrivez reste uniquement sur cet appareil. Rien n'est envoyé ailleurs et aucune inscription n'est nécessaire.\nPour changer de téléphone, touchez « Exporter » dans « Réglages » pour enregistrer un fichier, puis « Importer » sur le nouveau téléphone.\nSi vous ne voulez pas que quelqu'un voie l'écran, « × Fermer » en haut à droite passe tout de suite à une autre page.",
+      "Dans « Réglages », vous pouvez changer la « Taille du texte » (Normale, Grande, Très grande) et la « Couleur » (Vert, Bleu clair, Blanc, Noir).\nChoisissez la langue avec « Language » en haut à droite.\nVous pouvez revoir ce guide à tout moment avec « Revoir », à la ligne « Mode d'emploi » des « Réglages »."
+    ]
+  },
   "screen": {
     "home": {
       "title": "Avant le rendez-vous",
@@ -836,6 +936,32 @@ TBL.es = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "note": "Todo lo que se escribe se guarda solo en este dispositivo. No se envía a ningún lugar.",
     "privacy": "Política de privacidad",
     "credit": "Desarrollo de la aplicación: SOYOGI, espacio de consulta sobre cuidados y apoyo"
+  },
+  "guide": {
+    "title": "Cómo se usa",
+    "step": "{n} / {m}",
+    "start": "Empezar",
+    "again": "Ver de nuevo",
+    "heads": [
+      "Esto es Antes de la consulta - SOYOGI",
+      "Primero, añadir una cosa en Inicio",
+      "Ordenar la «Hoja» por importancia",
+      "Después de la consulta, marcar «Se dijo»",
+      "Hoja para la primera consulta",
+      "Cronología, Centros y Medicamentos",
+      "Lo que se escribe queda en este dispositivo",
+      "Más fácil de leer"
+    ],
+    "bodies": [
+      "Esta aplicación es un cuaderno para reunir lo que se quiere decir antes de ir al hospital o a un centro de atención. La puede usar la propia persona o su familia.\nDespués de la consulta, lo que no se pudo decir queda guardado para la próxima vez.\nNo hace valoraciones médicas. En caso de peligro, llamar al 119 o al 110 (números de Japón), o acudir a un centro de atención.",
+      "Arriba en Inicio, escribir unas palabras en «Añadir una cosa que decir ahora» y tocar «Añadir». Lo añadido se va reuniendo en la «Hoja».\nMás abajo en Inicio, escribir «yo», «mi madre» u otra persona en «¿Sobre quién es este cuaderno? (una línea en la portada)» y tocar «Confirmar». Aparece arriba en las pantallas que se muestran a la otra persona.",
+      "Al tocar «Hoja» abajo, aparece lo reunido. Con «▲ Subir» y «▼ Bajar» se ordena por importancia. Con «Editar» se puede reescribir o borrar.\nElegir de 3 a 5 en «Cuántas mostrar» y tocar «Mostrar a la otra persona»: aparecen esas primeras en letra grande.\nPara volver, tocar «Cerrar (volver a mi pantalla)».",
+      "Al volver de la consulta, tocar «Después de la consulta: marcar (se dijo / no se dijo)» en la «Hoja».\nTocar «Se dijo» en lo que se pudo decir: pasa abajo a «Lo que se dijo».\nLo que no se pudo decir se queda para la próxima vez. Al terminar, tocar «Terminar de marcar».",
+      "Para un lugar al que se va por primera vez, está «Hoja para la primera consulta» en Inicio.\nSe rellenan cuatro campos: «Situaciones difíciles», «Desde cuándo», «Cambios en el cuerpo y en el ánimo» y «Lo que se desea pedir». No hace falta rellenarlo todo.\n«Guardar» la conserva y «Mostrar a la otra persona» la muestra tal cual.",
+      "«Cronología»: con «Añadir una entrada» se anotan consultas, nombres de enfermedad comunicados, medicamentos y acontecimientos. Se ordenan por fecha y se elige qué tipos mostrar.\n«Centros»: con «Añadir un centro» se anotan, por cada centro, la persona que atiende, la próxima cita, lo que dijeron y los acuerdos.\n«Medicamentos»: con «Añadir un medicamento» se guarda la lista de los medicamentos recetados ahora.",
+      "Todo lo que se escribe se guarda solo en este dispositivo. No se envía a ningún lugar y no hace falta registrarse.\nAl cambiar de teléfono, tocar «Exportar» en «Ajustes» para guardar un archivo y luego «Importar» en el teléfono nuevo.\nSi no se quiere que alguien vea la pantalla, «× Cerrar», arriba a la derecha, lleva enseguida a otra página.",
+      "En «Ajustes» se puede cambiar el «Tamaño del texto» (Normal, Grande, Muy grande) y el «Color» (Verde, Azul claro, Blanco, Negro).\nEl idioma se elige en «Language», arriba a la derecha.\nEsta guía se puede ver de nuevo en cualquier momento con «Ver de nuevo», en la fila «Cómo se usa» de «Ajustes»."
+    ]
   },
   "screen": {
     "home": {
@@ -1063,6 +1189,32 @@ TBL.it = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "privacy": "Informativa sulla privacy",
     "credit": "App sviluppata da SOYOGI, punto di ascolto per assistenza e sostegno"
   },
+  "guide": {
+    "title": "Come si usa",
+    "step": "{n} / {m}",
+    "start": "Inizia",
+    "again": "Rivedi",
+    "heads": [
+      "Questo è Prima della visita - SOYOGI",
+      "Per prima cosa, aggiunga una cosa in Home",
+      "Ordini il «Foglio» per importanza",
+      "Dopo l'incontro, segni «Detto»",
+      "Foglio per il primo appuntamento",
+      "Cronologia, Sportelli e Farmaci",
+      "Ciò che scrive resta su questo dispositivo",
+      "Più facile da leggere"
+    ],
+    "bodies": [
+      "Questa app è un quaderno per raccogliere ciò che vuole dire prima di andare in ospedale o a uno sportello di aiuto. Può usarla la persona stessa o la famiglia.\nDopo l'incontro, ciò che non ha potuto dire resta per la volta successiva.\nNon dà giudizi medici. In caso di pericolo chiami il 119 o il 110 (Giappone), oppure si rivolga a uno sportello.",
+      "In alto in Home, scriva poche parole in «Aggiunga una cosa che vuole dire adesso» e tocchi «Aggiungi». Ciò che aggiunge si raccoglie nel «Foglio».\nPiù in basso in Home, scriva «io», «mia madre» o simili in «Di chi parla questo quaderno? (una riga in copertina)» e tocchi «Conferma». Comparirà in alto nelle schermate che mostra all'altra persona.",
+      "Tocchi «Foglio» in basso per vedere ciò che ha raccolto. Con «▲ Su» e «▼ Giù» lo ordina per importanza. Con «Modifica» può riscrivere o cancellare una voce.\nScelga da 3 a 5 in «Quante mostrarne» e tocchi «Mostra all'altra persona»: compaiono le prime voci, in caratteri grandi.\nPer tornare, tocchi «Chiudi (torna alla mia schermata)».",
+      "Al ritorno dall'incontro, tocchi «Dopo l'incontro: segna detto / non detto» nel «Foglio».\nTocchi «Detto» per ciò che ha detto: passa sotto, in «Cose dette».\nCiò che non ha potuto dire resta dov'è, pronto per la volta successiva. Alla fine tocchi «Termina».",
+      "Per un luogo dove va per la prima volta, in Home c'è «Foglio primo incontro».\nCompili quattro campi: «Situazioni di difficoltà», «Da quando», «Cambiamenti nel corpo e nell'umore» e «Cosa vorrei». Non serve compilare tutto.\nCon «Salva» lo conserva, con «Mostra all'altra persona» lo mostra così com'è.",
+      "«Cronologia»: con «Aggiungi un evento» annota visite, nomi di malattia comunicati, farmaci ed eventi. Sono in ordine di data e sceglie Lei quali tipi mostrare.\n«Sportelli»: con «Aggiungi uno sportello» annota per ogni sportello il referente, il prossimo appuntamento, cosa le hanno detto e gli impegni presi.\n«Farmaci»: con «Aggiungi un farmaco» tiene l'elenco dei farmaci prescritti ora.",
+      "Tutto ciò che scrive resta solo su questo dispositivo. Non viene inviato da nessuna parte e non serve registrarsi.\nQuando cambia telefono, tocchi «Esporta» in «Impostazioni» per salvare un file, poi «Importa» sul nuovo telefono.\nSe non vuole che qualcuno veda lo schermo, «× Chiudi» in alto a destra porta subito a un'altra pagina.",
+      "In «Impostazioni» può cambiare la «Dimensione del testo» (Normale, Grande, Molto grande) e il «Colore» (Verde, Azzurro, Bianco, Nero).\nLa lingua si sceglie con «Language» in alto a destra.\nPuò rivedere questa guida in qualsiasi momento con «Rivedi», nella riga «Come si usa» delle «Impostazioni»."
+    ]
+  },
   "screen": {
     "home": {
       "title": "Prima della visita",
@@ -1288,6 +1440,32 @@ TBL.pt = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "note": "Tudo o que se escreve fica guardado só neste aparelho. Nada é enviado para fora.",
     "privacy": "Política de privacidade",
     "credit": "Desenvolvido por: SOYOGI, espaço de consulta sobre cuidados e apoio"
+  },
+  "guide": {
+    "title": "Como usar",
+    "step": "{n} / {m}",
+    "start": "Começar",
+    "again": "Ver de novo",
+    "heads": [
+      "Isto é o Antes da consulta - SOYOGI",
+      "Primeiro, adicionar uma coisa no Início",
+      "Ordenar a «Folha» por importância",
+      "Depois do atendimento, marcar «Dito»",
+      "Folha para a primeira vez",
+      "Cronologia, Locais e Medicamentos",
+      "O que se escreve fica neste aparelho",
+      "Mais fácil de ler"
+    ],
+    "bodies": [
+      "Esta aplicação é um caderno para juntar o que se quer dizer antes de ir ao hospital ou a um serviço de apoio. Pode ser usada pela própria pessoa ou pela família.\nDepois do atendimento, o que não se conseguiu dizer fica guardado para a próxima vez.\nNão faz avaliações médicas. Em caso de perigo, ligar para o 119 ou o 110 (números do Japão), ou procurar um serviço de apoio.",
+      "No alto do Início, escrever poucas palavras em «Adicionar uma coisa a dizer agora» e tocar em «Adicionar». O que se adiciona vai-se juntando na «Folha».\nMais abaixo no Início, escrever «eu», «mãe» ou outra pessoa em «Sobre quem é este caderno? (uma linha na capa)» e tocar em «Confirmar». Aparece no alto das páginas mostradas à outra pessoa.",
+      "Ao tocar em «Folha», em baixo, aparece o que se juntou. Com «▲ Para cima» e «▼ Para baixo» ordena-se por importância. Com «Corrigir» pode-se reescrever ou apagar.\nEscolher de 3 a 5 em «Quantos mostrar» e tocar em «Mostrar à outra pessoa»: aparecem os primeiros, em letra grande.\nPara voltar, tocar em «Fechar (voltar à minha página)».",
+      "Ao voltar do atendimento, tocar em «Depois do atendimento: marcar (dito / não dito)» na «Folha».\nTocar em «Dito» no que se conseguiu dizer: passa para «Coisas ditas», mais abaixo.\nO que não se disse fica onde está, para a próxima vez. No fim, tocar em «Terminar de marcar».",
+      "Para um lugar aonde se vai pela primeira vez, há a «Folha para a primeira vez» no Início.\nPreenchem-se quatro campos: «Situações de dificuldade», «Desde quando», «Mudanças no corpo e no estado de ânimo» e «O que gostaria de pedir». Não é preciso preencher tudo.\n«Guardar» guarda-a e «Mostrar à outra pessoa» mostra-a tal como está.",
+      "«Cronologia»: com «Adicionar um acontecimento» anotam-se consultas, nomes de doença comunicados, medicamentos e acontecimentos. Ficam por ordem de data e escolhe-se que tipos mostrar.\n«Locais»: com «Adicionar um local» anotam-se, para cada local, a pessoa responsável, a próxima data marcada, o que foi dito e o que ficou combinado.\n«Medicamentos»: com «Adicionar medicamento» guarda-se a lista dos medicamentos receitados agora.",
+      "Tudo o que se escreve fica guardado só neste aparelho. Nada é enviado para fora e não é preciso criar conta.\nAo mudar de aparelho, tocar em «Exportar» nas «Configurações» para guardar um arquivo e depois em «Importar» no aparelho novo.\nSe não quiser que outra pessoa veja o que escreveu, «× Fechar», no canto superior direito, leva logo a outra página.",
+      "Nas «Configurações» pode-se mudar o «Tamanho do texto» (Normal, Grande, Muito grande) e a «Cor» (Verde, Azul-claro, Branco, Preto).\nO idioma escolhe-se em «Language», no canto superior direito.\nEste guia pode ser visto de novo a qualquer momento com «Ver de novo», na linha «Como usar» das «Configurações»."
+    ]
   },
   "screen": {
     "home": {
@@ -1515,6 +1693,32 @@ TBL.nl = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "privacy": "Privacybeleid",
     "credit": "App ontwikkeld door SOYOGI, een plek voor vragen over zorg en ondersteuning"
   },
+  "guide": {
+    "title": "Zo werkt het",
+    "step": "{n} / {m}",
+    "start": "Beginnen",
+    "again": "Nog eens bekijken",
+    "heads": [
+      "Welkom bij Voor de afspraak - SOYOGI",
+      "Eerst: voeg op Home één ding toe",
+      "Zet het \"Blad\" op volgorde van belang",
+      "Vink na afloop \"Gezegd\" aan",
+      "Blad voor een eerste bezoek",
+      "Tijdlijn, Loketten en Medicijnen",
+      "Wat u schrijft, blijft op dit apparaat",
+      "Makkelijker lezen"
+    ],
+    "bodies": [
+      "Deze app is een boekje waarin u verzamelt wat u wilt zeggen voordat u naar het ziekenhuis of een hulploket gaat. De persoon zelf of de familie kan het gebruiken.\nNa afloop bewaart u wat u niet kon zeggen voor de volgende keer.\nDe app geeft geen medisch oordeel. Bij gevaar belt u 119 of 110 (Japan), of neemt u contact op met een loket.",
+      "Schrijf bovenaan op Home een paar woorden bij \"Voeg één ding toe dat u nu wilt zeggen\" en tik op \"Toevoegen\". Wat u toevoegt, komt op het \"Blad\".\nSchrijf verderop op Home bij \"Over wie gaat dit boekje? (één regel op de voorkant)\" bijvoorbeeld \"ik\" of \"mijn moeder\" en tik op \"Vastleggen\". Dat staat dan bovenaan de schermen die u aan de ander laat zien.",
+      "Tik onderaan op \"Blad\" om te zien wat u hebt verzameld. Met \"▲ Omhoog\" en \"▼ Omlaag\" zet u het op volgorde van belang. Met \"Bewerken\" kunt u iets herschrijven of wissen.\nKies 3 tot 5 bij \"Aantal om te tonen\" en tik op \"Aan de ander laten zien\": dan verschijnen de bovenste in grote letters.\nTerug gaat met \"Sluiten (terug naar mijn scherm)\".",
+      "Terug van de afspraak tikt u op het \"Blad\" op \"Na afloop aanvinken (gezegd / niet gezegd)\".\nTik op \"Gezegd\" bij wat u hebt gezegd. Het gaat naar \"Wat ik heb gezegd\" hieronder.\nWat u niet kon zeggen, blijft staan voor de volgende keer. Tik tot slot op \"Klaar met aanvinken\".",
+      "Voor een plek waar u voor het eerst heen gaat, is er op Home het \"Blad voor een eerste bezoek\".\nU vult vier vakken in: \"Situaties waar ik moeite mee heb\", \"Sinds wanneer\", \"Veranderingen in lichaam en gevoel\" en \"Wat ik graag zou willen\". U hoeft niet alles in te vullen.\nMet \"Opslaan\" bewaart u het, met \"Aan de ander laten zien\" laat u het meteen zien.",
+      "\"Tijdlijn\": met \"Gebeurtenis toevoegen\" noteert u consulten, genoemde ziektenamen, medicijnen en gebeurtenissen. Ze staan op datum en u kiest zelf welke soorten de ander ziet.\n\"Loketten\": met \"Loket toevoegen\" noteert u per loket de contactpersoon, de volgende afspraak, wat er gezegd is en wat is afgesproken.\n\"Medicijnen\": met \"Medicijn toevoegen\" houdt u een lijst bij van de medicijnen die u nu voorgeschreven krijgt.",
+      "Alles wat u schrijft, wordt alleen op dit apparaat bewaard. Er wordt niets verstuurd en u hoeft zich niet aan te melden.\nBij een andere telefoon tikt u in \"Instellingen\" op \"Exporteren\" om een bestand te bewaren, en op de nieuwe telefoon op \"Importeren\".\nWilt u niet dat iemand meekijkt, dan gaat u met \"× Sluiten\" rechtsboven meteen naar een andere pagina.",
+      "In \"Instellingen\" kunt u de \"Tekstgrootte\" (Normaal, Groot, Heel groot) en de \"Kleur\" (Groen, Lichtblauw, Wit, Zwart) veranderen.\nDe taal kiest u rechtsboven bij \"Language\".\nDeze uitleg ziet u altijd opnieuw via \"Nog eens bekijken\" bij \"Zo werkt het\" in \"Instellingen\"."
+    ]
+  },
   "screen": {
     "home": {
       "title": "Voor de afspraak",
@@ -1740,6 +1944,32 @@ TBL.sv = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "note": "Allt du skriver sparas bara på den här enheten. Inget skickas någonstans.",
     "privacy": "Integritetspolicy",
     "credit": "Apputveckling: SOYOGI, rådgivning om omsorg och stöd"
+  },
+  "guide": {
+    "title": "Så används appen",
+    "step": "{n} / {m}",
+    "start": "Börja",
+    "again": "Visa igen",
+    "heads": [
+      "Välkommen till Inför besöket - SOYOGI",
+      "Först: lägg till en sak på Hem",
+      "Ordna ”Bladet” efter vad som är viktigast",
+      "Efter besöket: markera ”Sagt”",
+      "Blad för första besöket",
+      "Tidslinje, Kontakter och Mediciner",
+      "Det du skriver stannar på den här enheten",
+      "Lättare att läsa"
+    ],
+    "bodies": [
+      "Appen är en anteckningsbok där du samlar det du vill säga innan du går till sjukhuset eller ett kontaktställe. Den kan användas av personen själv eller av familjen.\nEfter besöket kan du spara det du inte kunde säga till nästa gång.\nDen gör inga medicinska bedömningar. Vid fara: ring 119 eller 110 (i Japan) eller kontakta ett kontaktställe.",
+      "Högst upp på Hem skriver du några ord under ”Lägg till en sak du vill säga nu” och trycker på ”Lägg till”. Det du lägger till samlas på ”Bladet”.\nLängre ner på Hem skriver du till exempel ”jag” eller ”mamma” under ”Vem handlar anteckningarna om? (en rad på omslaget)” och trycker på ”Spara”. Det syns överst på skärmarna du visar för den du träffar.",
+      "Tryck på ”Bladet” längst ner för att se det du samlat. Med ”▲ Upp” och ”▼ Ner” ordnar du efter vad som är viktigast. Med ”Ändra” kan du skriva om eller ta bort.\nVälj 3 till 5 under ”Antal att visa” och tryck på ”Visa för den du träffar”. Då visas så många uppifrån med stor text.\nTillbaka kommer du med ”Stäng (tillbaka till min skärm)”.",
+      "När du är tillbaka från besöket trycker du på ”Efter besöket: markera sagt / inte sagt” på ”Bladet”.\nTryck på ”Sagt” för det du sa. Det flyttas ner till ”Det jag har sagt”.\nDet du inte kunde säga ligger kvar till nästa gång. Tryck sist på ”Klar med markering”.",
+      "För ett ställe du besöker för första gången finns ”Blad för första besöket” på Hem.\nDu fyller i fyra fält: ”Situationer som är svåra”, ”Sedan när”, ”Förändringar i kropp och känslor” och ”Det jag önskar”. Du behöver inte fylla i allt.\nMed ”Spara” sparar du det och med ”Visa för den du träffar” visar du det direkt.",
+      "”Tidslinje”: med ”Lägg till en händelse” skriver du besök, angivna sjukdomsnamn, mediciner och händelser. De ordnas efter datum och du väljer själv vilka typer som visas.\n”Kontakter”: med ”Lägg till ett ställe” skriver du för varje ställe kontaktperson, nästa besökstid, det de sa och överenskommelser.\n”Mediciner”: med ”Lägg till en medicin” har du en lista över de mediciner du har utskrivna nu.",
+      "Allt du skriver sparas bara på den här enheten. Inget skickas någonstans och du behöver inget konto.\nNär du byter telefon trycker du på ”Exportera” under ”Inställningar” för att spara en fil och sedan på ”Importera” i den nya telefonen.\nOm du inte vill att någon ska se skärmen går du med ”× Stäng” uppe till höger direkt till en annan sida.",
+      "Under ”Inställningar” kan du ändra ”Textstorlek” (Normal, Stor, Mycket stor) och ”Färg” (Grön, Ljusblå, Vit, Svart).\nSpråket väljer du uppe till höger under ”Language”.\nDen här guiden kan du se igen när som helst med ”Visa igen” vid ”Så används appen” under ”Inställningar”."
+    ]
   },
   "screen": {
     "home": {
@@ -1967,6 +2197,32 @@ TBL.ko = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "privacy": "개인정보 처리방침",
     "credit": "앱 개발: 돌봄과 지원 상담소 SOYOGI"
   },
+  "guide": {
+    "title": "사용 방법",
+    "step": "{n} / {m}",
+    "start": "시작하기",
+    "again": "다시 보기",
+    "heads": [
+      "상담·병원 가기 전에 - SOYOGI에 오신 것을 환영해요",
+      "먼저 홈에서 하나 추가하기",
+      "\"한 장\"에서 중요한 순서로 놓기",
+      "창구에 다녀와서 \"말했어요\" 표시하기",
+      "처음 갈 때의 한 장",
+      "연표 · 창구 · 약",
+      "적은 내용은 이 기기 안에만",
+      "보기 편하게 하기"
+    ],
+    "bodies": [
+      "이 앱은 병원이나 상담 창구에 가기 전에 전하고 싶은 것을 모아 두는 노트예요. 본인도, 가족도 쓸 수 있어요.\n다녀온 뒤에는 말하지 못한 것을 다음번으로 남길 수 있어요.\n의료적인 판단은 하지 않아요. 위험할 때는 119나 110(일본), 또는 상담 창구로.",
+      "홈 맨 위 \"지금 전하고 싶은 것 하나 추가하기\"에 짧게 적고 \"추가\"를 눌러요. 추가한 것은 \"한 장\"에 모여요.\n홈 아래쪽 \"누구에 관해 적는 노트인가요? (표지의 한 줄)\"에 \"나\"나 \"어머니\" 등을 적고 \"정하기\"를 누르면, 상대에게 보여 주는 화면 맨 위에 나와요.",
+      "아래의 \"한 장\"을 누르면 모아 둔 것이 나와요. \"▲ 위로\" \"▼ 아래로\"로 중요한 순서로 놓아요. \"고치기\"로 다시 쓰거나 지울 수 있어요.\n\"보여 줄 개수\"에서 3~5를 고르고 \"상대에게 보여 주기\"를 누르면, 위에서부터 그 개수만큼 큰 글자로 나와요.\n돌아갈 때는 \"닫기 (내 화면으로 돌아가기)\"를 눌러요.",
+      "창구에서 돌아오면 \"한 장\"의 \"창구에 다녀와서 표시하기 (말했어요 / 말하지 못했어요)\"를 눌러요.\n말한 것은 \"말했어요\"를 누르면 아래의 \"말한 것\"으로 옮겨져요.\n말하지 못한 것은 그대로 남아 다음번 한 장이 돼요. 다 하면 \"표시 마치기\"를 눌러요.",
+      "처음 가는 곳에는 홈의 \"처음 갈 때의 한 장\"을 쓸 수 있어요.\n\"곤란한 장면\" \"언제부터\" \"몸과 마음의 변화\" \"해 주었으면 하는 것\" 네 가지를 적어요. 다 적지 않아도 괜찮아요.\n\"저장하기\"로 남기고, \"상대에게 보여 주기\"로 그대로 보여 줄 수 있어요.",
+      "\"연표\"는 \"일어난 일 추가\"로 진료 · 들은 병명 · 약 · 일어난 일을 적어요. 날짜순으로 놓이고, 상대에게 보여 줄 종류는 직접 고를 수 있어요.\n\"창구\"는 \"창구 추가\"로 창구마다 담당자 · 다음 예약 · 들은 말 · 약속을 적어요.\n\"약\"은 \"약 추가\"로 지금 처방받은 약 이름을 모아 둬요.",
+      "적은 내용은 모두 이 기기 안에만 저장되고, 어디에도 보내지 않아요. 가입도 필요 없어요.\n휴대폰을 바꿀 때는 \"설정\"의 \"내보내기\"로 파일을 남기고, 새 휴대폰에서 \"불러오기\"를 눌러요.\n다른 사람이 보면 곤란할 때는 오른쪽 위의 \"× 닫기\"를 누르면 바로 다른 페이지로 넘어가요.",
+      "\"설정\"에서 \"글자 크기\"(보통 · 크게 · 아주 크게)와 \"색\"(초록 · 하늘색 · 흰색 · 검정)을 바꿀 수 있어요.\n언어는 오른쪽 위의 \"Language\"에서 골라요.\n이 안내는 \"설정\"의 \"사용 방법\"에서 \"다시 보기\"를 누르면 언제든 다시 볼 수 있어요."
+    ]
+  },
   "screen": {
     "home": {
       "title": "상담·병원 가기 전에",
@@ -2193,6 +2449,32 @@ TBL.zh = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "privacy": "隐私政策",
     "credit": "应用开发：护理与支援咨询处 SOYOGI"
   },
+  "guide": {
+    "title": "使用方法",
+    "step": "{n} / {m}",
+    "start": "开始",
+    "again": "再看一次",
+    "heads": [
+      "欢迎使用 咨询与就诊前 - SOYOGI",
+      "首先，在首页添加一件事",
+      "在“一页”里按重要程度排列",
+      "去过窗口后，标记“说出了”",
+      "第一次去时用的一页",
+      "年表、窗口、药物",
+      "写下的内容只留在这台设备里",
+      "让画面更容易看"
+    ],
+    "bodies": [
+      "这个应用是一本笔记，用来在去医院或咨询窗口之前，把想说的事记下来。本人和家人都可以使用。\n去过之后，没能说出的事可以留到下一次。\n本应用不做医疗上的判断。遇到危险时，请拨打 119 或 110（日本），或联系窗口。",
+      "在首页最上面的“添加一件现在想说的事”里写几个字，然后点“添加”。添加的内容会积累到“一页”里。\n在首页下方的“这本笔记是写谁的？（封面上的一行）”里写上“我”或“母亲”等，再点“确定”，就会显示在给对方看的画面最上方。",
+      "点下方的“一页”，就能看到积累的内容。用“▲ 上移”“▼ 下移”按重要程度排列。点“修改”可以改写或删除。\n在“给对方看的条数”里选 3 到 5，再点“给对方看”，就会从上往下用大字显示这么多条。\n返回时点“关闭（回到自己的画面）”。",
+      "从窗口回来后，在“一页”里点“去过窗口后做标记（说出了 / 没说出）”。\n说出的事点“说出了”，就会移到下方的“说出来的事”。\n没说出的事会原样保留，成为下一次的内容。结束后点“标记完毕”。",
+      "第一次去的地方，可以用首页的“第一次去时用的一页”。\n填写“感到困扰的情况”“从什么时候开始”“身体和心情的变化”“希望对方做的事”这四项。不必全部填写。\n点“保存”留下来，点“给对方看”就能直接给对方看。",
+      "“年表”：点“添加事件”，记下就诊、被告知的病名、药物和事件。按日期排列，给对方看哪些种类由自己选择。\n“窗口”：点“添加窗口”，按窗口记下负责人、下次预约、对方说的话和约定。\n“药物”：点“添加药物”，把现在开的药名列出来。",
+      "写下的内容全部只保存在这台设备里，不会发送到任何地方，也不需要注册。\n换手机时，在“设置”里点“导出”保存文件，然后在新手机上点“导入”。\n不想被别人看到时，点右上角的“× 关闭”，可以马上切换到别的页面。",
+      "在“设置”里可以更改“文字大小”（普通、大、非常大）和“颜色”（绿色、水蓝色、白色、黑色）。\n语言在右上角的“Language”中选择。\n在“设置”的“使用方法”里点“再看一次”，随时可以再看这份说明。"
+    ]
+  },
   "screen": {
     "home": {
       "title": "咨询与就诊前",
@@ -2418,6 +2700,32 @@ TBL.ar = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "note": "كل ما يُكتب هنا يُحفظ على هذا الجهاز فقط، ولا يُرسل إلى أي مكان.",
     "privacy": "سياسة الخصوصية",
     "credit": "تطوير التطبيق: SOYOGI، مكان للاستشارة في الرعاية والدعم"
+  },
+  "guide": {
+    "title": "طريقة الاستخدام",
+    "step": "{n} / {m}",
+    "start": "ابدأ",
+    "again": "عرض مرة أخرى",
+    "heads": [
+      "مرحبًا بك في قبل الموعد - SOYOGI",
+      "أولًا: أضف شيئًا واحدًا في «الرئيسية»",
+      "رتّب «الورقة» حسب الأهمية",
+      "بعد الزيارة: ضع علامة «قلته»",
+      "ورقة الزيارة الأولى",
+      "السجل الزمني والجهات والأدوية",
+      "ما تكتبه يبقى على هذا الجهاز",
+      "قراءة أسهل"
+    ],
+    "bodies": [
+      "هذا التطبيق دفتر تجمع فيه ما تريد قوله قبل الذهاب إلى المستشفى أو إلى جهة الاستشارة. يمكن أن يستخدمه الشخص نفسه أو أحد أفراد أسرته.\nبعد الزيارة، يبقى ما لم تستطع قوله للمرة القادمة.\nلا يقدّم التطبيق أحكامًا طبية. عند الخطر، يمكن الاتصال بالرقم 119 أو 110 (في اليابان)، أو التوجّه إلى جهة الاستشارة.",
+      "في أعلى «الرئيسية»، اكتب كلمات قليلة في «إضافة شيء واحد أريد قوله الآن» ثم اضغط «إضافة». ما تضيفه يتجمّع في «الورقة».\nوفي أسفل «الرئيسية»، اكتب «أنا» أو «أمي» مثلًا في «عن مَن هذا الدفتر؟ (سطر واحد على الغلاف)» ثم اضغط «تحديد»، فيظهر في أعلى الشاشات التي تعرضها على الشخص الآخر.",
+      "اضغط «الورقة» في الأسفل لترى ما جمعته. رتّبه حسب الأهمية بـ«▲ إلى الأعلى» و«▼ إلى الأسفل». ويمكنك بـ«تعديل» إعادة الكتابة أو الحذف.\nاختر من 3 إلى 5 في «عدد ما يُعرض» ثم اضغط «العرض على الشخص الآخر»، فيظهر هذا العدد من الأعلى بخط كبير.\nللرجوع، اضغط «إغلاق (العودة إلى شاشتي)».",
+      "عند عودتك من الزيارة، اضغط في «الورقة» على «بعد الزيارة: وضع علامة (قلته / لم أقله)».\nاضغط «قلته» لما قلته، فينتقل إلى «ما قلته» في الأسفل.\nما لم تقله يبقى كما هو للمرة القادمة. وعند الانتهاء اضغط «إنهاء وضع العلامات».",
+      "للمكان الذي تذهب إليه أول مرة، استخدم «ورقة الزيارة الأولى» في «الرئيسية».\nاكتب في أربع خانات: «المواقف التي أجد فيها صعوبة» و«منذ متى» و«تغيّرات في الجسم والمشاعر» و«ما أرغب فيه». لا يلزم ملء كل شيء.\nاضغط «حفظ» للاحتفاظ بها، و«العرض على الشخص الآخر» لعرضها كما هي.",
+      "«السجل الزمني»: اضغط «إضافة حدث» لتكتب الزيارات الطبية وأسماء الأمراض المُبلَّغ بها والأدوية والأحداث. تُرتَّب حسب التاريخ، وتختار بنفسك الأنواع التي تُعرض.\n«الجهات»: اضغط «إضافة جهة» لتكتب لكل جهة الشخص المسؤول والموعد القادم وما قيل لك وما اتُّفق عليه.\n«الأدوية»: اضغط «إضافة دواء» لتجمع أسماء الأدوية الموصوفة لك الآن.",
+      "كل ما تكتبه يُحفظ على هذا الجهاز فقط، ولا يُرسل إلى أي مكان، ولا حاجة إلى تسجيل.\nعند تغيير الهاتف، اضغط «تصدير» في «الإعدادات» لحفظ ملف، ثم اضغط «استيراد» على الهاتف الجديد.\nإذا لم ترغب في أن يرى أحد الشاشة، فزر «× إغلاق» في أعلى الشاشة ينقلك فورًا إلى صفحة أخرى.",
+      "في «الإعدادات» يمكنك تغيير «حجم الخط» (عادي، كبير، كبير جدًا) و«اللون» (أخضر، أزرق فاتح، أبيض، أسود).\nاختر اللغة من «Language» في أعلى الشاشة.\nيمكنك رؤية هذا الدليل مرة أخرى في أي وقت بالضغط على «عرض مرة أخرى» في سطر «طريقة الاستخدام» داخل «الإعدادات»."
+    ]
   },
   "screen": {
     "home": {
