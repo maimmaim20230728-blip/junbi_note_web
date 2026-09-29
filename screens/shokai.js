@@ -30,13 +30,14 @@
       var saveB = U.btn(api, 'primary', T('common.save'), function(){
         var d = collect();
         if(!api.save('first.v1', d)){ api.toast(T('common.storageFull')); return; }
-        data = d; api.toast(T('common.saved'));
+        data = d; api.toast(T('common.saved')); api.markSaved();   // 戻るボタン(Play版)の確かめを出さない
       });
       saveB.id = 'shokai-save';
       row.appendChild(saveB);
       var showB = U.btn(api, '', T('common.show'), function(){
         var d = collect();
-        api.save('first.v1', d); data = d;
+        if(api.save('first.v1', d)) api.markSaved();
+        data = d;
         U.openOv(api, function(box){
           box.appendChild(api.el('div', 'show-head', T('screen.shokai.ovHead')));
           if(note.who) box.appendChild(api.el('p', 'show-label', U.fmt(T('screen.ichimai.ovWho'), { who: note.who })));

@@ -36,7 +36,11 @@
     return splitMeds(fields.meds);
   }
 
+  var stage = null;   // 戻るボタン(Play版): 画面の中の段を1つ戻す(描くたびに作り直す)
+
   window.SCREENS.register('kusuri', {
+    /* 戻るボタン(Play版・2026-09-29): なおしている行を閉じる(やめる と同じ・保存しない) */
+    back: function(api){ return stage ? stage(api) : false; },
     render: function(c, api){
       var U = window.JUNBI_UI, T = api.T;
       var rows = U.list(api, 'meds.v1');
@@ -62,6 +66,8 @@
         if(!persist(list)) return;
         name.value = ''; memo.value = ''; api.toast(T('common.saved')); drawList();
       });
+      /* 一覧を描き直すと なおす行は閉じる: 上の「たす」欄にも書きかけが無ければ、戻るボタンの確かめは要らない */
+      function settle(){ if(!String(name.value || '') && !String(memo.value || '')) api.markSaved(); }
       addB.id = 'kusuri-add';
       card.appendChild(addB);
       c.appendChild(card);
@@ -69,6 +75,7 @@
       var listBox = api.el('div'); listBox.id = 'kusuri-list'; c.appendChild(listBox);
       function drawList(){
         listBox.textContent = '';
+        settle();
         if(!rows.length){ listBox.appendChild(api.el('p', 'empty', T('screen.kusuri.empty'))); return; }
         var ul = api.el('ul', 'list');
         rows.forEach(function(r){
@@ -112,6 +119,14 @@
         li.appendChild(box);
       }
       drawList();
+      stage = function(){
+        if(!listBox.querySelector('input')) return false;
+        drawList();
+        /* 確かめの窓で OK すると書きかけの印は消えるが、上の「たす」欄の字は残っている(閉じたのは なおす行だけ)。
+           印を付け直して、次の戻るで画面を離れるときも確かめる(点検 2026-09-29: 付け直さないと「たす」欄の字が確かめなしで消えた) */
+        if(String(name.value || '') || String(memo.value || '')){ try{ name.dispatchEvent(new Event('input', { bubbles:true })); }catch(_){} }
+        return true;
+      };
 
       /* もしもカードの控えから読み込む(file input だけネイティブイベント) */
       c.appendChild(api.el('h2', 'sec-h', T('screen.kusuri.importBtn')));

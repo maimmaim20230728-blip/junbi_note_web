@@ -6,8 +6,11 @@
    ・相手テンプレは初版で病院のみ(見出し文 screen.ichimai.ovHead) */
 (function(){
   var N_CHOICES = [3, 4, 5];
+  var stage = null;   // 戻るボタン(Play版): 画面の中の段を1つ戻す(描くたびに作り直す)
 
   window.SCREENS.register('ichimai', {
+    /* 戻るボタン(Play版・2026-09-29): なおしている行 /「言えた・言えなかった」のモード を閉じる(やめる と同じ・保存しない) */
+    back: function(api){ return stage ? stage(api) : false; },
     render: function(c, api){
       var U = window.JUNBI_UI, T = api.T;
       var items = U.list(api, 'items.v1');
@@ -53,6 +56,7 @@
 
       function drawList(){
         listBox.textContent = '';
+        api.markSaved();   // 描き直すと なおす行は閉じる(この画面の入力は なおす行だけ)=戻るボタンの書きかけは無い
         if(afterMode){
           listBox.appendChild(api.el('h2', 'sec-h', T('screen.ichimai.afterTitle')));
           listBox.appendChild(api.el('p', 'hint', T('screen.ichimai.afterHint')));
@@ -139,6 +143,11 @@
         li.appendChild(box);
       }
       drawList();
+      stage = function(){
+        if(!afterMode && !listBox.querySelector('input, textarea')) return false;
+        afterMode = false; drawList();
+        return true;
+      };
 
       /* 言えたこと */
       var saidBox = api.el('div');

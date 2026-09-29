@@ -21,6 +21,7 @@ var ja = {
     deleted:'けしました', delConfirm:'ほんとうに けしますか?', empty:'まだ なにも ありません',
     optional:'ぜんぶ 書かなくても だいじょうぶです。', today:'きょう',
     show:'相手に 見せる', showClose:'とじる(自分の 画面に もどる)',
+    backConfirm:'書いたことは まだ ほぞんしていません。すてて もどりますか?',
     photo: {
       camera:'カメラで とる', roll:'しゃしんから えらぶ',
       cropTitle:'しゃしんを 切りとる', cropHint:'ゆびで うごかすか、やじるしで あわせて、スライダーで 大きさを かえます。',
@@ -160,6 +161,7 @@ var en = {
     deleted:'Deleted', delConfirm:'Really delete this?', empty:'Nothing here yet',
     optional:'You do not have to fill in everything.', today:'Today',
     show:'Show to the other person', showClose:'Close (back to my screen)',
+    backConfirm:'What you wrote is not saved yet. Discard it and go back?',
     photo: {
       camera:'Take a photo', roll:'Choose from photos',
       cropTitle:'Crop the photo', cropHint:'Drag with a finger or use the arrows, then change the size with the slider.',
@@ -331,6 +333,7 @@ TBL.de = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "today": "Heute",
     "show": "Dem Gegenüber zeigen",
     "showClose": "Schließen (zurück zu meiner Ansicht)",
+    "backConfirm": "Was Sie geschrieben haben, ist noch nicht gespeichert. Verwerfen und zurückgehen?",
     "photo": {
       "camera": "Foto aufnehmen",
       "roll": "Aus Fotos wählen",
@@ -556,6 +559,7 @@ TBL.fr = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "today": "Aujourd'hui",
     "show": "Montrer à votre interlocuteur",
     "showClose": "Fermer (retour à mon écran)",
+    "backConfirm": "Ce que vous avez écrit n'est pas encore enregistré. L'abandonner et revenir en arrière ?",
     "photo": {
       "camera": "Prendre une photo",
       "roll": "Choisir une photo",
@@ -781,6 +785,7 @@ TBL.es = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "today": "Hoy",
     "show": "Mostrar a la otra persona",
     "showClose": "Cerrar (volver a mi pantalla)",
+    "backConfirm": "Lo escrito aún no está guardado. ¿Descartarlo y volver?",
     "photo": {
       "camera": "Usar la cámara",
       "roll": "Elegir de las fotos",
@@ -1006,6 +1011,7 @@ TBL.it = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "today": "Oggi",
     "show": "Mostra all'altra persona",
     "showClose": "Chiudi (torna alla mia schermata)",
+    "backConfirm": "Quanto scritto non è ancora salvato. Scartarlo e tornare indietro?",
     "photo": {
       "camera": "Scatta una foto",
       "roll": "Scegli dalle foto",
@@ -1231,6 +1237,7 @@ TBL.pt = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "today": "Hoje",
     "show": "Mostrar à outra pessoa",
     "showClose": "Fechar (voltar à minha página)",
+    "backConfirm": "O que escreveu ainda não foi guardado. Descartar e voltar?",
     "photo": {
       "camera": "Tirar uma foto",
       "roll": "Escolher das fotos",
@@ -1456,6 +1463,7 @@ TBL.nl = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "today": "Vandaag",
     "show": "Aan de ander laten zien",
     "showClose": "Sluiten (terug naar mijn scherm)",
+    "backConfirm": "Wat u hebt geschreven, is nog niet opgeslagen. Weggooien en teruggaan?",
     "photo": {
       "camera": "Foto maken",
       "roll": "Kiezen uit foto's",
@@ -1681,6 +1689,7 @@ TBL.sv = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "today": "I dag",
     "show": "Visa för den du träffar",
     "showClose": "Stäng (tillbaka till min skärm)",
+    "backConfirm": "Det du har skrivit är inte sparat än. Vill du slänga det och gå tillbaka?",
     "photo": {
       "camera": "Ta ett foto",
       "roll": "Välj bland bilder",
@@ -1906,6 +1915,7 @@ TBL.ko = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "today": "오늘",
     "show": "상대에게 보여 주기",
     "showClose": "닫기 (내 화면으로 돌아가기)",
+    "backConfirm": "쓴 내용이 아직 저장되지 않았어요. 버리고 돌아갈까요?",
     "photo": {
       "camera": "카메라로 찍기",
       "roll": "사진에서 고르기",
@@ -2131,6 +2141,7 @@ TBL.zh = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "today": "今天",
     "show": "给对方看",
     "showClose": "关闭（回到自己的画面）",
+    "backConfirm": "写的内容还没有保存。要放弃并返回吗？",
     "photo": {
       "camera": "用相机拍摄",
       "roll": "从照片中选择",
@@ -2356,6 +2367,7 @@ TBL.ar = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "today": "اليوم",
     "show": "العرض على الشخص الآخر",
     "showClose": "إغلاق (العودة إلى شاشتي)",
+    "backConfirm": "ما كتبته لم يُحفظ بعد. هل تريد تجاهله والرجوع؟",
     "photo": {
       "camera": "التقاط صورة",
       "roll": "اختيار من الصور",

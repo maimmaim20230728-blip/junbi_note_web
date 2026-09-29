@@ -3,7 +3,11 @@
    ・places.v1 = [{ id, name, person, next:'YYYY-MM-DD'|'', told, promise, check:'YYYY-MM-DD'|'' }]
    ・カードをタップで開いて直す(1つのフォームを使い回す) */
 (function(){
+  var stage = null;   // 戻るボタン(Play版): 画面の中の段を1つ戻す(描くたびに作り直す)
+
   window.SCREENS.register('madoguchi', {
+    /* 戻るボタン(Play版・2026-09-29): 開いている入力の欄を閉じる(やめる と同じ・保存しない) */
+    back: function(api){ return stage ? stage(api) : false; },
     render: function(c, api){
       var U = window.JUNBI_UI, T = api.T;
       var rows = U.list(api, 'places.v1');
@@ -19,6 +23,7 @@
 
       function openForm(row){
         formBox.textContent = '';
+        api.markSaved();   // 開いていた欄は入れ替わった(この画面の入力は この欄だけ)=戻るボタンの書きかけは無い
         var isNew = !row;
         row = row || { id: U.uid(), name: '', person: '', next: '', told: '', promise: '', check: '' };
         var card = api.el('div', 'card');
@@ -42,14 +47,14 @@
           var list = U.list(api, 'places.v1');
           if(isNew) list.push(rec); else list = list.map(function(x){ return x.id === rec.id ? rec : x; });
           if(!persist(list)) return;
-          api.toast(T('common.saved')); formBox.textContent = ''; drawList();
+          api.toast(T('common.saved')); formBox.textContent = ''; drawList(); api.markSaved();
         });
         saveB.id = 'madoguchi-f-save';
         btns.appendChild(saveB);
-        btns.appendChild(U.btn(api, '', T('common.cancel'), function(){ formBox.textContent = ''; }));
+        btns.appendChild(U.btn(api, '', T('common.cancel'), function(){ formBox.textContent = ''; api.markSaved(); }));
         if(!isNew) btns.appendChild(U.delBtn(api, function(){
           if(!persist(U.list(api, 'places.v1').filter(function(x){ return x.id !== row.id; }))) return;
-          api.toast(T('common.deleted')); formBox.textContent = ''; drawList();
+          api.toast(T('common.deleted')); formBox.textContent = ''; drawList(); api.markSaved();
         }));
         card.appendChild(btns);
         formBox.appendChild(card);
@@ -72,6 +77,11 @@
         });
       }
       drawList();
+      stage = function(){
+        if(!formBox.firstChild) return false;
+        formBox.textContent = '';
+        return true;
+      };
     }
   });
 })();

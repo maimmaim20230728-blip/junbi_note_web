@@ -32,6 +32,7 @@
         list.push({ id: U.uid(), title: t, detail: String(detail.value || '').trim(), created: Date.now() });
         if(!api.save('items.v1', list)){ api.toast(T('common.storageFull')); return; }
         title.value = ''; detail.value = '';
+        api.markSaved();   // 戻るボタン(Play版)の書きかけの印を消す
         api.toast(T('screen.home.added'));
         countEl.textContent = U.fmt(T('screen.home.count'), { n: list.length });
       });
@@ -71,6 +72,7 @@
         var n = U.obj(api, 'note.v1', { who:'' });
         n.who = String(who.value || '').trim();
         if(!api.save('note.v1', n)){ api.toast(T('common.storageFull')); return; }
+        if(!String(title.value || '') && !String(detail.value || '')) api.markSaved();   // 上の「たす」欄に書きかけが無いときだけ
         api.toast(T('screen.home.whoSaved'));
       });
       whoBtn.id = 'home-who-save';

@@ -7,8 +7,11 @@
   var KINDS = ['visit', 'diag', 'medStart', 'medChange', 'medStop', 'event'];
   var MED_KINDS = ['medStart', 'medChange', 'medStop'];
   var DEFAULT_SHOW = ['visit', 'diag'];
+  var stage = null;   // 戻るボタン(Play版): 画面の中の段を1つ戻す(描くたびに作り直す)
 
   window.SCREENS.register('nenpyo', {
+    /* 戻るボタン(Play版・2026-09-29): 開いている入力の欄を閉じる(やめる と同じ・保存しない) */
+    back: function(api){ return stage ? stage(api) : false; },
     render: function(c, api){
       var U = window.JUNBI_UI, T = api.T;
       var rows = U.list(api, 'timeline.v1');
@@ -37,6 +40,7 @@
 
       function openForm(row){
         formBox.textContent = '';
+        api.markSaved();   // 開いていた欄は入れ替わった(この画面の入力は この欄だけ)=戻るボタンの書きかけは無い
         var card = api.el('div', 'card');
         var isNew = !row;
         row = row || { id: U.uid(), date: U.today(), kind: 'visit', text: '', feel: '', look: '' };
@@ -65,14 +69,14 @@
           var list = U.list(api, 'timeline.v1');
           if(isNew) list.push(rec); else list = list.map(function(x){ return x.id === rec.id ? rec : x; });
           if(!persist(list)) return;
-          api.toast(T('common.saved')); formBox.textContent = ''; drawList();
+          api.toast(T('common.saved')); formBox.textContent = ''; drawList(); api.markSaved();
         });
         saveB.id = 'nenpyo-f-save';
         btns.appendChild(saveB);
-        btns.appendChild(U.btn(api, '', T('common.cancel'), function(){ formBox.textContent = ''; }));
+        btns.appendChild(U.btn(api, '', T('common.cancel'), function(){ formBox.textContent = ''; api.markSaved(); }));
         if(!isNew) btns.appendChild(U.delBtn(api, function(){
           if(!persist(U.list(api, 'timeline.v1').filter(function(x){ return x.id !== row.id; }))) return;
-          api.toast(T('common.deleted')); formBox.textContent = ''; drawList();
+          api.toast(T('common.deleted')); formBox.textContent = ''; drawList(); api.markSaved();
         }));
         card.appendChild(btns);
         formBox.appendChild(card);
@@ -100,6 +104,11 @@
         listBox.appendChild(ul);
       }
       drawList();
+      stage = function(){
+        if(!formBox.firstChild) return false;
+        formBox.textContent = '';
+        return true;
+      };
 
       /* 見せる範囲 */
       c.appendChild(api.el('h2', 'sec-h', T('screen.nenpyo.rangeTitle')));
