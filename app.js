@@ -9,7 +9,7 @@
      変えたら README の「シェルの変更点」に書く */
 (function(){
 
-var VER = '0.4.7';               // 🔴 更新のたびに上げる(build.gradle の versionName / sw.js の CACHE と一緒に)
+var VER = '0.4.8';               // 🔴 更新のたびに上げる(build.gradle の versionName / sw.js の CACHE と一緒に)
 var APP_KEY = 'junbi_note';        // バックアップの識別(別アプリのファイルを読まない)
 var EXIT_URL = 'https://www.google.com/';   // クイック退出「× とじる」の行き先(SPEC: ヘッダー右・location.replace)
 var LS = 'junbi.';
