@@ -17,12 +17,22 @@
       c.appendChild(api.el('p', 'tagline', T('app.tagline')));
 
       /* --- いま つたえたい ことを 1つ たす(最上段) --- */
+      /* 書きかけ = draft.homeAdd = { title, detail }(2026-10-30・場面の手引きと同じ形): 書くたびに残し、下ナビや名前で離れても消えない。「たす」で消す */
+      var DRAFT = 'draft.homeAdd';
+      var dr = api.load(DRAFT, null);
+      if(!dr || typeof dr !== 'object' || Array.isArray(dr)) dr = {};
       var add = api.el('div', 'card add-card');
       add.appendChild(api.el('h2', 'sec-h first', T('screen.home.addTitle')));
-      var title = U.input('text', T('screen.home.addPh'), '');
+      var title = U.input('text', T('screen.home.addPh'), typeof dr.title === 'string' ? dr.title : '');
       title.id = 'home-add-title';
-      var detail = U.textarea(T('screen.home.detailPh'), '', 2);
+      var detail = U.textarea(T('screen.home.detailPh'), typeof dr.detail === 'string' ? dr.detail : '', 2);
       detail.id = 'home-add-detail';
+      function keepAdd(){
+        if(!title.value && !detail.value) api.remove(DRAFT);
+        else api.save(DRAFT, { title:title.value, detail:detail.value });
+      }
+      title.addEventListener('input', keepAdd);
+      detail.addEventListener('input', keepAdd);
       add.appendChild(U.field(api, null, title));
       add.appendChild(U.field(api, null, detail));
       var addBtn = U.btn(api, 'primary wide', T('screen.home.addBtn'), function(){
@@ -32,6 +42,7 @@
         list.push({ id: U.uid(), title: t, detail: String(detail.value || '').trim(), created: Date.now() });
         if(!api.save('items.v1', list)){ api.toast(T('common.storageFull')); return; }
         title.value = ''; detail.value = '';
+        api.remove(DRAFT);
         api.markSaved();   // 戻るボタン(Play版)の書きかけの印を消す
         api.toast(T('screen.home.added'));
         countEl.textContent = U.fmt(T('screen.home.count'), { n: list.length });

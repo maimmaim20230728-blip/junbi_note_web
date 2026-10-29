@@ -9,7 +9,7 @@
      変えたら README の「シェルの変更点」に書く */
 (function(){
 
-var VER = '0.4.8';               // 🔴 更新のたびに上げる(build.gradle の versionName / sw.js の CACHE と一緒に)
+var VER = '0.4.9';               // 🔴 更新のたびに上げる(build.gradle の versionName / sw.js の CACHE と一緒に)
 var APP_KEY = 'junbi_note';        // バックアップの識別(別アプリのファイルを読まない)
 var EXIT_URL = 'https://www.google.com/';   // クイック退出「× とじる」の行き先(SPEC: ヘッダー右・location.replace)
 var LS = 'junbi.';
@@ -258,7 +258,7 @@ function showScreen(id, how){
    list = 配列(中身はオブジェクトの行だけに絞る・id の無い行には id を付ける) / obj = 普通のオブジェクト
    形が違うキーは読まない(いまの端末の値をそのまま残す)。ここに無いキーは前と同じくそのまま保存する
    🔴 画面で新しい保存キーを足したら、ここにも足す */
-var BACKUP_SHAPE = { 'items.v1':'list', 'said.v1':'list', 'timeline.v1':'list', 'places.v1':'list', 'meds.v1':'list', 'note.v1':'obj', 'first.v1':'obj' };
+var BACKUP_SHAPE = { 'items.v1':'list', 'said.v1':'list', 'timeline.v1':'list', 'places.v1':'list', 'meds.v1':'list', 'note.v1':'obj', 'first.v1':'obj', 'draft.shokai':'obj', 'draft.homeAdd':'obj' };   // draft.* = 書きかけ(2026-10-30)
 function isPlainObj(v){ return !!v && typeof v === 'object' && !Array.isArray(v); }
 function cleanBackupValue(key, v){
   var kind = BACKUP_SHAPE[key];
@@ -546,18 +546,29 @@ function exportBackup(){
   toast(T('set.exported'));
 }
 /* 丸ごと入れ替え: ファイルに無い このアプリの保存キー(「junbi.」で始まる・pref 以外)を先に消してから、ファイルの中身を書く。
-   ほかのアプリのキーは触らない。形の違うキーは前と同じく読まない(いまの端末の値を残す) */
+   ほかのアプリのキーは触らない。形の違うキーは前と同じく読まない(いまの端末の値を残す)
+   ・「つかいかた」を読み終えた印(guide.v1)は書いたものではないので消さない(消すと次の起動で案内がまた出る・2026-10-30)
+   ・途中で書けなければ(容量オーバー等)元の「junbi.」のキーに全部戻して false(2026-10-30・知って欲しい事ブックと同じ作り) */
+function ownKeys(){
+  var ks = [];
+  for(var i = 0; i < localStorage.length; i++){ var k = localStorage.key(i); if(k && k.indexOf(LS) === 0) ks.push(k); }
+  return ks;
+}
 function replaceAppData(src){
-  var inFile = {}, del = [], k;
-  for(k in src) inFile[LS + k] = true;
+  var keep = {}, has = Object.prototype.hasOwnProperty, k;
+  try{ ownKeys().forEach(function(x){ keep[x] = localStorage.getItem(x); }); }catch(_){ return false; }
   try{
-    for(var i = 0; i < localStorage.length; i++){
-      var key = localStorage.key(i);
-      if(key && key.indexOf(LS) === 0 && key !== LS_PREF && !inFile[key]) del.push(key);
+    for(k in keep){ if(k !== LS_PREF && k !== LS_GUIDE && !has.call(src, k.slice(LS.length))) localStorage.removeItem(k); }
+    for(k in src){
+      if(!has.call(src, k)) continue;
+      var c = cleanBackupValue(k, src[k]);
+      if(c.ok && !saveJSON(LS + k, c.v)) throw new Error('save');
     }
-  }catch(_){}
-  del.forEach(removeKey);
-  for(k in src){ var c = cleanBackupValue(k, src[k]); if(c.ok) saveJSON(LS + k, c.v); }
+    return true;
+  }catch(_){
+    try{ ownKeys().forEach(function(x){ localStorage.removeItem(x); }); for(var b in keep) localStorage.setItem(b, keep[b]); }catch(__){}
+    return false;
+  }
 }
 function importBackup(e){
   var f = e.target.files && e.target.files[0];
@@ -575,7 +586,7 @@ function importBackup(e){
     askBox(T('set.importConfirm'), function(ok){
       if(!ok) return;
       try{
-        replaceAppData(d.data);
+        if(!replaceAppData(d.data)){ toast(T('set.importFail')); return; }   // 書けなかったら元のまま(「よみこみました」を出さない)
         pref = sanitizePref(d.pref);
         savePref();
         applyAll(true);

@@ -77,6 +77,19 @@ const Tap = (() => {
       fire(e);
     });
     el.addEventListener('contextmenu', e => e.preventDefault());
+    /* ⌨ キーボード・スイッチ操作(2026-10-30): button / a / 入力欄 でない要素(一覧の li・カード・名前など)は、
+       そのままだと Tab で届かず押せない。role="button" と tabindex="0" を付け、Enter / Space でも押せるようにする。
+       押した処理は fire(=指や click と同じ)。中の入力欄で打った Enter / Space は拾わない */
+    if(!/^(BUTTON|A|INPUT|SELECT|TEXTAREA|SUMMARY|LABEL)$/.test(el.tagName || '')){
+      if(!el.hasAttribute('role')) el.setAttribute('role', 'button');
+      if(!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+      el.addEventListener('keydown', e => {
+        if(e.target !== el || e.isComposing) return;
+        if(e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+        e.preventDefault();
+        fire(e);
+      });
+    }
   }
   return { bind };
 })();
