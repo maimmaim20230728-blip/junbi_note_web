@@ -3,7 +3,7 @@
    ・install時に実行ファイルをprecache / HTMLはnetwork-first / その他はcache-first
    ・開発/検証用ファイル(_始まり)はキャッシュしない
    🔴 更新のたびに CACHE 名を上げる。screens/ に画面を足したら ASSETS にも足す(_check.js が照合) */
-const CACHE = 'junbi-v18';
+const CACHE = 'junbi-v19';
 const ASSETS = [
   './',
   './index.html',
@@ -11,7 +11,6 @@ const ASSETS = [
   './audio.js',
   './tap.js',
   './i18n.js',
-  './photo.js',
   './app.js',
   './screens/router.js',
   './screens/ui.js',

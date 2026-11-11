@@ -9,7 +9,7 @@
      変えたら README の「シェルの変更点」に書く */
 (function(){
 
-var VER = '0.4.12';              // 🔴 更新のたびに上げる(build.gradle の versionName / sw.js の CACHE と一緒に)
+var VER = '0.4.13';              // 🔴 更新のたびに上げる(build.gradle の versionName / sw.js の CACHE と一緒に)
 var APP_KEY = 'junbi_note';        // バックアップの識別(別アプリのファイルを読まない)
 var EXIT_URL = 'https://www.google.com/';   // クイック退出「× とじる」の行き先(SPEC: ヘッダー右・location.replace)
 var LS = 'junbi.';
@@ -83,6 +83,7 @@ function applyI18n(){
   if($('btn-bgm'))   $('btn-bgm').textContent   = T('set.bgms')[BGMS.indexOf(pref.bgm)];
   if($('btn-sound')) $('btn-sound').textContent = pref.sound ? T('set.on') : T('set.off');
   if($('about-ver')) $('about-ver').textContent = 'v' + VER;
+  showLastExport();
   document.title = T('app.name');
   fitTitle();
   if(current !== 'set') renderScreen(current);   // 表示中の画面も訳し直す
@@ -352,6 +353,34 @@ function minimizeApp(){
   var ap = nativePlugin('App', 'minimizeApp');
   try{ if(ap){ var p = ap.minimizeApp(); if(p && p.catch) p.catch(function(){}); } }catch(_){}
 }
+/* ---- クイック退出「× とじる」(2026-11-11) ----
+   Web版: location.replace で Google へ(戻るで戻れない)。
+   Play版(Capacitor): 外部URLは端末のブラウザで開き、アプリの WebView は元の画面のまま残る。
+   ブラウザを閉じたときに書いた内容が見えないよう、先にアプリの画面をホームへ戻し(重ねた画面を消し・入力欄の字を画面から消す。
+   保存した記録と書きかけの保存は消さない)、そのあと外へ出して、アプリを後ろに下げる(minimizeApp)。 */
+function resetViewForExit(){
+  try{
+    var ls = document.querySelectorAll('.ov, .photo-ov');
+    for(var i = 0; i < ls.length; i++){ if(ls[i].parentNode) ls[i].parentNode.removeChild(ls[i]); }
+    dirtyIn = null;
+    showScreen('home');
+    var ins = document.querySelectorAll('input, textarea');
+    for(var j = 0; j < ins.length; j++){
+      var t = ins[j];
+      if(t.type === 'file' || t.type === 'checkbox' || t.type === 'radio' || t.type === 'button') continue;
+      if(t.closest && t.closest('#scr-set')) continue;
+      try{ t.value = ''; }catch(_){}
+    }
+    var ae = document.activeElement; if(ae && ae.blur) ae.blur();
+  }catch(_){}
+}
+function quickExit(){
+  if(isNativeApp()){
+    resetViewForExit();
+    setTimeout(minimizeApp, 350);
+  }
+  location.replace(EXIT_URL);
+}
 /* ---- アプリの中の確かめの窓(2026-09-29) ----
    Play版の window.confirm は、Capacitor(BridgeWebChromeClient)がボタンを英語の OK / Cancel に決め打ちしている。
    Play版だけ、アプリの中に「いいえ / はい」(common.no / common.yes・12言語・文字の大きさの設定どおり)の窓を出す。
@@ -520,6 +549,22 @@ function openGuide(first){
 }
 
 /* ---- 機種変更(バックアップ): このアプリの保存キー全部を1ファイルに ---- */
+/* 「さいごに かきだした 日」(2026-11-11・せっていの かきだす の下に1行)。日付は端末の中(pref.extra.lastExport)だけ・通知は出さない */
+function showLastExport(){
+  var e = $('bk-last'); if(!e) return;
+  var t = pref.extra && pref.extra.lastExport;
+  if(typeof t !== 'number' || !isFinite(t) || t <= 0){ e.textContent = T('set.lastExportNone'); return; }
+  var d = new Date(t), txt;
+  try{ txt = d.toLocaleDateString(TTS_LANG[pref.lang] || 'ja-JP', { year:'numeric', month:'numeric', day:'numeric' }); }catch(_){ txt = ''; }
+  if(!txt || txt === 'Invalid Date') txt = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  e.textContent = T('set.lastExport').split('{d}').join(txt);
+}
+function markExported(){
+  if(!pref.extra || typeof pref.extra !== 'object') pref.extra = {};
+  pref.extra.lastExport = Date.now();
+  savePref();
+  showLastExport();
+}
 function exportBackup(){
   var data = { app: APP_KEY, ver: 1, exported: Date.now(), pref: pref, data: {} };
   try{
@@ -533,7 +578,7 @@ function exportBackup(){
   /* Play版(2026-09-29): 一時フォルダに書いて共有の画面へ。選べたら「かきだしました」・閉じたら何も出さない・書けなければ「ほぞんできませんでした」 */
   if(isNativeApp()){
     nativeSaveFile(fname, JSON.stringify(data), true, T('set.bkExport'), function(r){
-      if(r === 'ok') toast(T('set.exported'));
+      if(r === 'ok'){ toast(T('set.exported')); markExported(); }
       else if(r === 'fail') toast(T('common.saveFail'));
     });
     return;
@@ -545,6 +590,7 @@ function exportBackup(){
   a.click();
   setTimeout(function(){ URL.revokeObjectURL(a.href); }, 3000);
   toast(T('set.exported'));
+  markExported();
 }
 /* 丸ごと入れ替え: ファイルに無い このアプリの保存キー(「junbi.」で始まる・pref 以外)を先に消してから、ファイルの中身を書く。
    ほかのアプリのキーは触らない。形の違うキーは前と同じく読まない(いまの端末の値を残す)
@@ -618,7 +664,7 @@ function init(){
   }
   Tap.bind($('hd-title'), function(){ showScreen('home'); });   // 名前タップ=いつでもホームへ
   /* クイック退出(このアプリ固有のシェル変更): 戻るで戻れないよう location.replace。href/assign は使わない */
-  Tap.bind($('hd-exit'), function(){ location.replace(EXIT_URL); }, { silent:true });
+  Tap.bind($('hd-exit'), quickExit, { silent:true });
 
   Tap.bind($('btn-fs'), function(){ pref.fs = (pref.fs + 1) % 3; applyBodyClass(); savePref(); applyI18n(); });
   Tap.bind($('btn-theme'), function(){ pref.theme = next(THEMES, pref.theme); applyTheme(); savePref(); applyI18n(); });

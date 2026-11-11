@@ -248,9 +248,15 @@ input[type="file"].hidden{ display:none; }
 .list li.kept{ background:var(--bg); border-style:dashed; color:var(--sub); }
 .list li.kept .num{ color:var(--sub); }
 .item-title{ font-weight:700; overflow-wrap:anywhere; }
+/* 窓口: 今日から7日以内の予約・確かめる日の印(色だけに頼らず文字を出す) */
+.soon-badge{ display:inline-block; margin-inline-start:8px; padding:1px 10px; border:2px solid var(--brand-ink); border-radius:999px; color:var(--brand-ink); font-size:.85em; font-weight:700; white-space:nowrap; vertical-align:baseline; }
 .done-list li{ color:var(--sub); }
 .show-detail{ font-size:1.2em; line-height:1.5; padding:6px 12px 0; overflow-wrap:anywhere; }
 .ov-body{ max-width:680px; margin:0 auto; overflow-wrap:anywhere; }
+/* 相手に見せる画面だけ字を大きくする「もっと 大きく」(設定の文字の大きさとは別・保存しない) */
+.ov-zoom{ display:block; margin:0 0 10px; margin-inline-start:auto; background:var(--card); color:var(--ink); border:2px solid var(--line); }
+.ov.zoom1 .ov-body{ font-size:1.3em; }
+.ov.zoom2 .ov-body{ font-size:1.7em; }
 /* 1枚: 見せる数・相手に見せる・窓口のあと のあいだの余白 */
 #ichimai-show{ margin:14px 0 10px; }
 #ichimai-after{ margin:0 0 14px; }

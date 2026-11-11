@@ -91,9 +91,28 @@
       function drawList(){
         listBox.textContent = '';
         if(!rows.length){ listBox.appendChild(api.el('p', 'empty', T('screen.madoguchi.empty'))); return; }
-        rows.forEach(function(r){
+        /* 近い日が上(2026-11-11): 次の予約か次に確かめる日のうち、今日以降でいちばん近い日の順。今日から7日以内は「もうすぐ」の印。
+           日の入っていない・過ぎた日だけのカードは、そのあとに足した順のまま。保存の順は変えない */
+        function dayNum(s){ var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || '')); return m ? Math.floor(Date.UTC(+m[1], +m[2] - 1, +m[3]) / 86400000) : NaN; }
+        var t0 = dayNum(U.today());
+        function nearest(r){
+          var best = NaN;
+          [r.next, r.check].forEach(function(x){ var n = dayNum(x); if(n >= t0 && (isNaN(best) || n < best)) best = n; });
+          return isNaN(best) ? NaN : best - t0;
+        }
+        var order = rows.map(function(r, i){ return { r: r, i: i, d: nearest(r) }; });
+        order.sort(function(a, b){
+          var au = !isNaN(a.d), bu = !isNaN(b.d);
+          if(au !== bu) return au ? -1 : 1;
+          if(au && a.d !== b.d) return a.d - b.d;
+          return a.i - b.i;
+        });
+        order.forEach(function(o){
+          var r = o.r;
           var card = api.el('div', 'card tappable');
-          card.appendChild(api.el('div', 'item-title', r.name || T('screen.madoguchi.untitled')));
+          var title = api.el('div', 'item-title', r.name || T('screen.madoguchi.untitled'));
+          if(!isNaN(o.d) && o.d <= 7) title.appendChild(api.el('span', 'soon-badge', T('screen.madoguchi.soon')));
+          card.appendChild(title);
           line(card, T('screen.madoguchi.person'), r.person);
           line(card, T('screen.madoguchi.next'), r.next);
           line(card, T('screen.madoguchi.told'), r.told);

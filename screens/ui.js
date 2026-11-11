@@ -64,6 +64,18 @@
   function openOv(api, build, onClose){
     var ov = api.el('div', 'ov show-white');
     ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true'); ov.setAttribute('aria-label', api.T('common.showClose'));
+    /* 「もっと 大きく」(2026-11-11): この画面だけ字を大きくする(設定の文字の大きさとは別・保存しない)。
+       0=ふつう → 1 → 2 のあと「ふつうの 大きさ」で 0 に戻る */
+    var zoom = 0;
+    var zb = api.el('button', 'btn small ov-zoom', api.T('common.showBigger'));
+    zb.type = 'button';
+    api.Tap.bind(zb, function(){
+      zoom = zoom >= 2 ? 0 : zoom + 1;
+      ov.classList.remove('zoom1', 'zoom2');
+      if(zoom) ov.classList.add('zoom' + zoom);
+      zb.textContent = api.T(zoom >= 2 ? 'common.showNormal' : 'common.showBigger');
+    });
+    ov.appendChild(zb);
     var box = api.el('div', 'ov-body');
     build(box);
     ov.appendChild(box);

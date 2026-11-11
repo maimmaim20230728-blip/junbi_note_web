@@ -21,6 +21,7 @@ var ja = {
     deleted:'けしました', delConfirm:'ほんとうに けしますか?', empty:'まだ なにも ありません',
     optional:'ぜんぶ 書かなくても だいじょうぶです。', today:'きょう',
     show:'相手に 見せる', showClose:'とじる(自分の 画面に もどる)',
+    showBigger:'もっと 大きく', showNormal:'ふつうの 大きさ',
     backConfirm:'書いたことは まだ ほぞんしていません。すてて もどりますか?',
     photo: {
       camera:'カメラで とる', roll:'しゃしんから えらぶ',
@@ -41,6 +42,7 @@ var ja = {
     bkExport:'かきだす', bkImport:'よみこむ',
     exported:'かきだしました ✓', imported:'よみこみました ✓', importFail:'よみこめませんでした',
     importConfirm:'いまの ないようは、ファイルの ないように おきかわります。よみこみますか?',
+    lastExport:'さいごに かきだした 日: {d}', lastExportNone:'まだ かきだして いません',
     note:'書いたことは すべて この端末の中だけに ほぞんされます。どこにも 送られません。',
     privacy:'プライバシーポリシー',
     credit:'アプリ開発：介護と支援の相談どころ そよぎ'
@@ -154,7 +156,8 @@ var ja = {
       check:'次に たしかめる 日',
       empty:'まだ ありません。',
       untitled:'(名前なし)',
-      needName:'窓口の 名前を 書いてください'
+      needName:'窓口の 名前を 書いてください',
+      soon:'もうすぐ'
     },
     kusuri: {
       title:'薬の 一覧',
@@ -186,6 +189,7 @@ var en = {
     deleted:'Deleted', delConfirm:'Really delete this?', empty:'Nothing here yet',
     optional:'You do not have to fill in everything.', today:'Today',
     show:'Show to the other person', showClose:'Close (back to my screen)',
+    showBigger:'Larger text', showNormal:'Normal size',
     backConfirm:'What you wrote is not saved yet. Discard it and go back?',
     photo: {
       camera:'Take a photo', roll:'Choose from photos',
@@ -206,6 +210,7 @@ var en = {
     bkExport:'Export', bkImport:'Import',
     exported:'Exported ✓', imported:'Imported ✓', importFail:'Could not import',
     importConfirm:"Your current entries will be replaced with the file's contents. Import it?",
+    lastExport:'Last exported: {d}', lastExportNone:'Not exported yet',
     note:'Everything you write is stored only on this device. Nothing is sent anywhere.',
     privacy:'Privacy policy',
     credit:'Developed by SOYOGI, a care and support consultation service'
@@ -317,7 +322,8 @@ var en = {
       check:'Date to check next',
       empty:'Nothing yet.',
       untitled:'(no name)',
-      needName:'Please write the office name first'
+      needName:'Please write the office name first',
+      soon:'Soon'
     },
     kusuri: {
       title:'Medicine list',
@@ -381,6 +387,7 @@ TBL.de = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "today": "Heute",
     "show": "Dem Gegenüber zeigen",
     "showClose": "Schließen (zurück zu meiner Ansicht)",
+    "showBigger": "Größer", "showNormal": "Normale Größe",
     "backConfirm": "Was Sie geschrieben haben, ist noch nicht gespeichert. Verwerfen und zurückgehen?",
     "photo": {
       "camera": "Foto aufnehmen",
@@ -429,6 +436,7 @@ TBL.de = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "imported": "Importiert ✓",
     "importFail": "Import war nicht möglich",
     "importConfirm": "Ihre jetzigen Einträge werden durch den Inhalt der Datei ersetzt. Jetzt importieren?",
+    "lastExport": "Zuletzt exportiert: {d}", "lastExportNone": "Noch nicht exportiert",
     "note": "Alles, was Sie schreiben, wird nur auf diesem Gerät gespeichert. Nichts wird irgendwohin gesendet.",
     "privacy": "Datenschutzerklärung",
     "credit": "App-Entwicklung: SOYOGI, Beratungsstelle für Pflege und Unterstützung"
@@ -570,7 +578,8 @@ TBL.de = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "check": "Wieder nachsehen am",
       "empty": "Noch nichts vorhanden.",
       "untitled": "(ohne Namen)",
-      "needName": "Bitte schreiben Sie den Namen der Anlaufstelle"
+      "needName": "Bitte schreiben Sie den Namen der Anlaufstelle",
+      "soon": "Bald"
     },
     "kusuri": {
       "title": "Medikamentenliste",
@@ -633,6 +642,7 @@ TBL.fr = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "today": "Aujourd'hui",
     "show": "Montrer à votre interlocuteur",
     "showClose": "Fermer (retour à mon écran)",
+    "showBigger": "Agrandir", "showNormal": "Taille normale",
     "backConfirm": "Ce que vous avez écrit n'est pas encore enregistré. L'abandonner et revenir en arrière ?",
     "photo": {
       "camera": "Prendre une photo",
@@ -681,6 +691,7 @@ TBL.fr = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "imported": "Importé ✓",
     "importFail": "Impossible d'importer",
     "importConfirm": "Vos données actuelles seront remplacées par le contenu du fichier. Importer ?",
+    "lastExport": "Dernier export : {d}", "lastExportNone": "Pas encore exporté",
     "note": "Tout ce que vous écrivez reste uniquement sur cet appareil. Rien n'est envoyé ailleurs.",
     "privacy": "Politique de confidentialité",
     "credit": "Application développée par SOYOGI, lieu de conseil pour les soins et le soutien"
@@ -822,7 +833,8 @@ TBL.fr = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "check": "Date du prochain point",
       "empty": "Rien pour l'instant.",
       "untitled": "(sans nom)",
-      "needName": "Veuillez écrire le nom du lieu"
+      "needName": "Veuillez écrire le nom du lieu",
+      "soon": "Bientôt"
     },
     "kusuri": {
       "title": "Liste des médicaments",
@@ -885,6 +897,7 @@ TBL.es = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "today": "Hoy",
     "show": "Mostrar a la otra persona",
     "showClose": "Cerrar (volver a mi pantalla)",
+    "showBigger": "Agrandar", "showNormal": "Tamaño normal",
     "backConfirm": "Lo escrito aún no está guardado. ¿Descartarlo y volver?",
     "photo": {
       "camera": "Usar la cámara",
@@ -933,6 +946,7 @@ TBL.es = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "imported": "Importado ✓",
     "importFail": "No se pudo importar",
     "importConfirm": "Los datos actuales se reemplazarán por el contenido del archivo. ¿Importar?",
+    "lastExport": "Última exportación: {d}", "lastExportNone": "Aún no se ha exportado",
     "note": "Todo lo que se escribe se guarda solo en este dispositivo. No se envía a ningún lugar.",
     "privacy": "Política de privacidad",
     "credit": "Desarrollo de la aplicación: SOYOGI, espacio de consulta sobre cuidados y apoyo"
@@ -1074,7 +1088,8 @@ TBL.es = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "check": "Próxima fecha para comprobar",
       "empty": "Todavía no hay nada.",
       "untitled": "(sin nombre)",
-      "needName": "Falta escribir el nombre del centro"
+      "needName": "Falta escribir el nombre del centro",
+      "soon": "Pronto"
     },
     "kusuri": {
       "title": "Lista de medicamentos",
@@ -1137,6 +1152,7 @@ TBL.it = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "today": "Oggi",
     "show": "Mostra all'altra persona",
     "showClose": "Chiudi (torna alla mia schermata)",
+    "showBigger": "Ingrandisci", "showNormal": "Dimensione normale",
     "backConfirm": "Quanto scritto non è ancora salvato. Scartarlo e tornare indietro?",
     "photo": {
       "camera": "Scatta una foto",
@@ -1185,6 +1201,7 @@ TBL.it = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "imported": "Importato ✓",
     "importFail": "Non è stato possibile importare",
     "importConfirm": "I dati attuali verranno sostituiti dal contenuto del file. Importare?",
+    "lastExport": "Ultima esportazione: {d}", "lastExportNone": "Non ancora esportato",
     "note": "Tutto ciò che scrive resta solo su questo dispositivo. Non viene inviato da nessuna parte.",
     "privacy": "Informativa sulla privacy",
     "credit": "App sviluppata da SOYOGI, punto di ascolto per assistenza e sostegno"
@@ -1326,7 +1343,8 @@ TBL.it = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "check": "Data della prossima verifica",
       "empty": "Ancora niente.",
       "untitled": "(senza nome)",
-      "needName": "Scriva prima il nome dello sportello"
+      "needName": "Scriva prima il nome dello sportello",
+      "soon": "Presto"
     },
     "kusuri": {
       "title": "Elenco dei farmaci",
@@ -1389,6 +1407,7 @@ TBL.pt = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "today": "Hoje",
     "show": "Mostrar à outra pessoa",
     "showClose": "Fechar (voltar à minha página)",
+    "showBigger": "Aumentar", "showNormal": "Tamanho normal",
     "backConfirm": "O que escreveu ainda não foi guardado. Descartar e voltar?",
     "photo": {
       "camera": "Tirar uma foto",
@@ -1437,6 +1456,7 @@ TBL.pt = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "imported": "Importado ✓",
     "importFail": "Não foi possível importar",
     "importConfirm": "Os dados atuais serão substituídos pelo conteúdo do arquivo. Importar?",
+    "lastExport": "Última exportação: {d}", "lastExportNone": "Ainda não exportado",
     "note": "Tudo o que se escreve fica guardado só neste aparelho. Nada é enviado para fora.",
     "privacy": "Política de privacidade",
     "credit": "Desenvolvido por: SOYOGI, espaço de consulta sobre cuidados e apoio"
@@ -1578,7 +1598,8 @@ TBL.pt = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "check": "Próxima data para verificar",
       "empty": "Ainda não há nada.",
       "untitled": "(sem nome)",
-      "needName": "Falta escrever o nome do local"
+      "needName": "Falta escrever o nome do local",
+      "soon": "Em breve"
     },
     "kusuri": {
       "title": "Lista de medicamentos",
@@ -1641,6 +1662,7 @@ TBL.nl = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "today": "Vandaag",
     "show": "Aan de ander laten zien",
     "showClose": "Sluiten (terug naar mijn scherm)",
+    "showBigger": "Groter", "showNormal": "Normale grootte",
     "backConfirm": "Wat u hebt geschreven, is nog niet opgeslagen. Weggooien en teruggaan?",
     "photo": {
       "camera": "Foto maken",
@@ -1689,6 +1711,7 @@ TBL.nl = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "imported": "Geïmporteerd ✓",
     "importFail": "Importeren is niet gelukt",
     "importConfirm": "Uw huidige gegevens worden vervangen door de inhoud van het bestand. Importeren?",
+    "lastExport": "Laatst geëxporteerd: {d}", "lastExportNone": "Nog niet geëxporteerd",
     "note": "Alles wat u schrijft, wordt alleen op dit apparaat bewaard. Er wordt niets verstuurd.",
     "privacy": "Privacybeleid",
     "credit": "App ontwikkeld door SOYOGI, een plek voor vragen over zorg en ondersteuning"
@@ -1830,7 +1853,8 @@ TBL.nl = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "check": "Volgende datum om na te kijken",
       "empty": "Nog niets.",
       "untitled": "(zonder naam)",
-      "needName": "Vul eerst de naam van het loket in"
+      "needName": "Vul eerst de naam van het loket in",
+      "soon": "Binnenkort"
     },
     "kusuri": {
       "title": "Medicijnenlijst",
@@ -1893,6 +1917,7 @@ TBL.sv = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "today": "I dag",
     "show": "Visa för den du träffar",
     "showClose": "Stäng (tillbaka till min skärm)",
+    "showBigger": "Större", "showNormal": "Normal storlek",
     "backConfirm": "Det du har skrivit är inte sparat än. Vill du slänga det och gå tillbaka?",
     "photo": {
       "camera": "Ta ett foto",
@@ -1941,6 +1966,7 @@ TBL.sv = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "imported": "Importerat ✓",
     "importFail": "Det gick inte att importera",
     "importConfirm": "Det du har skrivit nu ersätts med innehållet i filen. Vill du importera?",
+    "lastExport": "Senast exporterat: {d}", "lastExportNone": "Inte exporterat än",
     "note": "Allt du skriver sparas bara på den här enheten. Inget skickas någonstans.",
     "privacy": "Integritetspolicy",
     "credit": "Apputveckling: SOYOGI, rådgivning om omsorg och stöd"
@@ -2082,7 +2108,8 @@ TBL.sv = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "check": "Nästa dag att följa upp",
       "empty": "Inget ännu.",
       "untitled": "(inget namn)",
-      "needName": "Skriv namnet på stället först"
+      "needName": "Skriv namnet på stället först",
+      "soon": "Snart"
     },
     "kusuri": {
       "title": "Medicinlista",
@@ -2145,6 +2172,7 @@ TBL.ko = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "today": "오늘",
     "show": "상대에게 보여 주기",
     "showClose": "닫기 (내 화면으로 돌아가기)",
+    "showBigger": "더 크게", "showNormal": "원래 크기",
     "backConfirm": "쓴 내용이 아직 저장되지 않았어요. 버리고 돌아갈까요?",
     "photo": {
       "camera": "카메라로 찍기",
@@ -2193,6 +2221,7 @@ TBL.ko = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "imported": "불러왔어요 ✓",
     "importFail": "불러오지 못했어요",
     "importConfirm": "지금 내용은 파일의 내용으로 바뀌어요. 불러올까요?",
+    "lastExport": "마지막 내보내기: {d}", "lastExportNone": "아직 내보내지 않았어요",
     "note": "적은 내용은 모두 이 기기 안에만 저장돼요. 어디에도 보내지 않아요.",
     "privacy": "개인정보 처리방침",
     "credit": "앱 개발: 돌봄과 지원 상담소 SOYOGI"
@@ -2334,7 +2363,8 @@ TBL.ko = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "check": "다음에 확인할 날",
       "empty": "아직 없어요.",
       "untitled": "(이름 없음)",
-      "needName": "창구 이름을 적어 주세요"
+      "needName": "창구 이름을 적어 주세요",
+      "soon": "곧"
     },
     "kusuri": {
       "title": "약 목록",
@@ -2397,6 +2427,7 @@ TBL.zh = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "today": "今天",
     "show": "给对方看",
     "showClose": "关闭（回到自己的画面）",
+    "showBigger": "放大字号", "showNormal": "恢复大小",
     "backConfirm": "写的内容还没有保存。要放弃并返回吗？",
     "photo": {
       "camera": "用相机拍摄",
@@ -2445,6 +2476,7 @@ TBL.zh = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "imported": "已导入 ✓",
     "importFail": "无法导入",
     "importConfirm": "现在的内容会被替换为文件中的内容。要导入吗？",
+    "lastExport": "上次导出：{d}", "lastExportNone": "还没有导出过",
     "note": "写下的内容全部只保存在这台设备里，不会发送到任何地方。",
     "privacy": "隐私政策",
     "credit": "应用开发：护理与支援咨询处 SOYOGI"
@@ -2586,7 +2618,8 @@ TBL.zh = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "check": "下次确认的日期",
       "empty": "还没有。",
       "untitled": "（无名称）",
-      "needName": "请写窗口名称"
+      "needName": "请写窗口名称",
+      "soon": "快到了"
     },
     "kusuri": {
       "title": "药物一览",
@@ -2649,6 +2682,7 @@ TBL.ar = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "today": "اليوم",
     "show": "العرض على الشخص الآخر",
     "showClose": "إغلاق (العودة إلى شاشتي)",
+    "showBigger": "تكبير الخط", "showNormal": "الحجم العادي",
     "backConfirm": "ما كتبته لم يُحفظ بعد. هل تريد تجاهله والرجوع؟",
     "photo": {
       "camera": "التقاط صورة",
@@ -2697,6 +2731,7 @@ TBL.ar = mergeDeep(JSON.parse(JSON.stringify(en)), {
     "imported": "تم الاستيراد ✓",
     "importFail": "تعذّر الاستيراد",
     "importConfirm": "سيُستبدل المحتوى الحالي بمحتوى الملف. هل تريد الاستيراد؟",
+    "lastExport": "آخر تصدير: {d}", "lastExportNone": "لم يتم التصدير بعد",
     "note": "كل ما يُكتب هنا يُحفظ على هذا الجهاز فقط، ولا يُرسل إلى أي مكان.",
     "privacy": "سياسة الخصوصية",
     "credit": "تطوير التطبيق: SOYOGI، مكان للاستشارة في الرعاية والدعم"
@@ -2838,7 +2873,8 @@ TBL.ar = mergeDeep(JSON.parse(JSON.stringify(en)), {
       "check": "تاريخ المتابعة القادمة",
       "empty": "لا يوجد شيء بعد.",
       "untitled": "(بدون اسم)",
-      "needName": "يُرجى كتابة اسم الجهة"
+      "needName": "يُرجى كتابة اسم الجهة",
+      "soon": "قريبًا"
     },
     "kusuri": {
       "title": "قائمة الأدوية",
