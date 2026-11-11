@@ -3,8 +3,14 @@
    ・items.v1 = [{ id, title, detail, created }] 並び順=大事な順
    ・said.v1  = [{ id, title, detail, saidAt }] 窓口で「言えた」もの(言えなかったものは items に残る=次回へ繰り越し)
    ・見せる数(3〜5)は api.setExtra('showN')
-   ・相手テンプレは初版で病院のみ(見出し文 screen.ichimai.ovHead) */
+   ・相手テンプレは初版で病院のみ(見出し文 screen.ichimai.ovHead)
+   ・書きかけ = draft.ichimaiEdit = { <項目の id>: { title, detail } }(2026-11-11・ホームの draft.homeAdd と同じ形):
+     なおしている行の字を書くたびに残し、言語切替・見せる数・並べ替え・下ナビ・再読み込みで描き直しても、どの行か と字を戻す。
+     その行の ほぞん・やめる・けす で消す。戻るボタン(やめる と同じ)は なおす行を全部閉じるので全部消す。元の中身と同じに戻したら その行の分を消す。
+     「窓口のあと」のモードの間は なおす行を出さない(書きかけは残り、モードを終えると戻る) */
 (function(){
+  var DRAFT = 'draft.ichimaiEdit';
+  function isObj(v){ return !!v && typeof v === 'object' && !Array.isArray(v); }
   var N_CHOICES = [3, 4, 5];
   var stage = null;   // 戻るボタン(Play版): 画面の中の段を1つ戻す(描くたびに作り直す)
 
@@ -61,11 +67,13 @@
           listBox.appendChild(api.el('h2', 'sec-h', T('screen.ichimai.afterTitle')));
           listBox.appendChild(api.el('p', 'hint', T('screen.ichimai.afterHint')));
         }
-        if(!items.length){ listBox.appendChild(api.el('p', 'empty', T('screen.ichimai.empty'))); return; }
+        if(!items.length){ api.remove(DRAFT); listBox.appendChild(api.el('p', 'empty', T('screen.ichimai.empty'))); return; }
         var ul = api.el('ul', 'list');
+        var byId = {};
         items.forEach(function(it, idx){
           var li = api.el('li', idx < showN ? 'in-sheet' : '');
           li.setAttribute('data-id', it.id);
+          byId[it.id] = { li: li, it: it };
           var num = api.el('span', 'num', String(idx + 1));
           li.appendChild(num);
           var grow = api.el('div', 'grow');
@@ -109,6 +117,24 @@
           done.id = 'ichimai-after-done';
           listBox.appendChild(done);
         }
+        /* なおしている行の書きかけがあれば、その行を開き直す(項目が もう無ければ書きかけは捨てる) */
+        var ed = editDrafts(), pruned = false, firstIn = null;
+        Object.keys(ed).forEach(function(id){
+          var x = byId[id], d = ed[id];
+          if(!x || !isObj(d)){ delete ed[id]; pruned = true; return; }
+          if(afterMode) return;
+          var inp = openEdit(x.li, x.it, { title: typeof d.title === 'string' ? d.title : '', detail: typeof d.detail === 'string' ? d.detail : '' });
+          if(!firstIn) firstIn = inp;
+        });
+        if(pruned){ if(Object.keys(ed).length) api.save(DRAFT, ed); else api.remove(DRAFT); }
+        /* 描き直した なおす行にも字がある=戻るボタン(Play版)で閉じるときは確かめる(描き直しで消えた印を付け直す) */
+        if(firstIn){ try{ firstIn.dispatchEvent(new Event('input', { bubbles:true })); }catch(_){} }
+      }
+      function editDrafts(){ var e = api.load(DRAFT, null); return isObj(e) ? e : {}; }
+      function setEdit(id, val){
+        var e = editDrafts();
+        if(val) e[id] = val; else delete e[id];
+        if(Object.keys(e).length) api.save(DRAFT, e); else api.remove(DRAFT);
       }
       function move(idx, d){
         var list = U.list(api, 'items.v1');
@@ -118,12 +144,21 @@
         if(!saveItems(list)) return;
         items = list; drawList();
       }
-      /* その場で直す(1行+くわしく)・けす */
-      function openEdit(li, it){
+      /* その場で直す(1行+くわしく)・けす。dr = 書きかけから戻すときの中身。1行の欄を返す */
+      function openEdit(li, it, dr){
         li.textContent = '';
         var box = api.el('div', 'grow');
-        var t = U.input('text', T('screen.ichimai.editTitlePh'), it.title);
-        var d = U.textarea(T('screen.ichimai.editDetailPh'), it.detail || '', 2);
+        var ot = it.title == null ? '' : String(it.title), od = it.detail == null ? '' : String(it.detail);
+        var t = U.input('text', T('screen.ichimai.editTitlePh'), dr ? dr.title : ot);
+        var d = U.textarea(T('screen.ichimai.editDetailPh'), dr ? dr.detail : od, 2);
+        t.className = (t.className ? t.className + ' ' : '') + 'ichimai-e-title';
+        d.className = (d.className ? d.className + ' ' : '') + 'ichimai-e-detail';
+        function keepEdit(){
+          if(t.value === ot && d.value === od) setEdit(it.id, null);
+          else setEdit(it.id, { title: t.value, detail: d.value });
+        }
+        t.addEventListener('input', keepEdit);
+        d.addEventListener('input', keepEdit);
         box.appendChild(U.field(api, null, t));
         box.appendChild(U.field(api, null, d));
         var row = api.el('div', 'btn-row');
@@ -131,21 +166,26 @@
           var list = U.list(api, 'items.v1');
           for(var i = 0; i < list.length; i++){ if(list[i].id === it.id){ list[i].title = String(t.value || '').trim() || it.title; list[i].detail = String(d.value || '').trim(); } }
           if(!saveItems(list)) return;
+          setEdit(it.id, null);
           items = list; api.toast(T('common.saved')); drawList();
         }));
-        row.appendChild(U.btn(api, '', T('common.cancel'), function(){ drawList(); }));
+        row.appendChild(U.btn(api, '', T('common.cancel'), function(){ setEdit(it.id, null); drawList(); }));
         row.appendChild(U.delBtn(api, function(){
           var list = U.list(api, 'items.v1').filter(function(x){ return x.id !== it.id; });
           if(!saveItems(list)) return;
+          setEdit(it.id, null);
           items = list; api.toast(T('common.deleted')); drawList();
         }));
         box.appendChild(row);
         li.appendChild(box);
+        return t;
       }
       drawList();
       stage = function(){
-        if(!afterMode && !listBox.querySelector('input, textarea')) return false;
-        afterMode = false; drawList();
+        if(afterMode){ afterMode = false; drawList(); return true; }   // モードを閉じる(なおす行の書きかけは戻る)
+        if(!listBox.querySelector('input, textarea')) return false;
+        api.remove(DRAFT);   // やめる と同じ(なおす行を全部閉じる)
+        drawList();
         return true;
       };
 

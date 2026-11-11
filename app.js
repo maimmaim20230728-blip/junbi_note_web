@@ -9,7 +9,7 @@
      変えたら README の「シェルの変更点」に書く */
 (function(){
 
-var VER = '0.4.11';               // 🔴 更新のたびに上げる(build.gradle の versionName / sw.js の CACHE と一緒に)
+var VER = '0.4.12';              // 🔴 更新のたびに上げる(build.gradle の versionName / sw.js の CACHE と一緒に)
 var APP_KEY = 'junbi_note';        // バックアップの識別(別アプリのファイルを読まない)
 var EXIT_URL = 'https://www.google.com/';   // クイック退出「× とじる」の行き先(SPEC: ヘッダー右・location.replace)
 var LS = 'junbi.';
@@ -258,7 +258,8 @@ function showScreen(id, how){
    list = 配列(中身はオブジェクトの行だけに絞る・id の無い行には id を付ける) / obj = 普通のオブジェクト
    形が違うキーは読まない(いまの端末の値をそのまま残す)。ここに無いキーは前と同じくそのまま保存する
    🔴 画面で新しい保存キーを足したら、ここにも足す */
-var BACKUP_SHAPE = { 'items.v1':'list', 'said.v1':'list', 'timeline.v1':'list', 'places.v1':'list', 'meds.v1':'list', 'note.v1':'obj', 'first.v1':'obj', 'draft.shokai':'obj', 'draft.homeAdd':'obj' };   // draft.* = 書きかけ(2026-10-30)
+var BACKUP_SHAPE = { 'items.v1':'list', 'said.v1':'list', 'timeline.v1':'list', 'places.v1':'list', 'meds.v1':'list', 'note.v1':'obj', 'first.v1':'obj', 'draft.shokai':'obj', 'draft.homeAdd':'obj',
+                     'draft.nenpyo':'obj', 'draft.madoguchi':'obj', 'draft.kusuriAdd':'obj', 'draft.kusuriEdit':'obj', 'draft.ichimaiEdit':'obj' };   // draft.* = 書きかけ(2026-10-30・年表/窓口/薬/1枚は 2026-11-11)
 function isPlainObj(v){ return !!v && typeof v === 'object' && !Array.isArray(v); }
 function cleanBackupValue(key, v){
   var kind = BACKUP_SHAPE[key];

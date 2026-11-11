@@ -2,8 +2,12 @@
 /* 画面: 年表(受診/言われた病名(キーは diag)/薬の開始/薬の変更/薬の中止/出来事 を1本の一覧に)
    ・timeline.v1 = [{ id, date:'YYYY-MM-DD', kind, text, feel, look }] (feel=実感(本人)・look=様子(家族)は薬の種類だけ)
    ・見せる範囲(種類)= api.setExtra('nenpyoKinds', [...]) 初期値は最小限(受診・言われた病名)。実感/様子は setExtra('nenpyoFeel') 初期値=見せない
-   ・「飲んだ時刻」「次に飲めるのは何時」は持たない */
+   ・「飲んだ時刻」「次に飲めるのは何時」は持たない
+   ・書きかけ = draft.nenpyo = { id, isNew, date, kind, text, feel, look }(2026-11-11・ホームの draft.homeAdd と同じ形):
+     書くたびに残し、言語切替・下ナビ・再読み込みで描き直しても、開いていた欄(新しく足す欄か、どの行をなおす欄か)と字を戻す。
+     ほぞん・けす・やめる(戻るボタンも)で消す。開いたときの中身と同じに戻したら消す */
 (function(){
+  var DRAFT = 'draft.nenpyo';
   var KINDS = ['visit', 'diag', 'medStart', 'medChange', 'medStop', 'event'];
   var MED_KINDS = ['medStart', 'medChange', 'medStop'];
   var DEFAULT_SHOW = ['visit', 'diag'];
@@ -38,17 +42,31 @@
       c.appendChild(addB);
       c.appendChild(formBox);
 
-      function openForm(row){
+      /* 開く(dr = 書きかけから戻すときの中身) */
+      function openForm(row, dr){
         formBox.textContent = '';
         api.markSaved();   // 開いていた欄は入れ替わった(この画面の入力は この欄だけ)=戻るボタンの書きかけは無い
+        api.remove(DRAFT);   // 別の欄を開いた=前の欄の書きかけは閉じた(dr があれば すぐ下で書き直す)
         var card = api.el('div', 'card');
         var isNew = !row;
-        row = row || { id: U.uid(), date: U.today(), kind: 'visit', text: '', feel: '', look: '' };
-        var date = U.input('date', '', row.date); date.id = 'nenpyo-f-date';
-        var kind = U.select(KINDS.map(function(k){ return { value: k, label: kindLabel(k) }; }), row.kind); kind.id = 'nenpyo-f-kind';
-        var text = U.textarea(T('screen.nenpyo.textPh'), row.text, 2); text.id = 'nenpyo-f-text';
-        var feel = U.textarea(T('screen.nenpyo.feelPh'), row.feel || '', 2); feel.id = 'nenpyo-f-feel';
-        var look = U.textarea(T('screen.nenpyo.lookPh'), row.look || '', 2); look.id = 'nenpyo-f-look';
+        row = row || { id: (dr && dr.id) || U.uid(), date: U.today(), kind: 'visit', text: '', feel: '', look: '' };
+        var init = { date: row.date || '', kind: row.kind, text: row.text || '', feel: row.feel || '', look: row.look || '' };
+        var v = dr || init;
+        var date = U.input('date', '', v.date); date.id = 'nenpyo-f-date';
+        var kind = U.select(KINDS.map(function(k){ return { value: k, label: kindLabel(k) }; }), KINDS.indexOf(v.kind) >= 0 ? v.kind : init.kind); kind.id = 'nenpyo-f-kind';
+        var text = U.textarea(T('screen.nenpyo.textPh'), v.text, 2); text.id = 'nenpyo-f-text';
+        var feel = U.textarea(T('screen.nenpyo.feelPh'), v.feel, 2); feel.id = 'nenpyo-f-feel';
+        var look = U.textarea(T('screen.nenpyo.lookPh'), v.look, 2); look.id = 'nenpyo-f-look';
+        /* 書きかけを残す。開いたときの中身と同じなら要らない */
+        function keep(){
+          var d = { id: row.id, isNew: isNew, date: String(date.value || ''), kind: kind.value, text: String(text.value || ''), feel: String(feel.value || ''), look: String(look.value || '') };
+          var same = ['date', 'kind', 'text', 'feel', 'look'].every(function(k){ return d[k] === init[k]; });
+          if(same) api.remove(DRAFT); else api.save(DRAFT, d);
+        }
+        [date, text, feel, look].forEach(function(x){ x.addEventListener('input', keep); });
+        date.addEventListener('change', keep);
+        kind.addEventListener('change', keep);
+        function close(){ formBox.textContent = ''; api.remove(DRAFT); }
         card.appendChild(U.field(api, T('screen.nenpyo.date'), date));
         card.appendChild(U.field(api, T('screen.nenpyo.kind'), kind));
         card.appendChild(U.field(api, T('screen.nenpyo.text'), text));
@@ -69,17 +87,22 @@
           var list = U.list(api, 'timeline.v1');
           if(isNew) list.push(rec); else list = list.map(function(x){ return x.id === rec.id ? rec : x; });
           if(!persist(list)) return;
-          api.toast(T('common.saved')); formBox.textContent = ''; drawList(); api.markSaved();
+          api.toast(T('common.saved')); close(); drawList(); api.markSaved();
         });
         saveB.id = 'nenpyo-f-save';
         btns.appendChild(saveB);
-        btns.appendChild(U.btn(api, '', T('common.cancel'), function(){ formBox.textContent = ''; api.markSaved(); }));
+        btns.appendChild(U.btn(api, '', T('common.cancel'), function(){ close(); api.markSaved(); }));
         if(!isNew) btns.appendChild(U.delBtn(api, function(){
           if(!persist(U.list(api, 'timeline.v1').filter(function(x){ return x.id !== row.id; }))) return;
-          api.toast(T('common.deleted')); formBox.textContent = ''; drawList(); api.markSaved();
+          api.toast(T('common.deleted')); close(); drawList(); api.markSaved();
         }));
         card.appendChild(btns);
         formBox.appendChild(card);
+        if(dr){
+          api.save(DRAFT, dr);
+          /* 描き直した欄にも字がある=戻るボタン(Play版)で閉じるときは確かめる(描き直しで消えた印を付け直す) */
+          try{ text.dispatchEvent(new Event('input', { bubbles:true })); }catch(_){}
+        }
       }
 
       /* 一覧 */
@@ -107,8 +130,20 @@
       stage = function(){
         if(!formBox.firstChild) return false;
         formBox.textContent = '';
+        api.remove(DRAFT);   // やめる と同じ
         return true;
       };
+      /* 書きかけがあれば、その欄を開き直す(なおす行が もう無ければ書きかけは捨てる) */
+      (function(){
+        var dr = api.load(DRAFT, null);
+        if(!dr || typeof dr !== 'object' || Array.isArray(dr)) return;
+        var d = { id: typeof dr.id === 'string' ? dr.id : '' };
+        ['date', 'kind', 'text', 'feel', 'look'].forEach(function(k){ d[k] = typeof dr[k] === 'string' ? dr[k] : ''; });
+        d.isNew = dr.isNew !== false;
+        if(d.isNew){ openForm(null, d); return; }
+        var r = rows.filter(function(x){ return x.id === d.id; })[0];
+        if(r) openForm(r, d); else api.remove(DRAFT);
+      })();
 
       /* 見せる範囲 */
       c.appendChild(api.el('h2', 'sec-h', T('screen.nenpyo.rangeTitle')));
