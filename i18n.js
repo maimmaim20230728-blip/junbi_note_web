@@ -223,7 +223,7 @@ var en = {
       'Make it easier to read'
     ],
     bodies:[
-      'This app is a note for collecting what you want to say before you go to a hospital or a help desk. It can be used by the person themselves or by a family member.\nAfter the visit, you can keep what you could not say for next time.\nIt does not make medical judgments. In danger, call 119 or 110, or contact a help desk.',
+      'This app is a note for collecting what you want to say before you go to a hospital or a help desk. It can be used by the person themselves or by a family member.\nAfter the visit, you can keep what you could not say for next time.\nIt does not make medical judgments. In danger, call 119 or 110 (Japan), or contact a help desk.',
       'At the top of Home, write a few words under "Add one thing you want to say now" and tap "Add". What you add is kept on the "Sheet".\nFurther down on Home, write "me", "my mother" or similar under "Who is this note about? (one line on the cover)" and tap "Set". It appears at the top of the screens you show to the other person.',
       'Tap "Sheet" at the bottom to see what you collected. Use "▲ Up" and "▼ Down" to put it in order of importance. "Edit" lets you rewrite or delete an item.\nChoose 3 to 5 under "How many to show", then tap "Show to the other person" to show that many from the top in large letters.\nTo go back, tap "Close (back to my screen)".',
       'When you are back from the visit, tap "After the visit: mark said / not said" on the "Sheet".\nTap "Said" for things you said. They move to "Things I said" below.\nThings you could not say stay as they are, ready for next time. When you are done, tap "Finish marking".',
@@ -253,7 +253,7 @@ var en = {
       nenpyoBtn:'Timeline',
       madoBtn:'Notes per office',
       guideLink:'For public support systems, see the "Japan Support Guide" (external site, in Japanese and English)',
-      disclaimer:'This note is not an official certificate. It does not make medical judgments or diagnoses. In danger, call 119 or 110, or contact a help desk.',
+      disclaimer:'This note is not an official certificate. It does not make medical judgments or diagnoses. In danger, call 119 or 110 (Japan), or contact a help desk.',
       exitHint:'"× Close" at the top right moves to another page right away.'
     },
     ichimai: {

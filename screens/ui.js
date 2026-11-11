@@ -63,6 +63,7 @@
   /* 相手に見せる全画面(.ov)。build(box) で中身を作る。閉じるボタンは共通。戻り値=閉じる関数 */
   function openOv(api, build, onClose){
     var ov = api.el('div', 'ov show-white');
+    ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true'); ov.setAttribute('aria-label', api.T('common.showClose'));
     var box = api.el('div', 'ov-body');
     build(box);
     ov.appendChild(box);
@@ -71,6 +72,7 @@
     api.Tap.bind(close, doClose);
     ov.appendChild(close);
     document.body.appendChild(ov);
+    try{ close.focus(); }catch(_){}
     return doClose;
   }
   window.JUNBI_UI = { uid: uid, today: today, fmt: fmt, list: list, obj: obj, input: input, textarea: textarea, select: select, field: field, btn: btn, delBtn: delBtn, openOv: openOv };

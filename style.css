@@ -136,7 +136,7 @@ body[data-theme="dark"] .btn.danger{ border-color:#ef9a9a; color:#ef9a9a; }
 .list li .grow{ flex:1; min-width:0; overflow-wrap:anywhere; }
 .chips{ display:flex; flex-wrap:wrap; gap:8px; }
 .chip{
-  min-height:44px; min-width:44px; padding:6px 14px; border-radius:999px;
+  min-height:48px; min-width:48px; padding:6px 14px; border-radius:999px;
   border:2px solid var(--line); background:var(--card); color:var(--ink);
   font-family:inherit; font-size:.95em; font-weight:700;
 }
@@ -239,7 +239,7 @@ input[type="file"].hidden{ display:none; }
   padding:10px; border:2px solid var(--line); border-radius:10px;
   background:var(--card); color:var(--ink);
 }
-.btn.small{ min-height:44px; min-width:44px; padding:0 10px; font-size:.9em; }
+.btn.small{ min-height:48px; min-width:48px; padding:0 10px; font-size:.9em; }
 .list li .ctl{ display:flex; flex-direction:column; gap:6px; flex:none; }
 .list li .num{ font-weight:800; color:var(--brand); min-width:1.4em; text-align:center; flex:none; }
 .list li.in-sheet{ border-color:var(--brand); }
